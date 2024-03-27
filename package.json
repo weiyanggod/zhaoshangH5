@@ -7,7 +7,24 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "vue": "^2.6.14"
+    "axios": "^1.6.7",
+    "compressorjs": "^1.2.1",
+    "echarts": "^5.5.0",
+    "element-ui": "^2.15.14",
+    "file-saver": "^2.0.5",
+    "html-docx-js": "^0.3.1",
+    "html2canvas": "^1.4.1",
+    "html2pdf": "^0.0.11",
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1",
+    "k-htmlpdf": "^0.0.2",
+    "less": "^4.2.0",
+    "less-loader": "^12.1.0",
+    "mammoth": "^1.6.0",
+    "print-js": "^1.6.0",
+    "vue": "^2.6.14",
+    "vue-pdf": "^4.3.0",
+    "vue-print-nb": "^1.7.5"
   },
   "devDependencies": {
     "@vue/cli-service": "~5.0.0",
