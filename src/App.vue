@@ -774,7 +774,7 @@
                           <div class="title-text">亿元以上备案项目</div>
                         </div>
                         <div class="Filing-items" v-for="(item, index) in FilingItemsList" :key="index">
-                          <el-descriptions class="el-descriptions" :column="2">
+                          <el-descriptions :column="2" style="font-size: 13px">
                             <el-descriptions-item label="备案日期">{{ item.field0004 }}</el-descriptions-item>
                             <el-descriptions-item label="新增项目用地">{{ item.field0009 }}</el-descriptions-item>
                             <el-descriptions-item label="项目名称">{{ item.field0005 }}</el-descriptions-item>
@@ -792,7 +792,7 @@
                           <div class="title-text">举办招商活动</div>
                         </div>
                         <div v-for="(item, index) in ActivityList" :key="index">
-                          <table class="itemClass block-table" style="table-layout: fixed">
+                          <table class="itemClass block-table">
                             <tr>
                               <td rowspan="5" class="td-pic">
                                 <el-image
@@ -804,15 +804,17 @@
                               </td>
                             </tr>
                             <tr>
-                              <td colspan="5">活动主题：{{ item.field0004 }}</td>
+                              <td>活动主题：{{ item.field0004 }}</td>
                             </tr>
                             <tr>
-                              <td colspan="2">活动时间：{{ item.field0005 }}</td>
-                              <td colspan="2">邀请客商：{{ item.field0007 + '人' }}</td>
+                              <td style="width: 200px">活动时间：{{ item.field0005 }}</td>
+                              <td>邀请客商：{{ item.field0007 + '人' }}</td>
                             </tr>
                             <tr>
-                              <td colspan="2">举办主体：{{ item.field0008 }}</td>
-                              <td colspan="2">活动地点：{{ item.field0006 }}</td>
+                              <td style="width: 200px">活动地点：{{ item.field0006 }}</td>
+                            </tr>
+                            <tr style="height: 40px">
+                              <td></td>
                             </tr>
                           </table>
                           <el-divider></el-divider>
@@ -1075,25 +1077,24 @@ export default {
 
       // 接洽饼图数据
       const { data: pieShipContact } = await getTownshipContactPie('2024-1-1', '2024-5-1')
-
       if (pieShipContact.length > 0) {
         this.pieList = pieShipContact
         this.initPie(pieShipContact)
       }
       // 接洽柱状图数据
-      const { data: bieShipContact } = await getTownshipContactBar(
+      const { data: barShipContact } = await getTownshipContactBar(
         dayjs().format('YYYY') + '-01-01',
         dayjs().format('YYYY-MM-DD')
       )
-      if (JSON.stringify(bieShipContact) !== '{}') {
-        this.ContactBarData = bieShipContact.data
+      if (barShipContact.length > 0) {
+        this.ContactBarData = barShipContact.data
+
         const xAxis2 = []
         const yAxis2 = []
-        for (const k in bieShipContact) {
-          xAxis2.push(k)
-          yAxis2.push(bieShipContact[k].count)
-        }
-
+        barShipContact.forEach(item => {
+          yAxis2.push(item.count)
+          xAxis2.push(item.field0020)
+        })
         this.$nextTick(() => {
           this.initBar(document.getElementById('yearTotal'), xAxis2, yAxis2)
         })
@@ -1170,7 +1171,6 @@ export default {
               value: i.amount
             })
           })
-          console.log(pieData)
 
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
@@ -1460,8 +1460,10 @@ export default {
 .content {
   text-align: left;
   margin: 10px 0 5px 5px;
+  font-weight: 100;
   text-indent: 2em;
   line-height: 1.5;
+  font-size: 13px;
 }
 
 .block-table {
@@ -1617,5 +1619,9 @@ export default {
 .list-title {
   margin: 15px 0;
   font-size: 20px;
+}
+
+.el-descriptions-item__cell {
+  padding-bottom: 3px !important;
 }
 </style>

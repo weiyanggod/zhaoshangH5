@@ -109,6 +109,7 @@ class PdfLoader {
         }
       }
       if (this.isPrint) {
+        console.log(111)
         const link = window.URL.createObjectURL(toBlob(pdf.output('datauristring')))
         printJS({
           printable: link,

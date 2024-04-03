@@ -126,8 +126,8 @@ export const getTalkingData = (startTime, endTime) => {
   })
 }
 
-// 乡镇接洽柱状图
-export const getTownshipContactBar = (startTime, endTime) => {
+// 乡镇接洽饼图
+export const getTownshipContactPie = (startTime, endTime) => {
   return axios.request({
     url: `/Engage`,
     method: 'get',
@@ -137,8 +137,8 @@ export const getTownshipContactBar = (startTime, endTime) => {
     }
   })
 }
-// 乡镇接洽柱饼图
-export const getTownshipContactPie = (startTime, endTime) => {
+//// 乡镇接洽柱状图
+export const getTownshipContactBar = (startTime, endTime) => {
   return axios.request({
     url: `/Engage2`,
     method: 'get',
