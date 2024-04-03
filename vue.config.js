@@ -1,15 +1,15 @@
-const { defineConfig } = require("@vue/cli-service");
+const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  publicPath: '/report/',
+  publicPath: '/briefing',
   transpileDependencies: true,
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://60.188.134.204:8827/seeyon',
+      '/zs': {
+        target: 'https://zsxmgj.jxufida.com:8826/',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/zs': ''
         },
         withCredentials: true
       }

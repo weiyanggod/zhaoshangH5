@@ -108,21 +108,31 @@ class PdfLoader {
           }
         }
       }
-
       if (this.isPrint) {
         const link = window.URL.createObjectURL(toBlob(pdf.output('datauristring')))
         printJS({
           printable: link,
           type: 'pdf'
         })
-        // const myWindow = window.open(link)
-        // myWindow.print()
+        // 去除添加的空div 防止页面混乱
+        let doms = document.querySelectorAll('.emptyDiv')
+        let breaks = document.querySelectorAll('.' + this.breakClassName)
+        for (let i = 0; i < doms.length; i++) {
+          doms[i].remove()
+        }
+        for (let i = 0; i < breaks.length; i++) {
+          breaks[i].remove()
+        }
       } else {
         pdf.save(pdfFileName + '.pdf', { returnPromise: true }).then(() => {
           // 去除添加的空div 防止页面混乱
           let doms = document.querySelectorAll('.emptyDiv')
+          let breaks = document.querySelectorAll('.' + this.breakClassName)
           for (let i = 0; i < doms.length; i++) {
             doms[i].remove()
+          }
+          for (let i = 0; i < breaks.length; i++) {
+            breaks[i].remove()
           }
         })
       }
@@ -159,7 +169,7 @@ class PdfLoader {
           let newNode = document.createElement('div')
           newNode.className = 'emptyDiv'
           newNode.style.background = 'white'
-          newNode.style.height = this.pageHeight * (this.pageNum - 1) - offset2Ele + 30 + 'px' // +30为了在换下一页时有顶部的边距
+          newNode.style.height = this.pageHeight * (this.pageNum - 1) - offset2Ele + 'px' // +30为了在换下一页时有顶部的边距
           newNode.style.width = '100%'
           let next = childDom.nextSibling
           // 获取div的下一个兄弟节点
