@@ -86,7 +86,7 @@ class PdfLoader {
       // 页面偏移
       let position = 0
       // a4纸的尺寸[595,842],单位像素，html页面生成的canvas在pdf中图片的宽高
-      let imgWidth = this.A4_WIDTH - 10 // -10为了页面有右边距
+      let imgWidth = this.A4_WIDTH + 10 // -10为了页面有右边距
       let imgHeight = (this.A4_WIDTH / contentWidth) * contentHeight
       let pageData = canvas.toDataURL('image/jpeg', 1.0)
       let pdf = jsPDF('', 'pt', 'a4')
@@ -94,12 +94,12 @@ class PdfLoader {
       // 当内容未超过pdf一页显示的范围，无需分页
       if (leftHeight < this.pageHeight) {
         // 在pdf.addImage(pageData, 'JPEG', 左，上，宽度，高度)设置在pdf中显示；
-        pdf.addImage(pageData, 'JPEG', 5, 0, imgWidth, imgHeight)
+        pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight)
         // pdf.addImage(pageData, 'JPEG', 20, 40, imgWidth, imgHeight);
       } else {
         // 分页
         while (leftHeight > 0) {
-          pdf.addImage(pageData, 'JPEG', 5, position, imgWidth, imgHeight)
+          pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
           leftHeight -= this.pageHeight
           position -= this.A4_HEIGHT
           // 避免添加空白页
@@ -109,7 +109,6 @@ class PdfLoader {
         }
       }
       if (this.isPrint) {
-        console.log(111)
         const link = window.URL.createObjectURL(toBlob(pdf.output('datauristring')))
         printJS({
           printable: link,
@@ -117,23 +116,15 @@ class PdfLoader {
         })
         // 去除添加的空div 防止页面混乱
         let doms = document.querySelectorAll('.emptyDiv')
-        let breaks = document.querySelectorAll('.' + this.breakClassName)
         for (let i = 0; i < doms.length; i++) {
           doms[i].remove()
-        }
-        for (let i = 0; i < breaks.length; i++) {
-          breaks[i].remove()
         }
       } else {
         pdf.save(pdfFileName + '.pdf', { returnPromise: true }).then(() => {
           // 去除添加的空div 防止页面混乱
           let doms = document.querySelectorAll('.emptyDiv')
-          let breaks = document.querySelectorAll('.' + this.breakClassName)
           for (let i = 0; i < doms.length; i++) {
             doms[i].remove()
-          }
-          for (let i = 0; i < breaks.length; i++) {
-            breaks[i].remove()
           }
         })
       }
@@ -157,7 +148,7 @@ class PdfLoader {
   }
   domEach(dom) {
     let childNodes = dom.childNodes
-    childNodes.forEach((childDom, index) => {
+    childNodes.forEach(childDom => {
       if (this.hasClass(childDom, this.splitClassName)) {
         let node = childDom
         let eleBounding = this.ele.getBoundingClientRect()
@@ -169,8 +160,7 @@ class PdfLoader {
           let divParent = childDom.parentNode // 获取该div的父节点
           let newNode = document.createElement('div')
           newNode.className = 'emptyDiv'
-          newNode.style.background = 'white'
-          newNode.style.height = this.pageHeight * (this.pageNum - 1) - offset2Ele + 'px' // +30为了在换下一页时有顶部的边距
+          newNode.style.height = this.pageHeight * (this.pageNum - 1) - offset2Ele + 10 + 'px' // +10为了在换下一页时有顶部的边距
           newNode.style.width = '100%'
           let next = childDom.nextSibling
           // 获取div的下一个兄弟节点
@@ -191,7 +181,7 @@ class PdfLoader {
         let offset2Ele = bound.top - eleBounding.top
         // 剩余高度
         let alreadyHeight = offset2Ele % this.pageHeight
-        let remainingHeight = this.pageHeight - alreadyHeight + 20
+        let remainingHeight = this.pageHeight - alreadyHeight
         childDom.style.height = remainingHeight + 'px'
       }
       if (childDom.childNodes.length) {
