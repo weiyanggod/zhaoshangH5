@@ -60,7 +60,7 @@
                             <div class="itemClass">
                               <div class="title mt-10" v-show="index === 0">
                                 <img src="@/assets/icon/小标题.png" class="title-img" />
-                                <div class="title-text">各主体招商动态</div>
+                                <div class="title-text">各主体“一把手”招商动态</div>
                               </div>
                               <table class="block-table">
                                 <tr>
@@ -783,12 +783,14 @@
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
                               <img src="@/assets/icon/小标题.png" class="title-img" />
-                              <div class="title-text">亿元以上备案项目</div>
+                              <div class="title-text">本周备案项目（总投10亿元及以上）</div>
                             </div>
                             <div class="Filing-items">
                               <el-descriptions :column="2" style="font-size: 13px">
                                 <el-descriptions-item label="备案日期">{{ item.field0004 }}</el-descriptions-item>
-                                <el-descriptions-item label="新增项目用地">{{ item.field0009 }}</el-descriptions-item>
+                                <el-descriptions-item label="新增项目用地">{{
+                                  item.field0009 + '亩'
+                                }}</el-descriptions-item>
                                 <el-descriptions-item label="项目名称">{{ item.field0005 }}</el-descriptions-item>
                                 <el-descriptions-item label="总投资">{{
                                   item.field0010 + '万元'
@@ -888,7 +890,7 @@
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
                           <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
-                          <div>{{ item.field0007 }}</div>
+                          <div class="text">{{ item.field0007 }}</div>
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
@@ -905,8 +907,8 @@
                     <div style="text-align: center" class="list-title">
                       {{
                         index === 0
-                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表`
-                          : `${dayjs().format('YYYY')}年在谈正式协议项目汇总表`
+                          ? `《${dayjs().format('YYYY')}年已签正式协议项目汇总表》`
+                          : `《${dayjs().format('YYYY')}年在谈正式协议项目汇总表（至${formatDate(endTime)}）》`
                       }}
                     </div>
                     <el-table
@@ -1103,7 +1105,11 @@ export default {
         if (pieShipContact.length > 0) {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
-          this.contactTotalNumber = pieShipContact.reduce((acc, curr) => acc + curr.count, 0)
+          pieShipContact.forEach(item => {
+            item.data.forEach(innerItem => {
+              this.contactTotalNumber += parseInt(innerItem.amount)
+            })
+          })
         }
       } catch (error) {}
       // 接洽柱状图数据
@@ -1168,7 +1174,6 @@ export default {
         // 表格数据
         const { data: SignedData } = await getSignedData(this.startTime, dayjs().format('YYYY-MM-DD'))
         const { data: talkingData } = await getTalkingData(this.startTime, dayjs().format('YYYY-MM-DD'))
-
         this.SignedData = SignedData.data
         this.talkingData = talkingData.data
       } catch (error) {}
@@ -1245,18 +1250,12 @@ export default {
             tooltip: {
               trigger: 'item'
             },
-            grid: {
-              top: '0px',
-              left: '0px',
-              right: '0px',
-              bottom: '0px'
-            },
             title: {
               text: '数量',
               textStyle: {
                 fontSize: 12
               },
-              subtext: item.count,
+              subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               subtextStyle: {
                 fontSize: 20,
                 color: '#f68c3c'
@@ -1267,18 +1266,20 @@ export default {
             series: [
               {
                 type: 'pie',
-                radius: ['40%', '80%'],
+                radius: ['40%', '90%'],
                 avoidLabelOverlap: false,
                 label: {
                   show: true,
                   position: 'inside',
-                  formatter: '{b}'
+                  fontSize: 12,
+                  formatter: '{b}{c}' + '次',
+                  overflow: 'break',
+                  width: 50
                 },
+                minAngle: 60,
                 emphasis: {
                   label: {
-                    show: true,
-                    fontSize: 10,
-                    fontWeight: 'bold'
+                    show: true
                   }
                 },
                 labelLine: {
@@ -1670,6 +1671,13 @@ export default {
   justify-content: center;
   .item {
     width: 30%;
+    position: relative;
+    .text {
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
   }
   #pie1,
   #pie2,
@@ -1693,3 +1701,5 @@ export default {
   padding-bottom: 3px !important;
 }
 </style>
+import { color } from 'html2canvas/dist/types/css/types/color'import { transform } from
+'html2canvas/dist/types/css/property-descriptors/transform'
