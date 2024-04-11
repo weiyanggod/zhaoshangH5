@@ -758,7 +758,6 @@
                                   <div>
                                     <div style="margin-top: 3px">活动时间：{{ item.field0005 }}</div>
                                     <div style="margin-top: 3px">邀请客商：{{ item.field0007 + '人' }}</div>
-                                    <div style="margin-top: 3px">签约主体：{{ item.field0004 }}</div>
                                     <div style="margin-top: 3px">活动地点：{{ item.field0006 }}</div>
                                   </div>
                                 </div>
