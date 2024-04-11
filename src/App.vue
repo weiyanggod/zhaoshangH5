@@ -4,17 +4,7 @@
       <el-container>
         <el-container>
           <el-header>
-            <el-date-picker
-              v-model="chooseTime"
-              type="daterange"
-              align="right"
-              value-format="yyyy-MM-dd"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            >
-            </el-date-picker>
+            <el-date-picker v-model="chooseTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -28,9 +18,7 @@
                   <img class="header-back" src="./assets/icon/header.png" />
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
-                    <div class="time-text">
-                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
-                    </div>
+                    <div class="time-text">{{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）</div>
                   </div>
                 </div>
                 <!-- 内容 -->
@@ -65,19 +53,12 @@
                               <table class="block-table">
                                 <tr>
                                   <td rowspan="5" class="td-pic">
-                                    <el-image
-                                      :src="card.uurl"
-                                      ref="cardImage"
-                                      style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                      :preview-src-list="[card.uurl]"
-                                    ></el-image>
+                                    <el-image :src="card.uurl" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[card.uurl]"></el-image>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>接洽时间：{{ card.field0005 }}</td>
-                                  <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                    接洽内容：{{ card.field0009 }}
-                                  </td>
+                                  <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">接洽内容：{{ card.field0009 }}</td>
                                 </tr>
                                 <tr>
                                   <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
@@ -89,84 +70,19 @@
                                   <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
                                   <td style="text-align: right; padding: 0px">
                                     <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                    <img
-                                      src="./assets/icon/金.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0016 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/京.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0013 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/深.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0012 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/沪.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0014 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/苏.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0015 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/王店.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0031 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/洪合.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0032 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/新塍.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0033 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/王江泾.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0034 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/油车港.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0035 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/新城.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0036 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/运河湾.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0037 == '1'"
-                                    />
-                                    <img
-                                      src="./assets/icon/高新.png"
-                                      class="icon ml-5"
-                                      alt=""
-                                      v-if="card.field0038 == '1'"
-                                    />
+                                    <img src="./assets/icon/金.png" class="icon ml-5" alt="" v-if="card.field0016 == '1'" />
+                                    <img src="./assets/icon/京.png" class="icon ml-5" alt="" v-if="card.field0013 == '1'" />
+                                    <img src="./assets/icon/深.png" class="icon ml-5" alt="" v-if="card.field0012 == '1'" />
+                                    <img src="./assets/icon/沪.png" class="icon ml-5" alt="" v-if="card.field0014 == '1'" />
+                                    <img src="./assets/icon/苏.png" class="icon ml-5" alt="" v-if="card.field0015 == '1'" />
+                                    <img src="./assets/icon/王店.png" class="icon ml-5" alt="" v-if="card.field0031 == '1'" />
+                                    <img src="./assets/icon/洪合.png" class="icon ml-5" alt="" v-if="card.field0032 == '1'" />
+                                    <img src="./assets/icon/新塍.png" class="icon ml-5" alt="" v-if="card.field0033 == '1'" />
+                                    <img src="./assets/icon/王江泾.png" class="icon ml-5" alt="" v-if="card.field0034 == '1'" />
+                                    <img src="./assets/icon/油车港.png" class="icon ml-5" alt="" v-if="card.field0035 == '1'" />
+                                    <img src="./assets/icon/新城.png" class="icon ml-5" alt="" v-if="card.field0036 == '1'" />
+                                    <img src="./assets/icon/运河湾.png" class="icon ml-5" alt="" v-if="card.field0037 == '1'" />
+                                    <img src="./assets/icon/高新.png" class="icon ml-5" alt="" v-if="card.field0038 == '1'" />
                                   </td>
                                 </tr>
                               </table>
@@ -747,32 +663,48 @@
                               <img src="@/assets/icon/小标题.png" class="title-img" />
                               <div class="title-text">本周签约项目</div>
                             </div>
-                            <table class="block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="item.field0012"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[item.field0012]"
-                                  >
-                                    <div slot="error" class="image-slot">暂无图片</div>
-                                  </el-image>
-                                </td>
-                              </tr>
-                              <tr>
+                            <div style="display: flex; margin-top: 10px">
+                              <el-image :src="item.field0012" ref="cardImage" style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0012]">
+                                <div slot="error" class="image-slot">暂无图片</div>
+                              </el-image>
+                              <!-- <table class="block-table" style="height: 100%">
+                                <tr>
+                                  <td rowspan="2" class="td-pic">
+                                    <el-image :src="item.field0012" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0012]">
+                                      <div slot="error" class="image-slot">暂无图片</div>
+                                    </el-image>
+                                  </td>
+                                </tr>
+                                <tr>
                                 <td>签约项目：{{ item.field0008 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  签约内容：{{ item.field0011 }}
-                                </td>
+                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">签约内容：{{ item.field0011 }}</td>
                               </tr>
                               <tr>
-                                <td style="width: 200px">签约时间：{{ item.field0004 }}</td>
+                                <td style="width: 200px">投资主体：{{ item.field0004 }}</td>
                               </tr>
                               <tr>
-                                <td style="height: 40px"></td>
+                                <td style="width: 200px">签约金额：{{ item.field0004 }}</td>
                               </tr>
-                            </table>
+                              <tr>
+                                <td>签约主体：{{ item.field0004 }}</td>
+                              </tr>
+                              <tr>
+                                <td>签约时间：{{ item.field0004 }}</td>
+                              </tr>
+                              </table> -->
+                              <div style="display: flex; font-size: 13px; text-align: left; margin-left: 10px">
+                                <div style="width: 38%">
+                                  <div>
+                                    <div style="margin-top: 3px">签约项目：{{ item.field0008 }}</div>
+                                    <div style="margin-top: 3px">投资主体：{{ item.field0007 }}</div>
+                                    <div style="margin-top: 3px">签约金额：{{ item.field0009 + '万元' }}</div>
+                                    <div style="margin-top: 3px">签约主体：{{ item.field0008 }}</div>
+                                    <div style="margin-top: 3px">签约时间：{{ item.field0004 }}</div>
+                                  </div>
+                                </div>
+                                <div style="width: 62%">签约内容：{{ item.field0011 }}</div>
+                              </div>
+                            </div>
                           </div>
                           <el-divider></el-divider>
                         </div>
@@ -788,13 +720,9 @@
                             <div class="Filing-items">
                               <el-descriptions :column="2" style="font-size: 13px">
                                 <el-descriptions-item label="备案日期">{{ item.field0004 }}</el-descriptions-item>
-                                <el-descriptions-item label="新增项目用地">{{
-                                  item.field0009 + '亩'
-                                }}</el-descriptions-item>
+                                <el-descriptions-item label="新增项目用地">{{ item.field0009 + '亩' }}</el-descriptions-item>
                                 <el-descriptions-item label="项目名称">{{ item.field0005 }}</el-descriptions-item>
-                                <el-descriptions-item label="总投资">{{
-                                  item.field0010 + '万元'
-                                }}</el-descriptions-item>
+                                <el-descriptions-item label="总投资">{{ item.field0010 + '万元' }}</el-descriptions-item>
                                 <el-descriptions-item label="建设性质">{{ item.field0006 }}</el-descriptions-item>
                                 <el-descriptions-item label="落地主体">{{ item.field0015 }}</el-descriptions-item>
                                 <el-descriptions-item label="项目单位">{{ item.field0007 }}</el-descriptions-item>
@@ -812,32 +740,29 @@
                               <img src="@/assets/icon/小标题.png" class="title-img" />
                               <div class="title-text">举办招商活动</div>
                             </div>
-                            <div style="display: flex">
-                              <table class="block-table">
+                            <div style="display: flex; margin-top: 10px">
+                              <el-image :src="item.field0009" ref="cardImage" style="min-width: 150px; max-width: 150px; height: 100px; object-fit: cover" :preview-src-list="[item.field0009]">
+                                <div slot="error" class="image-slot">暂无图片</div>
+                              </el-image>
+                              <!-- <table class="block-table">
                                 <tr>
                                   <td rowspan="5" class="td-pic">
-                                    <el-image
-                                      :src="item.field0009"
-                                      ref="cardImage"
-                                      style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                      :preview-src-list="[item.field0009]"
-                                    >
+                                    <el-image :src="item.field0009" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0009]">
                                       <div slot="error" class="image-slot">暂无图片</div>
                                     </el-image>
                                   </td>
                                 </tr>
-                              </table>
-                              <div>
-                                <el-descriptions :column="2" style="font-size: 13px; margin-top: 10px">
-                                  <el-descriptions-item label="活动主题" :span="2">{{
-                                    item.field0004
-                                  }}</el-descriptions-item>
-                                  <el-descriptions-item label="活动时间">{{ item.field0005 }}</el-descriptions-item>
-                                  <el-descriptions-item label="邀请客商">{{
-                                    item.field0007 + '人'
-                                  }}</el-descriptions-item>
-                                  <el-descriptions-item label="活动地点">{{ item.field0006 }}</el-descriptions-item>
-                                </el-descriptions>
+                              </table> -->
+                              <div style="display: flex; font-size: 13px; text-align: left; margin-left: 10px; width: 100%">
+                                <div style="width: 36.5%">
+                                  <div>
+                                    <div style="margin-top: 3px">活动时间：{{ item.field0005 }}</div>
+                                    <div style="margin-top: 3px">邀请客商：{{ item.field0007 + '人' }}</div>
+                                    <div style="margin-top: 3px">签约主体：{{ item.field0004 }}</div>
+                                    <div style="margin-top: 3px">活动地点：{{ item.field0006 }}</div>
+                                  </div>
+                                </div>
+                                <div style="width: 62%">活动主题：{{ item.field0004 }}</div>
                               </div>
                             </div>
                           </div>
@@ -882,9 +807,7 @@
                     <div class="part" style="border-radius: 10px" v-if="pieList.length > 0 || ContactBarData !== null">
                       <!-- 饼图 -->
                       <div style="font-size: 16px; text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        乡镇（平台）共接洽项目<span style="font-size: 25px; color: rgb(80, 178, 255)">{{
-                          contactTotalNumber
-                        }}</span
+                        乡镇（平台）共接洽项目<span style="font-size: 25px; color: rgb(80, 178, 255)">{{ contactTotalNumber }}</span
                         >个，接洽情况如下：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
@@ -894,9 +817,7 @@
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-10" style="text-align: left" v-if="ContactBarData !== null">
-                        本年累计接洽情况如下：
-                      </div>
+                      <div class="mt-10" style="text-align: left" v-if="ContactBarData !== null">本年累计接洽情况如下：</div>
                       <div id="yearTotal" class="" v-if="ContactBarData !== null" style="width: 100%"></div>
                     </div>
                   </div>
@@ -905,17 +826,13 @@
                     <div v-if="loading" class="page-break"></div>
                     <div style="height: 10px"></div>
                     <div style="text-align: center" class="list-title">
-                      {{
-                        index === 0
-                          ? `《${dayjs().format('YYYY')}年已签正式协议项目汇总表》`
-                          : `《${dayjs().format('YYYY')}年在谈正式协议项目汇总表（至${formatDate(endTime)}）》`
-                      }}
+                      {{ index === 0 ? `《${dayjs().format('YYYY')}年已签正式协议项目汇总表》` : `《${dayjs().format('YYYY')}年在谈正式协议项目汇总表（至${formatDate(endTime)}）》` }}
                     </div>
                     <el-table
                       v-if="item.length > 0"
                       border
                       :span-method="
-                        params => {
+                        (params) => {
                           return objectSpanMethod(params, item)
                         }
                       "
@@ -930,14 +847,10 @@
                       </el-table-column>
                       <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
                       <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="80" align="center">
-                      </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="80" align="center"> </el-table-column>
                     </el-table>
                   </div>
                   <div style="margin-bottom: 30px"></div>
@@ -956,21 +869,7 @@ import PdfLoader from './utils/exprotPDF'
 import 'print-js/dist/print.css'
 import { numberConvertToUppercase } from '@/utils/methods'
 // 图片压缩
-import {
-  getReportList,
-  summarize,
-  summarize2,
-  getTime,
-  getMainNews,
-  getContractedProjects,
-  getFilingItems,
-  getActivity,
-  getOther,
-  getSignedData,
-  getTalkingData,
-  getTownshipContactPie,
-  getTownshipContactBar
-} from './api/api'
+import { getReportList, summarize, summarize2, getTime, getMainNews, getContractedProjects, getFilingItems, getActivity, getOther, getSignedData, getTalkingData, getTownshipContactPie, getTownshipContactBar } from './api/api'
 import * as echarts from 'echarts'
 
 export default {
@@ -1048,7 +947,7 @@ export default {
         this.endTime = time.data[0].endTime
       }
       // 周数
-      summarize(this.startTime, this.endTime).then(res => {
+      summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
         this.xiuzhou = res.data.data[0].xiuzhou
@@ -1063,7 +962,7 @@ export default {
       const xAxis = []
       const yAxis = []
       this.summaryBarData = barDate.data
-      barDate.data.forEach(item => {
+      barDate.data.forEach((item) => {
         xAxis.push(item.flag)
         yAxis.push(item.num)
       })
@@ -1094,8 +993,16 @@ export default {
       } catch (error) {}
 
       // 各主体信息
-      getReportList(this.startTime, this.endTime).then(res => {
-        this.Subject = res.data.data
+      getReportList(this.startTime, this.endTime).then((res) => {
+        const arr = res.data.data.filter((item) => item.field0031 == '1')
+        const arr2 = res.data.data.filter((item) => item.field0032 == '1')
+        const arr3 = res.data.data.filter((item) => item.field0033 == '1')
+        const arr4 = res.data.data.filter((item) => item.field0034 == '1')
+        const arr5 = res.data.data.filter((item) => item.field0035 == '1')
+        const arr6 = res.data.data.filter((item) => item.field0038 == '1')
+        const arr7 = res.data.data.filter((item) => item.field0037 == '1')
+        const arr8 = res.data.data.filter((item) => item.field0036 == '1')
+        this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
       })
 
       try {
@@ -1105,8 +1012,8 @@ export default {
         if (pieShipContact.length > 0) {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
-          pieShipContact.forEach(item => {
-            item.data.forEach(innerItem => {
+          pieShipContact.forEach((item) => {
+            item.data.forEach((innerItem) => {
               this.contactTotalNumber += parseInt(innerItem.amount)
             })
           })
@@ -1114,18 +1021,15 @@ export default {
       } catch (error) {}
       // 接洽柱状图数据
       try {
-        const { data: barShipContact } = await getTownshipContactBar(
-          dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
-        )
+        const { data: barShipContact } = await getTownshipContactBar(dayjs().format('YYYY') + '-01-01', dayjs().format('YYYY-MM-DD'))
         if (barShipContact.data.length > 0) {
           this.ContactBarData = barShipContact.data
           const series = []
           const xAxis2 = []
           const addedKeys = []
           // 创建镇的数组
-          barShipContact.data.forEach(item => {
-            Object.keys(item).forEach(key => {
+          barShipContact.data.forEach((item) => {
+            Object.keys(item).forEach((key) => {
               if (key !== '接洽形式' && !addedKeys.includes(key)) {
                 xAxis2.push(key)
                 addedKeys.push(key)
@@ -1133,7 +1037,7 @@ export default {
             })
           })
           // 创建每个镇所对应接恰形式的值的数组
-          barShipContact.data.forEach(item => {
+          barShipContact.data.forEach((item) => {
             const seriesItem = {
               name: '数量',
               type: 'bar',
@@ -1146,7 +1050,7 @@ export default {
                   color: '#2c3e50', // 设置文字颜色为黑色
                   fontWeight: 100
                 },
-                formatter: data => {
+                formatter: (data) => {
                   if (data.value != '0') {
                     return data.seriesName + ':' + data.value
                   }
@@ -1238,7 +1142,7 @@ export default {
       let pieData = []
       this.$nextTick(() => {
         data.forEach((item, index) => {
-          item.data.forEach(i => {
+          item.data.forEach((i) => {
             pieData.push({
               name: i.field0020,
               value: i.amount
@@ -1543,7 +1447,7 @@ export default {
   text-align: left;
   margin-top: 10px;
 
-  td {
+  tr td {
     border: 1px solid transparent;
     height: 18px;
     padding: 2px;
@@ -1701,5 +1605,4 @@ export default {
   padding-bottom: 3px !important;
 }
 </style>
-import { color } from 'html2canvas/dist/types/css/types/color'import { transform } from
-'html2canvas/dist/types/css/property-descriptors/transform'
+import { color } from 'html2canvas/dist/types/css/types/color'import { transform } from 'html2canvas/dist/types/css/property-descriptors/transform'
