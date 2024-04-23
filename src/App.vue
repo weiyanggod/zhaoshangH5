@@ -4,7 +4,17 @@
       <el-container>
         <el-container>
           <el-header>
-            <el-date-picker v-model="chooseTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
+            <el-date-picker
+              v-model="chooseTime"
+              type="daterange"
+              align="right"
+              value-format="yyyy-MM-dd"
+              unlink-panels
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -18,7 +28,9 @@
                   <img class="header-back" src="./assets/icon/header.png" />
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
-                    <div class="time-text">{{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）</div>
+                    <div class="time-text">
+                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
+                    </div>
                   </div>
                 </div>
                 <!-- 内容 -->
@@ -44,665 +56,123 @@
                       <!-- 各主体招商动态 -->
                       <div v-if="Subject.length != 0">
                         <div v-if="Subject.length != 0" class="xiuzhou">
-                          <div v-for="(card, index) in Subject" :key="index">
+                          <div v-for="(item, index) in Subject" :key="index">
                             <div class="itemClass">
                               <div class="title mt-10" v-show="index === 0">
                                 <img src="@/assets/icon/小标题.png" class="title-img" />
                                 <div class="title-text">各主体“一把手”招商动态</div>
                               </div>
-                              <table class="block-table">
-                                <tr>
-                                  <td rowspan="5" class="td-pic">
-                                    <el-image :src="card.uurl" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[card.uurl]"></el-image>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>接洽时间：{{ card.field0005 }}</td>
-                                  <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">接洽内容：{{ card.field0009 }}</td>
-                                </tr>
-                                <tr>
-                                  <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                                </tr>
-                                <tr>
-                                  <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                                </tr>
-                                <tr>
-                                  <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                  <td style="text-align: right; padding: 0px">
-                                    <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                    <img src="./assets/icon/金.png" class="icon ml-5" alt="" v-if="card.field0016 == '1'" />
-                                    <img src="./assets/icon/京.png" class="icon ml-5" alt="" v-if="card.field0013 == '1'" />
-                                    <img src="./assets/icon/深.png" class="icon ml-5" alt="" v-if="card.field0012 == '1'" />
-                                    <img src="./assets/icon/沪.png" class="icon ml-5" alt="" v-if="card.field0014 == '1'" />
-                                    <img src="./assets/icon/苏.png" class="icon ml-5" alt="" v-if="card.field0015 == '1'" />
-                                    <img src="./assets/icon/王店.png" class="icon ml-5" alt="" v-if="card.field0031 == '1'" />
-                                    <img src="./assets/icon/洪合.png" class="icon ml-5" alt="" v-if="card.field0032 == '1'" />
-                                    <img src="./assets/icon/新塍.png" class="icon ml-5" alt="" v-if="card.field0033 == '1'" />
-                                    <img src="./assets/icon/王江泾.png" class="icon ml-5" alt="" v-if="card.field0034 == '1'" />
-                                    <img src="./assets/icon/油车港.png" class="icon ml-5" alt="" v-if="card.field0035 == '1'" />
-                                    <img src="./assets/icon/新城.png" class="icon ml-5" alt="" v-if="card.field0036 == '1'" />
-                                    <img src="./assets/icon/运河湾.png" class="icon ml-5" alt="" v-if="card.field0037 == '1'" />
-                                    <img src="./assets/icon/高新.png" class="icon ml-5" alt="" v-if="card.field0038 == '1'" />
-                                  </td>
-                                </tr>
-                              </table>
+                              <div style="display: flex; margin-top: 10px">
+                                <el-image
+                                  :src="item.uurl"
+                                  ref="cardImage"
+                                  style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
+                                  :preview-src-list="[item.uurl]"
+                                >
+                                  <div slot="error" class="image-slot">暂无图片</div>
+                                </el-image>
+                                <div style="display: flex; text-align: left; margin-left: 10px">
+                                  <div style="width: 38%">
+                                    <div>
+                                      <div style="margin-top: 3px">接洽时间：{{ item.field0005 }}</div>
+                                      <div style="margin-top: 3px">接洽地点：{{ item.field0006 }}</div>
+                                      <div style="margin-top: 3px">接洽对象：{{ item.field0008 }}</div>
+                                      <div style="margin-top: 3px">接洽形式：{{ item.field0007 }}</div>
+                                      <div v-if="item.field0019 != null">区领导：{{ item.field0019 }}</div>
+                                    </div>
+                                  </div>
+                                  <div style="width: 62%">接洽内容：{{ item.field0009 }}</div>
+                                </div>
+                              </div>
+                              <div style="text-align: right">
+                                <img src="./assets/icon/本.png" class="icon" alt="" v-if="item.field0010 == '1'" />
+                                <img src="./assets/icon/金.png" class="icon ml-5" alt="" v-if="item.field0016 == '1'" />
+                                <img src="./assets/icon/京.png" class="icon ml-5" alt="" v-if="item.field0013 == '1'" />
+                                <img src="./assets/icon/深.png" class="icon ml-5" alt="" v-if="item.field0012 == '1'" />
+                                <img src="./assets/icon/沪.png" class="icon ml-5" alt="" v-if="item.field0014 == '1'" />
+                                <img src="./assets/icon/苏.png" class="icon ml-5" alt="" v-if="item.field0015 == '1'" />
+                                <img
+                                  src="./assets/icon/王店.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0031 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/洪合.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0032 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/新塍.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0033 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/王江泾.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0034 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/油车港.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0035 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/新城.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0036 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/运河湾.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0037 == '1'"
+                                />
+                                <img
+                                  src="./assets/icon/高新.png"
+                                  class="icon ml-5"
+                                  alt=""
+                                  v-if="item.field0038 == '1'"
+                                />
+                              </div>
                             </div>
                             <el-divider></el-divider>
                           </div>
                         </div>
-                        <!-- <div v-if="jinkongList.length != 0" class="jinkong">
-                          <div v-for="(card, index) in jinkongList" :key="index">
-                            <table class="itemClass block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="card.uurl"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[card.uurl]"
-                                  ></el-image>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>接洽时间：{{ card.field0005 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  接洽内容：{{ card.field0009 }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                              </tr>
-                              <tr>
-                                <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                              </tr>
-                              <tr>
-                                <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                <td style="text-align: right; padding: 0px">
-                                  <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                  <img
-                                    src="./assets/icon/金.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0016 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/京.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0013 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/深.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0012 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/沪.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0014 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/苏.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0015 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王店.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0031 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/洪合.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0032 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新塍.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0033 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王江泾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0034 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/油车港.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0035 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新城.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0036 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/运河湾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0037 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/高新.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0038 == '1'"
-                                  />
-                                </td>
-                              </tr>
-                            </table>
-                            <el-divider></el-divider>
-                          </div>
-                        </div>
-                        <div v-if="shenzhenList.length != 0" class="shenzhen">
-                          <div v-for="(card, index) in shenzhenList" :key="index">
-                            <table class="itemClass block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="card.uurl"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[card.uurl]"
-                                  ></el-image>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>接洽时间：{{ card.field0005 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  接洽内容：{{ card.field0009 }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                              </tr>
-                              <tr>
-                                <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                              </tr>
-                              <tr>
-                                <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                <td style="text-align: right; padding: 0px">
-                                  <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                  <img
-                                    src="./assets/icon/金.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0016 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/京.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0013 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/深.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0012 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/沪.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0014 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/苏.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0015 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王店.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0031 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/洪合.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0032 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新塍.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0033 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王江泾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0034 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/油车港.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0035 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新城.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0036 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/运河湾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0037 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/高新.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0038 == '1'"
-                                  />
-                                </td>
-                              </tr>
-                            </table>
-                            <el-divider></el-divider>
-                          </div>
-                        </div>
-                        <div v-if="beijingList.length != 0" class="beijing">
-                          <div v-for="(card, index) in beijingList" :key="index">
-                            <table class="itemClass block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="card.uurl"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[card.uurl]"
-                                  ></el-image>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>接洽时间：{{ card.field0005 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  接洽内容：{{ card.field0009 }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                              </tr>
-                              <tr>
-                                <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                              </tr>
-                              <tr>
-                                <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                <td style="text-align: right; padding: 0px">
-                                  <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                  <img
-                                    src="./assets/icon/金.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0016 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/京.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0013 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/深.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0012 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/沪.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0014 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/苏.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0015 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王店.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0031 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/洪合.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0032 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新塍.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0033 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王江泾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0034 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/油车港.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0035 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新城.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0036 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/运河湾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0037 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/高新.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0038 == '1'"
-                                  />
-                                </td>
-                              </tr>
-                            </table>
-                            <el-divider></el-divider>
-                          </div>
-                        </div>
-                        <div v-if="shanghaiList.length != 0" class="shanghai">
-                          <div v-for="(card, index) in shanghaiList" :key="index">
-                            <table class="itemClass block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="card.uurl"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[card.uurl]"
-                                  ></el-image>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>接洽时间：{{ card.field0005 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  接洽内容：{{ card.field0009 }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                              </tr>
-                              <tr>
-                                <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                              </tr>
-                              <tr>
-                                <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                <td style="text-align: right; padding: 0px">
-                                  <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                  <img
-                                    src="./assets/icon/金.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0016 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/京.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0013 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/深.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0012 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/沪.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0014 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/苏.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0015 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王店.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0031 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/洪合.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0032 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新塍.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0033 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王江泾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0034 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/油车港.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0035 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新城.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0036 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/运河湾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0037 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/高新.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0038 == '1'"
-                                  />
-                                </td>
-                              </tr>
-                            </table>
-                            <el-divider></el-divider>
-                          </div>
-                        </div>
-                        <div v-if="suzhouList.length != 0" class="suzhou">
-                          <div v-for="(card, index) in suzhouList" :key="index">
-                            <table class="itemClass block-table">
-                              <tr>
-                                <td rowspan="5" class="td-pic">
-                                  <el-image
-                                    :src="card.uurl"
-                                    ref="cardImage"
-                                    style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                    :preview-src-list="[card.uurl]"
-                                  ></el-image>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>接洽时间：{{ card.field0005 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">
-                                  接洽内容：{{ card.field0009 }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">接洽地点：{{ card.field0006 }}</td>
-                              </tr>
-                              <tr>
-                                <td class="lh-10">接洽对象：{{ card.field0008 }}</td>
-                              </tr>
-                              <tr>
-                                <td><span v-if="card.field0019 != null">区领导：</span>{{ card.field0019 }}</td>
-                                <td style="text-align: right; padding: 0px">
-                                  <img src="./assets/icon/秀.png" class="icon" alt="" v-if="card.field0010 == '1'" />
-                                  <img
-                                    src="./assets/icon/金.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0016 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/京.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0013 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/深.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0012 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/沪.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0014 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/苏.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0015 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王店.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0031 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/洪合.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0032 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新塍.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0033 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/王江泾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0034 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/油车港.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0035 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/新城.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0036 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/运河湾.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0037 == '1'"
-                                  />
-                                  <img
-                                    src="./assets/icon/高新.png"
-                                    class="icon ml-5"
-                                    alt=""
-                                    v-if="card.field0038 == '1'"
-                                  />
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div> -->
                       </div>
                       <!-- 本周签约项目 -->
                       <div v-if="ContractedProjectsList.length != 0">
                         <div v-for="(item, index) in ContractedProjectsList" :key="index">
-                          <div class="itemClass">
+                          <div class="itemClass mb-10">
                             <div class="title mt-10" v-if="index === 0">
                               <img src="@/assets/icon/小标题.png" class="title-img" />
                               <div class="title-text">本周签约项目</div>
                             </div>
-                            <div style="display: flex; margin-top: 10px">
-                              <el-image :src="item.field0012" ref="cardImage" style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0012]">
+                            <div class="contracted">
+                              <el-image
+                                class="img"
+                                :src="item.field0012"
+                                ref="cardImage"
+                                :preview-src-list="[item.field0012]"
+                              >
                                 <div slot="error" class="image-slot">暂无图片</div>
                               </el-image>
-                              <!-- <table class="block-table" style="height: 100%">
-                                <tr>
-                                  <td rowspan="2" class="td-pic">
-                                    <el-image :src="item.field0012" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0012]">
-                                      <div slot="error" class="image-slot">暂无图片</div>
-                                    </el-image>
-                                  </td>
-                                </tr>
-                                <tr>
-                                <td>签约项目：{{ item.field0008 }}</td>
-                                <td colspan="3" rowspan="3" style="margin-top: 0px" class="lh-10">签约内容：{{ item.field0011 }}</td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">投资主体：{{ item.field0004 }}</td>
-                              </tr>
-                              <tr>
-                                <td style="width: 200px">签约金额：{{ item.field0004 }}</td>
-                              </tr>
-                              <tr>
-                                <td>签约主体：{{ item.field0004 }}</td>
-                              </tr>
-                              <tr>
-                                <td>签约时间：{{ item.field0004 }}</td>
-                              </tr>
-                              </table> -->
-                              <div style="display: flex; font-size: 13px; text-align: left; margin-left: 10px">
-                                <div style="width: 38%">
-                                  <div>
-                                    <div style="margin-top: 3px">签约项目：{{ item.field0008 }}</div>
-                                    <div style="margin-top: 3px">投资主体：{{ item.field0007 }}</div>
-                                    <div style="margin-top: 3px">签约金额：{{ item.field0009 + '万元' }}</div>
-                                    <div style="margin-top: 3px">签约主体：{{ item.field0008 }}</div>
-                                    <div style="margin-top: 3px">签约时间：{{ item.field0004 }}</div>
+                              <div class="contracted-content">
+                                <div class="contracted-content-title">签约项目：{{ item.field0005 }}</div>
+                                <div class="contracted-content-text">
+                                  <div class="contracted-content-text-left">
+                                    <div>投资主体：{{ item.field0007 }}</div>
+                                    <div>签约金额：{{ item.field0009 + '万元' }}</div>
+                                    <div>签约主体：{{ item.field0008 }}</div>
+                                    <div>签约时间：{{ item.field0004 }}</div>
                                   </div>
+                                  <div class="contracted-content-text-right">签约内容：{{ item.field0011 }}</div>
                                 </div>
-                                <div style="width: 62%">签约内容：{{ item.field0011 }}</div>
                               </div>
                             </div>
                           </div>
@@ -715,18 +185,21 @@
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
                               <img src="@/assets/icon/小标题.png" class="title-img" />
-                              <div class="title-text">本周备案项目（总投10亿元及以上）</div>
+                              <div class="title-text">项目备案（亿元及以上）</div>
                             </div>
-                            <div class="Filing-items">
-                              <el-descriptions :column="2" style="font-size: 13px">
-                                <el-descriptions-item label="备案日期">{{ item.field0004 }}</el-descriptions-item>
-                                <el-descriptions-item label="新增项目用地">{{ item.field0009 + '亩' }}</el-descriptions-item>
-                                <el-descriptions-item label="项目名称">{{ item.field0005 }}</el-descriptions-item>
-                                <el-descriptions-item label="总投资">{{ item.field0010 + '万元' }}</el-descriptions-item>
-                                <el-descriptions-item label="建设性质">{{ item.field0006 }}</el-descriptions-item>
-                                <el-descriptions-item label="落地主体">{{ item.field0015 }}</el-descriptions-item>
-                                <el-descriptions-item label="项目单位">{{ item.field0007 }}</el-descriptions-item>
-                              </el-descriptions>
+
+                            <div class="filing">
+                              <div class="filing-left">
+                                <div>备案日期：{{ item.field0004 }}</div>
+                                <div>项目名称：{{ item.field0005 }}</div>
+                                <div>建设性质：{{ item.field0006 }}</div>
+                                <div>项目单位：{{ item.field0007 }}</div>
+                              </div>
+                              <div class="filing-right">
+                                <div>新增项目用地：{{ item.field0009 + '亩' }}</div>
+                                <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
+                                <div>落地主体：{{ item.field0015 }}</div>
+                              </div>
                             </div>
                           </div>
                           <el-divider></el-divider>
@@ -735,33 +208,84 @@
                       <!-- 举办招商活动 -->
                       <div v-if="ActivityList.length != 0">
                         <div v-for="(item, index) in ActivityList" :key="index">
-                          <div class="itemClass">
+                          <div class="itemClass mb-10">
                             <div class="title mt-10" v-if="index === 0">
                               <img src="@/assets/icon/小标题.png" class="title-img" />
                               <div class="title-text">举办招商活动</div>
                             </div>
-                            <div style="display: flex; margin-top: 10px">
-                              <el-image :src="item.field0009" ref="cardImage" style="min-width: 150px; max-width: 150px; height: 100px; object-fit: cover" :preview-src-list="[item.field0009]">
+                            <div class="active">
+                              <el-image
+                                class="active-img"
+                                :src="item.field0009"
+                                ref="cardImage"
+                                :preview-src-list="[item.field0009]"
+                              >
                                 <div slot="error" class="image-slot">暂无图片</div>
                               </el-image>
-                              <!-- <table class="block-table">
-                                <tr>
-                                  <td rowspan="5" class="td-pic">
-                                    <el-image :src="item.field0009" ref="cardImage" style="width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.field0009]">
-                                      <div slot="error" class="image-slot">暂无图片</div>
-                                    </el-image>
-                                  </td>
-                                </tr>
-                              </table> -->
-                              <div style="display: flex; font-size: 13px; text-align: left; margin-left: 10px; width: 100%">
-                                <div style="width: 36.5%">
-                                  <div>
-                                    <div style="margin-top: 3px">活动时间：{{ item.field0005 }}</div>
-                                    <div style="margin-top: 3px">邀请客商：{{ item.field0007 + '人' }}</div>
-                                    <div style="margin-top: 3px">活动地点：{{ item.field0006 }}</div>
+                              <div class="active-content">
+                                <div class="active-content-title">活动主题：{{ item.field0004 }}</div>
+                                <div class="active-content-text">
+                                  <div class="active-content-text-left" style="width: 45%">
+                                    <div>活动时间：{{ item.field0005 }}</div>
+                                    <div>活动地点：{{ item.field0006 }}</div>
+                                  </div>
+                                  <div class="active-content-text-right">
+                                    <div>邀请客商：{{ item.field0007 + '人' }}</div>
+                                    <div>举办主体：{{ item.field0008 }}</div>
                                   </div>
                                 </div>
-                                <div style="width: 62%">活动主题：{{ item.field0004 }}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <el-divider></el-divider>
+                        </div>
+                      </div>
+                      <!-- 开工项目 -->
+                      <div v-if="startedProjectsList.length != 0">
+                        <div v-for="(item, index) in startedProjectsList" :key="index">
+                          <div class="itemClass">
+                            <div class="title mt-10" v-if="index === 0">
+                              <img src="@/assets/icon/小标题.png" class="title-img" />
+                              <div class="title-text">开工项目</div>
+                            </div>
+                            <div class="active-content mt-10 mb-10">
+                              <div class="active-content-title">开工项目：{{ item.field0003 }}</div>
+                              <div class="active-content-text">
+                                <div class="active-content-text-left" style="width: 75%">
+                                  <div>开工地点：{{ item.field0017 }}</div>
+                                  <div>投资主体：{{ item.field0004 }}</div>
+                                  <div>土地面积：{{ item.field0013 }}</div>
+                                  <div>总投资：{{ item.field0008 + (item.field0018 ? item.field0018 : '万元') }}</div>
+                                </div>
+                                <div class="active-content-text-right">
+                                  <div>项目概况：{{ item.field0014 }}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <el-divider></el-divider>
+                        </div>
+                      </div>
+                      <!-- 十亿元以上备案项目 -->
+                      <div v-if="billionProjectsList.length != 0">
+                        <div v-for="(item, index) in billionProjectsList" :key="index">
+                          <div class="itemClass">
+                            <div class="title mt-10" v-if="index === 0">
+                              <img src="@/assets/icon/小标题.png" class="title-img" />
+                              <div class="title-text">项目备案（十亿元及以上）</div>
+                            </div>
+                            <div class="active-content mt-10 mb-10">
+                              <div class="active-content-title">项目名称：{{ item.field0005 }}</div>
+                              <div class="active-content-text">
+                                <div class="active-content-text-left" style="width: 75%">
+                                  <div>项目单位：{{ item.field0007 }}</div>
+                                  <div>建设性质：{{ item.field0006 }}</div>
+                                  <div>落地主体：{{ item.field0015 }}</div>
+                                </div>
+                                <div class="active-content-text-right">
+                                  <div>新增建设用地-亩：{{ item.field0009 + '亩' }}</div>
+                                  <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -777,7 +301,7 @@
                               <div class="title-text">他山之石</div>
                             </div>
                             <div class="content">
-                              {{ '（' + numberConvertToUppercase()(index + 1) + '）' + item.field0003 }}
+                              {{ item.field0003 }}
                             </div>
                           </div>
                           <el-divider v-if="index !== OtherList.length - 1"></el-divider>
@@ -788,9 +312,9 @@
                   <!-- 本周小结 -->
                   <!-- <div class="page-break"></div> -->
                   <div v-if="summaryBarData !== null" class="itemClass">
-                    <div class="mintitle mt-50">本周小结</div>
+                    <!-- <div class="mintitle mt-50">本周小结</div> -->
                     <!-- 柱状图 -->
-                    <div class="part" style="margin-bottom: 30px">
+                    <!-- <div class="part" style="margin-bottom: 30px">
                       <div class="summarize">
                         <span v-if="sum != 0"
                           >区招商中心共接洽项目<span class="s1">{{ sum }}</span
@@ -799,25 +323,51 @@
                         <span>秀洲本部、金控公司及各驻外工作部接洽情况如下：</span>
                         <div class="Bar" id="bar" style="height: 200px; width: 600px" ref="Echarts"></div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
+                  <div class="break_page"></div>
                   <div class="itemClass">
                     <div style="height: 10px"></div>
-                    <div class="part" style="border-radius: 10px" v-if="pieList.length > 0 || ContactBarData !== null">
+                    <div
+                      class="part"
+                      style="border-radius: 10px"
+                      v-if="
+                        pieList.length > 0 ||
+                        ContactBarData.length > 0 ||
+                        totalProjectBar.length > 0 ||
+                        activityBar.length > 0
+                      "
+                    >
                       <!-- 饼图 -->
                       <div style="font-size: 16px; text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        乡镇（平台）共接洽项目<span style="font-size: 25px; color: rgb(80, 178, 255)">{{ contactTotalNumber }}</span
+                        各乡镇（平台）本周共接洽项目<span style="font-size: 25px; color: rgb(80, 178, 255)">{{
+                          contactTotalNumber
+                        }}</span
                         >个，接洽情况如下：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
                           <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
-                          <div class="text">{{ item.field0007 }}</div>
+                          <div class="text">全年累计{{ item.field0007 }}</div>
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-10" style="text-align: left" v-if="ContactBarData !== null">本年累计接洽情况如下：</div>
-                      <div id="yearTotal" class="" v-if="ContactBarData !== null" style="width: 100%"></div>
+                      <div class="mt-10" style="text-align: left" v-if="ContactBarData.length > 0">
+                        本年累计接洽情况如下：
+                      </div>
+                      <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
+
+                      <!-- 柱状图(本年累计项目个数如下：) -->
+                      <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
+                        本年累计项目个数如下：
+                      </div>
+                      <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div>
+
+                      <!-- 柱状图(签约活动项目规模) -->
+                      <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
+                        本年签约活动累计项目个数如下：
+                      </div>
+                      <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div>
                     </div>
                   </div>
                   <!-- 表格 -->
@@ -825,18 +375,25 @@
                     <div v-if="loading" class="page-break"></div>
                     <div style="height: 10px"></div>
                     <div style="text-align: center" class="list-title">
-                      {{ index === 0 ? `《${dayjs().format('YYYY')}年已签正式协议项目汇总表》` : `《${dayjs().format('YYYY')}年在谈正式协议项目汇总表（至${formatDate(endTime)}）》` }}
+                      {{
+                        index === 0
+                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表`
+                          : `${dayjs().format('YYYY')}年在谈项目汇总表（至${formatDate(endTime)}）`
+                      }}
                     </div>
                     <el-table
                       v-if="item.length > 0"
                       border
                       :span-method="
-                        (params) => {
+                        params => {
                           return objectSpanMethod(params, item)
                         }
                       "
                       :data="item"
-                      style="width: calc(90%); margin: 0 auto; border-radius: 10px"
+                      class="table"
+                      :header-cell-style="{ border: '1px solid #000', fontWeight: 700, color: '#000' }"
+                      :cell-style="{ border: '1px solid #000', fontWeight: 700 }"
+                      :row-class-name="tableRowClassName"
                     >
                       <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
                       <el-table-column label="类别" width="60">
@@ -846,10 +403,14 @@
                       </el-table-column>
                       <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
                       <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right">
+                      </el-table-column>
                     </el-table>
                   </div>
                   <div style="margin-bottom: 30px"></div>
@@ -868,7 +429,25 @@ import PdfLoader from './utils/exprotPDF'
 import 'print-js/dist/print.css'
 import { numberConvertToUppercase } from '@/utils/methods'
 // 图片压缩
-import { getReportList, summarize, summarize2, getTime, getMainNews, getContractedProjects, getFilingItems, getActivity, getOther, getSignedData, getTalkingData, getTownshipContactPie, getTownshipContactBar } from './api/api'
+import {
+  getReportList,
+  summarize,
+  summarize2,
+  getTime,
+  getMainNews,
+  getContractedProjects,
+  getFilingItems,
+  getActivity,
+  getStartedProjects,
+  getBillionProjects,
+  getOther,
+  getSignedData,
+  getTalkingData,
+  getTownshipContactPie,
+  getTownshipContactBar,
+  getTotalProject,
+  getActivityBar
+} from './api/api'
 import * as echarts from 'echarts'
 
 export default {
@@ -892,6 +471,10 @@ export default {
       FilingItemsList: [],
       // 活动
       ActivityList: [],
+      // 活动
+      startedProjectsList: [],
+      // 活动
+      billionProjectsList: [],
       // 他山之石头
       OtherList: [],
       // 在谈项目列表
@@ -901,11 +484,15 @@ export default {
       // 本周小结柱状图数据
       summaryBarData: null,
       // 接洽柱状图数据
-      ContactBarData: null,
+      ContactBarData: [],
       // 饼图接恰总数
       contactTotalNumber: 0,
       // 饼图数据
       pieList: [],
+      // 累计项目柱状图
+      totalProjectBar: [],
+      // 签约活动柱状图
+      activityBar: [],
       //本周小结
       year: 0,
       week: 0,
@@ -946,7 +533,7 @@ export default {
         this.endTime = time.data[0].endTime
       }
       // 周数
-      summarize(this.startTime, this.endTime).then((res) => {
+      summarize(this.startTime, this.endTime).then(res => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
         this.xiuzhou = res.data.data[0].xiuzhou
@@ -961,13 +548,13 @@ export default {
       const xAxis = []
       const yAxis = []
       this.summaryBarData = barDate.data
-      barDate.data.forEach((item) => {
+      barDate.data.forEach(item => {
         xAxis.push(item.flag)
         yAxis.push(item.num)
       })
 
       this.$nextTick(() => {
-        this.initBar(this.$refs.Echarts, xAxis, yAxis)
+        // this.initBar(this.$refs.Echarts, xAxis, yAxis)
       })
       try {
         // 区主要领导招商动态库
@@ -986,21 +573,29 @@ export default {
         const { data: ActivityList } = await getActivity(this.startTime, this.endTime)
         this.ActivityList = ActivityList.data
 
+        // 开工项目
+        const { data: startedProjectsList } = await getStartedProjects(this.startTime, this.endTime)
+        this.startedProjectsList = startedProjectsList.data
+
+        // 十亿元以上备案项目
+        const { data: billionProjectsList } = await getBillionProjects(this.startTime, this.endTime)
+        this.billionProjectsList = billionProjectsList.data
+
         // 他山之石
         const { data: OtherList } = await getOther(this.startTime, this.endTime)
         this.OtherList = OtherList.data
       } catch (error) {}
 
       // 各主体信息
-      getReportList(this.startTime, this.endTime).then((res) => {
-        const arr = res.data.data.filter((item) => item.field0031 == '1')
-        const arr2 = res.data.data.filter((item) => item.field0032 == '1')
-        const arr3 = res.data.data.filter((item) => item.field0033 == '1')
-        const arr4 = res.data.data.filter((item) => item.field0034 == '1')
-        const arr5 = res.data.data.filter((item) => item.field0035 == '1')
-        const arr6 = res.data.data.filter((item) => item.field0038 == '1')
-        const arr7 = res.data.data.filter((item) => item.field0037 == '1')
-        const arr8 = res.data.data.filter((item) => item.field0036 == '1')
+      getReportList(this.startTime, this.endTime).then(res => {
+        const arr = res.data.data.filter(item => item.field0031 == '1')
+        const arr2 = res.data.data.filter(item => item.field0032 == '1')
+        const arr3 = res.data.data.filter(item => item.field0033 == '1')
+        const arr4 = res.data.data.filter(item => item.field0034 == '1')
+        const arr5 = res.data.data.filter(item => item.field0035 == '1')
+        const arr6 = res.data.data.filter(item => item.field0038 == '1')
+        const arr7 = res.data.data.filter(item => item.field0037 == '1')
+        const arr8 = res.data.data.filter(item => item.field0036 == '1')
         this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
       })
 
@@ -1011,66 +606,88 @@ export default {
         if (pieShipContact.length > 0) {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
-          pieShipContact.forEach((item) => {
-            item.data.forEach((innerItem) => {
+          pieShipContact.forEach(item => {
+            item.data.forEach(innerItem => {
               this.contactTotalNumber += parseInt(innerItem.amount)
             })
           })
         }
       } catch (error) {}
-      // 接洽柱状图数据
+      // 接洽和累计项目个数柱状图数据
       try {
-        const { data: barShipContact } = await getTownshipContactBar(dayjs().format('YYYY') + '-01-01', dayjs().format('YYYY-MM-DD'))
-        if (barShipContact.data.length > 0) {
-          this.ContactBarData = barShipContact.data
-          const series = []
-          const xAxis2 = []
-          const addedKeys = []
-          // 创建镇的数组
-          barShipContact.data.forEach((item) => {
-            Object.keys(item).forEach((key) => {
-              if (key !== '接洽形式' && !addedKeys.includes(key)) {
-                xAxis2.push(key)
-                addedKeys.push(key)
-              }
+        const { data: barShipContact } = await getTownshipContactBar(
+          dayjs().format('YYYY') + '-01-01',
+          dayjs().format('YYYY-MM-DD')
+        )
+        const { data: totalProjectBar } = await getTotalProject(
+          dayjs().format('YYYY') + '-01-01',
+          dayjs().format('YYYY-MM-DD')
+        )
+        const { data: activityBar } = await getActivityBar(
+          dayjs().format('YYYY') + '-01-01',
+          dayjs().format('YYYY-MM-DD')
+        )
+        this.ContactBarData = barShipContact.data
+        this.totalProjectBar = totalProjectBar.data
+        this.activityBar = activityBar.data
+        const list = [
+          {
+            data: barShipContact,
+            name: 'yearTotal'
+          },
+          {
+            data: totalProjectBar,
+            name: 'totalProject'
+          },
+          {
+            data: activityBar,
+            name: 'activityBar'
+          }
+        ]
+        list.forEach((item, index) => {
+          if (item.data.data.length > 0) {
+            const series = []
+            const xAxis2 = []
+            const addedKeys = []
+            // 创建镇的数组
+            item.data.data.forEach(item => {
+              Object.keys(item).forEach(key => {
+                if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
+                  xAxis2.push(key)
+                  addedKeys.push(key)
+                }
+              })
             })
-          })
-          // 创建每个镇所对应接恰形式的值的数组
-          barShipContact.data.forEach((item) => {
-            const seriesItem = {
-              name: '数量',
-              type: 'bar',
-              barWidth: '20px',
-              data: [],
-              label: {
-                show: true,
-                position: 'top', // 在柱子顶部显示数据
-                textStyle: {
-                  color: '#2c3e50', // 设置文字颜色为黑色
-                  fontWeight: 100
-                },
-                formatter: (data) => {
-                  if (data.value != '0') {
-                    return data.seriesName + ':' + data.value
+            // 创建每个镇所对应接恰形式的值的数组
+            item.data.data.forEach(item => {
+              const seriesItem = {
+                name: '数量',
+                type: 'bar',
+                barWidth: '20px',
+                data: [],
+                stack: index === 2 ? 'Ad' : '',
+                label: {
+                  show: true,
+                  formatter: index === 0 ? '{a}:{c}次' : '{c}次',
+                  position: index === 0 ? 'top' : ''
+                }
+              }
+              for (const key in item) {
+                if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
+                  if (item[key] == null) {
+                    item[key] = 0
                   }
+                  seriesItem.data.push(item[key])
                 }
               }
-            }
-            for (const key in item) {
-              if (key !== '接洽形式') {
-                if (item[key] == null) {
-                  item[key] = 0
-                }
-                seriesItem.data.push(item[key])
-              }
-            }
-            seriesItem.name = item['接洽形式']
-            series.push(seriesItem)
-          })
-          this.$nextTick(() => {
-            this.initBar(document.getElementById('yearTotal'), xAxis2, [], series)
-          })
-        }
+              seriesItem.name = item[index === 0 ? '接洽形式' : '项目规模']
+              series.push(seriesItem)
+            })
+            this.$nextTick(() => {
+              this.initBar(document.getElementById(item.name), xAxis2, [], series, index === 2 ? true : false)
+            })
+          }
+        })
       } catch (error) {}
 
       try {
@@ -1082,7 +699,7 @@ export default {
       } catch (error) {}
     },
     //本周小结柱状图
-    initBar(document, xAxis, yAxis, series) {
+    initBar(document, xAxis, yAxis, series, isHorizontal = false) {
       let myChart = echarts.init(document)
       var option
       option = {
@@ -1099,9 +716,12 @@ export default {
           bottom: '3%',
           containLabel: true
         },
+        // legend: {
+        //   show: isHorizontal
+        // },
         xAxis: [
           {
-            type: 'category',
+            type: isHorizontal ? 'value' : 'category',
             data: xAxis,
             axisTick: {
               alignWithLabel: true
@@ -1110,12 +730,15 @@ export default {
               //x轴文字的配置
               show: true,
               interval: 0 //使x轴文字显示全
-            }
+            },
+            show: isHorizontal ? false : true
           }
         ],
         yAxis: [
           {
-            show: false // 不显示 y 轴
+            type: isHorizontal ? 'category' : 'value',
+            data: isHorizontal ? xAxis : '',
+            show: isHorizontal ? true : false // 不显示 y 轴
           }
         ],
         series: series || [
@@ -1141,7 +764,7 @@ export default {
       let pieData = []
       this.$nextTick(() => {
         data.forEach((item, index) => {
-          item.data.forEach((i) => {
+          item.data.forEach(i => {
             pieData.push({
               name: i.field0020,
               value: i.amount
@@ -1200,13 +823,15 @@ export default {
     // 导出pdf
     handleExport(isPrint = false) {
       this.loading = true
-      this.$nextTick(() => {
-        const content = this.$refs.exportContent.$el
-        let pdf = new PdfLoader(content, '招商动态简报', 'itemClass', 'page-break', isPrint)
-        pdf.outPutPdfFn().then(() => {
-          this.loading = false
+      setTimeout(() => {
+        this.$nextTick(() => {
+          const content = this.$refs.exportContent.$el
+          let pdf = new PdfLoader(content, '招商动态简报', 'itemClass', 'page-break', isPrint)
+          pdf.outPutPdfFn().then(() => {
+            this.loading = false
+          })
         })
-      })
+      }, 5000)
     },
     printPDF() {
       this.handleExport(true)
@@ -1302,6 +927,12 @@ export default {
           }
         }
       }
+    },
+    // 设置表格样式
+    tableRowClassName({ row, rowIndex }) {
+      if (row.field0005 === '合计') {
+        return 'table-cell-bgc'
+      }
     }
   }
 }
@@ -1316,19 +947,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   font-family: DENG;
+  font-size: 13px;
+  font-weight: 400;
 }
 
-.btn {
-  position: relative;
-  top: 10px;
-}
-
-.btn2 {
-  position: relative;
-  top: 100px;
-}
-
-//=========================================
 .print-main {
   margin: 0 auto;
   background-color: rgb(35, 134, 255);
@@ -1381,15 +1003,6 @@ export default {
     orphans: 10;
     overflow: visible;
   }
-
-  .body-back {
-    width: 100%;
-  }
-
-  .benbu-img {
-    width: 170px;
-    height: 30px;
-  }
 }
 
 .part {
@@ -1416,6 +1029,7 @@ export default {
   border: 1px transparent solid;
   border-radius: 10px 10px 0 0px;
 }
+
 .title {
   display: flex;
   align-items: center;
@@ -1425,6 +1039,7 @@ export default {
     height: 25px;
   }
   .title-text {
+    font-size: 16px;
     color: #1d2088;
     font-weight: 600;
     margin-left: 5px;
@@ -1432,36 +1047,10 @@ export default {
 }
 .content {
   text-align: left;
-  margin: 10px 0 5px 5px;
+  margin: 15px 0 15px 5px;
   font-weight: 100;
   text-indent: 2em;
   line-height: 1.5;
-  font-size: 13px;
-}
-
-.block-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 13px;
-  text-align: left;
-  margin-top: 10px;
-
-  tr td {
-    border: 1px solid transparent;
-    height: 18px;
-    padding: 2px;
-    font-weight: 100;
-    vertical-align: top;
-  }
-
-  th {
-    text-align: center;
-  }
-}
-
-.td-pic {
-  width: 22%;
-  height: 22%;
 }
 
 .icon {
@@ -1494,11 +1083,15 @@ export default {
 }
 
 .Bar,
-#yearTotal {
+#yearTotal,
+#totalProject,
+#activityBar {
   width: 600px;
   height: 200px;
 }
-
+#activityBar {
+  height: 300px;
+}
 //=========================================
 
 .el-header,
@@ -1532,7 +1125,9 @@ export default {
 .ml-5 {
   margin-left: 5px;
 }
-
+.mb-10 {
+  margin-bottom: 10px;
+}
 .lh-10 {
   line-height: 23px;
 }
@@ -1591,10 +1186,7 @@ export default {
 .el-table .el-table__cell {
   padding: 1.5px !important;
 }
-.Filing-items {
-  margin-top: 10px;
-  margin-left: 15px;
-}
+
 .list-title {
   margin: 15px 0;
   font-size: 20px;
@@ -1603,5 +1195,105 @@ export default {
 .el-descriptions-item__cell {
   padding-bottom: 3px !important;
 }
+// 项目备案
+.filing {
+  display: flex;
+  margin-top: 10px;
+  &-left {
+    width: 52.5%;
+    text-align: left;
+    div {
+      margin-top: 3px;
+    }
+  }
+  &-right {
+    width: 47.5%;
+    text-align: left;
+    div {
+      margin-top: 3px;
+    }
+  }
+}
+
+// 签约项目
+.contracted {
+  display: flex;
+  margin-top: 10px;
+  .img {
+    min-width: 150px;
+    height: 100px;
+    margin: 0 auto;
+    object-fit: cover;
+  }
+  &-content {
+    &-title {
+      height: auto;
+      white-space: nowrap;
+      font-weight: 700;
+      text-align: left;
+      margin-left: 10px;
+    }
+    &-text {
+      display: flex;
+      text-align: left;
+      margin-left: 10px;
+      &-left {
+        width: 38%;
+        div {
+          margin-top: 3px;
+        }
+      }
+      &-right {
+        width: 62%;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+// 招商活动
+.active {
+  display: flex;
+  margin-top: 10px;
+  &-img {
+    min-width: 150px;
+    max-width: 150px;
+    height: 100px;
+    object-fit: cover;
+  }
+  &-content {
+    text-align: left;
+    margin-left: 10px;
+    width: 100%;
+    &-title {
+      white-space: nowrap;
+      font-weight: 700;
+    }
+    &-text {
+      display: flex;
+      &-left {
+        width: 38%;
+        div {
+          margin-top: 3px;
+        }
+      }
+      &-right {
+        width: 72%;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+.table {
+  width: calc(90%) !important;
+  margin: 0 auto !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  border: 1px solid #000 !important;
+}
 </style>
-import { color } from 'html2canvas/dist/types/css/types/color'import { transform } from 'html2canvas/dist/types/css/property-descriptors/transform'
+<style>
+.el-table .table-cell-bgc {
+  background-color: #dcdcdc !important;
+}
+</style>

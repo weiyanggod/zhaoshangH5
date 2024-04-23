@@ -90,6 +90,30 @@ export const getActivity = (startTime, endTime) => {
   })
 }
 
+//获取开工项目
+export const getStartedProjects = (startTime, endTime) => {
+  return axios.request({
+    url: `/ProjectCommencement`,
+    method: 'get',
+    params: {
+      startTime: startTime,
+      endTime: endTime
+    }
+  })
+}
+
+//获取十亿元以上备案项目
+export const getBillionProjects = (startTime, endTime) => {
+  return axios.request({
+    url: `/OverBillion`,
+    method: 'get',
+    params: {
+      startTime: startTime,
+      endTime: endTime
+    }
+  })
+}
+
 // 他山之石
 export const getOther = (startTime, endTime) => {
   return axios.request({
@@ -137,10 +161,32 @@ export const getTownshipContactPie = (startTime, endTime) => {
     }
   })
 }
-//// 乡镇接洽柱状图
+// 乡镇接洽柱状图
 export const getTownshipContactBar = (startTime, endTime) => {
   return axios.request({
     url: `/Engage2`,
+    method: 'get',
+    params: {
+      startTime: startTime,
+      endTime: endTime
+    }
+  })
+}
+// 累计项目柱状图
+export const getTotalProject = (startTime, endTime) => {
+  return axios.request({
+    url: `/Engage3`,
+    method: 'get',
+    params: {
+      startTime: startTime,
+      endTime: endTime
+    }
+  })
+}
+// 签约活动项目规模柱状图
+export const getActivityBar = (startTime, endTime) => {
+  return axios.request({
+    url: `/Engage4`,
     method: 'get',
     params: {
       startTime: startTime,
