@@ -1,6 +1,6 @@
 import axios from './axios'
 
-//简报信息
+//各主体动态信息
 export const getReportList = (startTime, endTime) => {
   return axios.request({
     url: `/SearchReport`,

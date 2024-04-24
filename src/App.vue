@@ -85,60 +85,20 @@
                                 </div>
                               </div>
                               <div style="text-align: right">
-                                <img src="./assets/icon/本.png" class="icon" alt="" v-if="item.field0010 == '1'" />
-                                <img src="./assets/icon/金.png" class="icon ml-5" alt="" v-if="item.field0016 == '1'" />
-                                <img src="./assets/icon/京.png" class="icon ml-5" alt="" v-if="item.field0013 == '1'" />
-                                <img src="./assets/icon/深.png" class="icon ml-5" alt="" v-if="item.field0012 == '1'" />
-                                <img src="./assets/icon/沪.png" class="icon ml-5" alt="" v-if="item.field0014 == '1'" />
-                                <img src="./assets/icon/苏.png" class="icon ml-5" alt="" v-if="item.field0015 == '1'" />
-                                <img
-                                  src="./assets/icon/王店.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0031 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/洪合.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0032 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/新塍.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0033 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/王江泾.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0034 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/油车港.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0035 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/新城.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0036 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/运河湾.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0037 == '1'"
-                                />
-                                <img
-                                  src="./assets/icon/高新.png"
-                                  class="icon ml-5"
-                                  alt=""
-                                  v-if="item.field0038 == '1'"
-                                />
+                                <img src="./assets/icon/本部.png" class="icon" v-if="item.field0010 == '1'" />
+                                <img src="./assets/icon/金控.png" class="icon ml-5" v-if="item.field0016 == '1'" />
+                                <img src="./assets/icon/北京.png" class="icon ml-5" v-if="item.field0013 == '1'" />
+                                <img src="./assets/icon/深圳.png" class="icon ml-5" v-if="item.field0012 == '1'" />
+                                <img src="./assets/icon/上海.png" class="icon ml-5" v-if="item.field0014 == '1'" />
+                                <img src="./assets/icon/苏州.png" class="icon ml-5" v-if="item.field0015 == '1'" />
+                                <img src="./assets/icon/王店.png" class="icon ml-5" v-if="item.field0031 == '1'" />
+                                <img src="./assets/icon/洪合.png" class="icon ml-5" v-if="item.field0032 == '1'" />
+                                <img src="./assets/icon/新塍.png" class="icon ml-5" v-if="item.field0033 == '1'" />
+                                <img src="./assets/icon/王江泾.png" class="icon ml-5" v-if="item.field0034 == '1'" />
+                                <img src="./assets/icon/油车港.png" class="icon ml-5" v-if="item.field0035 == '1'" />
+                                <img src="./assets/icon/新城.png" class="icon ml-5" v-if="item.field0036 == '1'" />
+                                <img src="./assets/icon/运河湾.png" class="icon ml-5" v-if="item.field0037 == '1'" />
+                                <img src="./assets/icon/高新.png" class="icon ml-5" v-if="item.field0038 == '1'" />
                               </div>
                             </div>
                             <el-divider></el-divider>
@@ -665,7 +625,7 @@ export default {
                 type: 'bar',
                 barWidth: '20px',
                 data: [],
-                stack: index === 2 ? 'Ad' : '',
+                stack: index === 0 ? '' : 'Ad',
                 label: {
                   show: true,
                   formatter: index === 0 ? '{a}:{c}次' : '{c}次',

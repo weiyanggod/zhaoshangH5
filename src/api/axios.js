@@ -14,7 +14,9 @@ class HttpRequest {
   getInsideConfig() {
     const config = {
       baseURL: this.baseUrl,
-      headers: {}
+      headers: {
+        Authorization: 'town'
+      }
     }
     return config
   }
@@ -25,10 +27,6 @@ class HttpRequest {
     instance.interceptors.request.use(
       function (config) {
         // 在发送请求之前做些什么
-        const token = localStorage.getItem('Accept-Token')
-        if (token !== null && token !== '') {
-          config.headers['Accept-Token'] = token
-        }
         return config
       },
       function (error) {
