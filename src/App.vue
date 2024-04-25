@@ -223,7 +223,7 @@
                                   <div>投资主体：{{ item.field0004 }}</div>
                                   <div>土地面积：{{ item.field0013 + '亩' }}</div>
                                   <div>
-                                    总&nbsp;&nbsp;&nbsp;&nbsp;投资：{{
+                                    总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
                                       item.field0008 + (item.field0018 ? item.field0018 : '万元')
                                     }}
                                   </div>
