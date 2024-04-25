@@ -6,23 +6,23 @@ const baseUrl = config.baseUrl.pro
 
 class HttpRequest {
   //构造器
-  constructor(baseUrl) {
+  constructor (baseUrl) {
     this.baseUrl = baseUrl
   }
 
   //请求路径设置
-  getInsideConfig() {
+  getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
       headers: {
-        Authorization: 'town'
+        Authorization: ''
       }
     }
     return config
   }
 
   //添加拦截器
-  interceptors(instance) {
+  interceptors (instance) {
     // 添加请求拦截器
     instance.interceptors.request.use(
       function (config) {
@@ -52,7 +52,7 @@ class HttpRequest {
   }
 
   // 二次封装的请求
-  request(options) {
+  request (options) {
     const instance = axios.create()
     // options = {...this.getInsideConfig(),...options}
     options = Object.assign(this.getInsideConfig(), options)
