@@ -76,7 +76,10 @@
                                     <div>
                                       <div style="margin-top: 3px">接洽时间：{{ item.field0005 }}</div>
                                       <div style="margin-top: 3px">接洽地点：{{ item.field0006 }}</div>
-                                      <div style="margin-top: 3px">接洽对象：{{ item.field0008 }}</div>
+                                      <div style="margin-top: 3px; display: flex">
+                                        <div style="white-space: nowrap">接洽对象：</div>
+                                        <div>{{ item.field0008 }}</div>
+                                      </div>
                                       <div style="margin-top: 3px">接洽形式：{{ item.field0007 }}</div>
                                       <div v-if="item.field0019 != null">区领导：{{ item.field0019 }}</div>
                                     </div>
@@ -126,7 +129,10 @@
                                 <div class="contracted-content-title">签约项目：{{ item.field0005 }}</div>
                                 <div class="contracted-content-text">
                                   <div class="contracted-content-text-left">
-                                    <div>投资主体：{{ item.field0007 }}</div>
+                                    <div style="display: flex">
+                                      <div style="white-space: nowrap">投资主体：</div>
+                                      <div>{{ item.field0007 }}</div>
+                                    </div>
                                     <div>签约金额：{{ item.field0009 + '万元' }}</div>
                                     <div>签约主体：{{ item.field0008 }}</div>
                                     <div>签约时间：{{ item.field0004 }}</div>
@@ -147,18 +153,19 @@
                               <img src="@/assets/icon/小标题.png" class="title-img" />
                               <div class="title-text">项目备案（亿元及以上）</div>
                             </div>
-
-                            <div class="filing">
-                              <div class="filing-left">
-                                <div>备案日期：{{ item.field0004 }}</div>
-                                <div>项目名称：{{ item.field0005 }}</div>
-                                <div>建设性质：{{ item.field0006 }}</div>
-                                <div>项目单位：{{ item.field0007 }}</div>
-                              </div>
-                              <div class="filing-right">
-                                <div>新增项目用地：{{ item.field0009 + '亩' }}</div>
-                                <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
-                                <div>落地主体：{{ item.field0015 }}</div>
+                            <div class="active-content">
+                              <div class="active-content-title mt-10">项目名称：{{ item.field0005 }}</div>
+                              <div class="active-content-text">
+                                <div class="active-content-text-left" style="width: 45%">
+                                  <div>备案日期：{{ item.field0004 }}</div>
+                                  <div>建设性质：{{ item.field0006 }}</div>
+                                  <div>项目单位：{{ item.field0007 }}</div>
+                                </div>
+                                <div class="active-content-text-right">
+                                  <div>新增项目用地：{{ item.field0009 + '亩' }}</div>
+                                  <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
+                                  <div>落地主体：{{ item.field0015 }}</div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -214,8 +221,12 @@
                                 <div class="active-content-text-left" style="width: 75%">
                                   <div>开工地点：{{ item.field0017 }}</div>
                                   <div>投资主体：{{ item.field0004 }}</div>
-                                  <div>土地面积：{{ item.field0013 }}</div>
-                                  <div>总投资：{{ item.field0008 + (item.field0018 ? item.field0018 : '万元') }}</div>
+                                  <div>土地面积：{{ item.field0013 + '亩' }}</div>
+                                  <div>
+                                    总&nbsp;&nbsp;&nbsp;&nbsp;投资：{{
+                                      item.field0008 + (item.field0018 ? item.field0018 : '万元')
+                                    }}
+                                  </div>
                                 </div>
                                 <div class="active-content-text-right">
                                   <div>项目概况：{{ item.field0014 }}</div>
@@ -243,7 +254,7 @@
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
                                 <div class="active-content-text-right">
-                                  <div>新增建设用地-亩：{{ item.field0009 + '亩' }}</div>
+                                  <div>新增建设用地：{{ item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                 </div>
                               </div>
@@ -299,8 +310,8 @@
                       "
                     >
                       <!-- 饼图 -->
-                      <div style="font-size: 16px; text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        各乡镇（平台）本周共接洽项目<span style="font-size: 25px; color: rgb(80, 178, 255)">{{
+                      <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
+                        各乡镇（平台）本周共接洽项目<span style="color: rgb(80, 178, 255)">{{
                           contactTotalNumber
                         }}</span
                         >个，接洽情况如下：
@@ -308,24 +319,24 @@
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
                           <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
-                          <div class="text">全年累计{{ item.field0007 }}</div>
+                          <div class="text fw-700">{{ item.field0007 }}</div>
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-10" style="text-align: left" v-if="ContactBarData.length > 0">
+                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">
                         本年累计接洽情况如下：
                       </div>
                       <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(本年累计项目个数如下：) -->
                       <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
-                        本年累计项目个数如下：
+                        本年累计在谈项目个数如下：
                       </div>
                       <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(签约活动项目规模) -->
                       <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
-                        本年签约活动累计项目个数如下：
+                        本年累计签约项目个数如下：
                       </div>
                       <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div>
                     </div>
@@ -352,7 +363,7 @@
                       :data="item"
                       class="table"
                       :header-cell-style="{ border: '1px solid #000', fontWeight: 700, color: '#000' }"
-                      :cell-style="{ border: '1px solid #000', fontWeight: 700 }"
+                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '3px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
                       <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
@@ -566,6 +577,7 @@ export default {
         if (pieShipContact.length > 0) {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
+          this.contactTotalNumber = 0
           pieShipContact.forEach(item => {
             item.data.forEach(innerItem => {
               this.contactTotalNumber += parseInt(innerItem.amount)
@@ -579,30 +591,30 @@ export default {
           dayjs().format('YYYY') + '-01-01',
           dayjs().format('YYYY-MM-DD')
         )
-        const { data: totalProjectBar } = await getTotalProject(
-          dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
-        )
-        const { data: activityBar } = await getActivityBar(
-          dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
-        )
+        // const { data: totalProjectBar } = await getTotalProject(
+        //   dayjs().format('YYYY') + '-01-01',
+        //   dayjs().format('YYYY-MM-DD')
+        // )
+        // const { data: activityBar } = await getActivityBar(
+        //   dayjs().format('YYYY') + '-01-01',
+        //   dayjs().format('YYYY-MM-DD')
+        // )
         this.ContactBarData = barShipContact.data
-        this.totalProjectBar = totalProjectBar.data
-        this.activityBar = activityBar.data
+        // this.totalProjectBar = totalProjectBar.data
+        // this.activityBar = activityBar.data
         const list = [
           {
             data: barShipContact,
             name: 'yearTotal'
-          },
-          {
-            data: totalProjectBar,
-            name: 'totalProject'
-          },
-          {
-            data: activityBar,
-            name: 'activityBar'
           }
+          // {
+          //   data: totalProjectBar,
+          //   name: 'totalProject'
+          // },
+          // {
+          //   data: activityBar,
+          //   name: 'activityBar'
+          // }
         ]
         list.forEach((item, index) => {
           if (item.data.data.length > 0) {
@@ -613,7 +625,7 @@ export default {
             item.data.data.forEach(item => {
               Object.keys(item).forEach(key => {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
-                  xAxis2.push(key)
+                  xAxis2.push(key === '高新区高照街道' ? '高新区(高照街道)' : key)
                   addedKeys.push(key)
                 }
               })
@@ -622,15 +634,65 @@ export default {
             item.data.data.forEach(item => {
               const seriesItem = {
                 name: '数量',
-                type: 'bar',
+                type: index === 1 ? 'line' : 'bar',
                 barWidth: '20px',
                 data: [],
                 stack: index === 0 ? '' : 'Ad',
                 label: {
                   show: true,
-                  formatter: index === 0 ? '{a}:{c}次' : '{c}次',
-                  position: index === 0 ? 'top' : ''
+                  // formatter: index === 0 ? '{a}:{c}次' : '{c}次',
+                  offset: index === 0 ? [0, 0] : [30, 0],
+                  color: '#000',
+                  formatter: data => {
+                    let text = '次'
+                    if (index !== 0) {
+                      text = '个'
+                    }
+                    if (data.data !== 0) {
+                      return data.data + text
+                    } else {
+                      return ''
+                    }
+                  },
+                  position: index === 2 ? '' : 'top'
                 }
+                // itemStyle: {
+                //   color: data => {
+                //     if (index === 0) {
+                //       if (data.seriesIndex == 0) {
+                //         return '#3A91D9'
+                //       }
+                //       if (data.seriesIndex == 1) {
+                //         return '#00FF00'
+                //       }
+                //       if (data.seriesIndex == 2) {
+                //         return '#FFB90F'
+                //       }
+                //     }
+                //     if (index === 1) {
+                //       if (data.seriesIndex == 0) {
+                //         return '#8A2BE2'
+                //       }
+                //       if (data.seriesIndex == 1) {
+                //         return '#FFAEB9'
+                //       }
+                //       if (data.seriesIndex == 2) {
+                //         return '#9B30FF'
+                //       }
+                //     }
+                //     if (index === 2) {
+                //       if (data.seriesIndex == 0) {
+                //         return '#008B8B'
+                //       }
+                //       if (data.seriesIndex == 1) {
+                //         return '#CAE1FF'
+                //       }
+                //       if (data.seriesIndex == 2) {
+                //         return '#B3EE3A'
+                //       }
+                //     }
+                //   }
+                // }
               }
               for (const key in item) {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
@@ -658,7 +720,7 @@ export default {
         this.talkingData = talkingData.data
       } catch (error) {}
     },
-    //本周小结柱状图
+    // 柱状图
     initBar(document, xAxis, yAxis, series, isHorizontal = false) {
       let myChart = echarts.init(document)
       var option
@@ -676,9 +738,7 @@ export default {
           bottom: '3%',
           containLabel: true
         },
-        // legend: {
-        //   show: isHorizontal
-        // },
+        legend: {},
         xAxis: [
           {
             type: isHorizontal ? 'value' : 'category',
@@ -698,7 +758,8 @@ export default {
           {
             type: isHorizontal ? 'category' : 'value',
             data: isHorizontal ? xAxis : '',
-            show: isHorizontal ? true : false // 不显示 y 轴
+            show: isHorizontal ? true : false, // 不显示 y 轴
+            inverse: isHorizontal ? true : false
           }
         ],
         series: series || [
@@ -737,22 +798,23 @@ export default {
               trigger: 'item'
             },
             title: {
-              text: '数量',
+              text: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               textStyle: {
-                fontSize: 12
-              },
-              subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
-              subtextStyle: {
                 fontSize: 20,
                 color: '#f68c3c'
               },
+              // subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
+              // subtextStyle: {
+              //   fontSize: 20,
+              //   color: '#f68c3c'
+              // },
               x: 'center',
               y: 'center'
             },
             series: [
               {
                 type: 'pie',
-                radius: ['40%', '90%'],
+                radius: ['30%', '80%'],
                 avoidLabelOverlap: false,
                 label: {
                   show: true,
@@ -760,6 +822,7 @@ export default {
                   fontSize: 12,
                   formatter: '{b}{c}' + '次',
                   overflow: 'break',
+                  color: '#000',
                   width: 50
                 },
                 minAngle: 60,
@@ -767,9 +830,6 @@ export default {
                   label: {
                     show: true
                   }
-                },
-                labelLine: {
-                  show: false
                 },
                 data: pieData
               }
@@ -1075,7 +1135,9 @@ export default {
 .mt-10 {
   margin-top: 10px;
 }
-
+.mt-20 {
+  margin-top: 20px;
+}
 .mt-30 {
   margin-top: 30px;
 }
@@ -1088,10 +1150,15 @@ export default {
 .mb-10 {
   margin-bottom: 10px;
 }
+.mb-20 {
+  margin-bottom: 20px;
+}
 .lh-10 {
   line-height: 23px;
 }
-
+.fw-700 {
+  font-weight: 700;
+}
 // 设置content间距
 .space-between {
   margin: 10px 0 !important;
@@ -1128,11 +1195,12 @@ export default {
   display: flex;
   justify-content: center;
   .item {
-    width: 30%;
+    width: 50%;
     position: relative;
     .text {
       position: absolute;
-      bottom: 0px;
+      // top: 20px;
+      bottom: -10px;
       left: 50%;
       transform: translate(-50%, 0);
     }
@@ -1149,7 +1217,7 @@ export default {
 
 .list-title {
   margin: 15px 0;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .el-descriptions-item__cell {
