@@ -84,7 +84,7 @@
                                       <div v-if="item.field0019 != null">区领导：{{ item.field0019 }}</div>
                                     </div>
                                   </div>
-                                  <div style="width: 62%">接洽内容：{{ item.field0009 }}</div>
+                                  <div style="width: 62%" class="pl-10">接洽内容：{{ item.field0009 }}</div>
                                 </div>
                               </div>
                               <div style="text-align: right">
@@ -137,7 +137,7 @@
                                     <div>签约主体：{{ item.field0008 }}</div>
                                     <div>签约时间：{{ item.field0004 }}</div>
                                   </div>
-                                  <div class="contracted-content-text-right">签约内容：{{ item.field0011 }}</div>
+                                  <div class="contracted-content-text-right pl-10">签约内容：{{ item.field0011 }}</div>
                                 </div>
                               </div>
                             </div>
@@ -161,7 +161,7 @@
                                   <div>建设性质：{{ item.field0006 }}</div>
                                   <div>项目单位：{{ item.field0007 }}</div>
                                 </div>
-                                <div class="active-content-text-right">
+                                <div class="active-content-text-right pl-10">
                                   <div>新增项目用地：{{ item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                   <div>落地主体：{{ item.field0015 }}</div>
@@ -196,7 +196,7 @@
                                     <div>活动时间：{{ item.field0005 }}</div>
                                     <div>活动地点：{{ item.field0006 }}</div>
                                   </div>
-                                  <div class="active-content-text-right">
+                                  <div class="active-content-text-right pl-10">
                                     <div>邀请客商：{{ item.field0007 + '人' }}</div>
                                     <div>举办主体：{{ item.field0008 }}</div>
                                   </div>
@@ -228,7 +228,7 @@
                                     }}
                                   </div>
                                 </div>
-                                <div class="active-content-text-right">
+                                <div class="active-content-text-right pl-10">
                                   <div>项目概况：{{ item.field0014 }}</div>
                                 </div>
                               </div>
@@ -253,7 +253,7 @@
                                   <div>建设性质：{{ item.field0006 }}</div>
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
-                                <div class="active-content-text-right">
+                                <div class="active-content-text-right pl-10">
                                   <div>新增建设用地：{{ item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                 </div>
@@ -311,10 +311,10 @@
                     >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        各乡镇（平台）本周共接洽项目<span style="color: rgb(80, 178, 255)">{{
+                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{
                           contactTotalNumber
                         }}</span
-                        >个，接洽情况如下：
+                        >个：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
@@ -324,7 +324,7 @@
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
                       <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">
-                        本年累计接洽情况如下：
+                        本年各主体“一把手”累计接洽情况：
                       </div>
                       <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
 
@@ -1158,6 +1158,9 @@ export default {
 }
 .fw-700 {
   font-weight: 700;
+}
+.pl-10 {
+  padding-left: 10px;
 }
 // 设置content间距
 .space-between {
