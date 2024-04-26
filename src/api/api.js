@@ -1,13 +1,14 @@
 import axios from './axios'
 
 //各主体动态信息
-export const getReportList = (startTime, endTime) => {
+export const getReportList = (startTime, endTime, szbm) => {
   return axios.request({
     url: `/SearchReport`,
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
+      endTime: endTime,
+      szbm
     }
   })
 }

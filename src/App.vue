@@ -39,7 +39,7 @@
                   <div>
                     <div class="part" style="border-radius: 10px 10px 10px 10px">
                       <!-- 区主要领导招商动态 -->
-                      <div v-if="mainNewsList.length != 0">
+                      <!-- <div v-if="mainNewsList.length != 0">
                         <div v-for="(item, index) in mainNewsList" :key="index">
                           <div class="itemClass">
                             <div class="title" v-if="index === 0">
@@ -52,15 +52,45 @@
                           </div>
                           <el-divider v-if="index !== mainNewsList.length - 1"></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 各主体招商动态 -->
-                      <div v-if="Subject.length != 0">
-                        <div v-if="Subject.length != 0" class="xiuzhou">
-                          <div v-for="(item, index) in Subject" :key="index">
+                      <div class="xiuzhou">
+                        <div
+                          v-for="(list, index) in [
+                            xiuzhouList,
+                            jinkongList,
+                            beijingList,
+                            shanghaiList,
+                            shenzhenList,
+                            suzhouList
+                          ]"
+                          :key="index"
+                        >
+                          <div v-for="(item, inx) in list" :key="index">
                             <div class="itemClass">
-                              <div class="title mt-10" v-show="index === 0">
+                              <div class="title mt-10" v-show="index === 0 && inx == 0">
                                 <img src="@/assets/icon/小标题.png" class="title-img" />
-                                <div class="title-text">各主体“一把手”招商动态</div>
+                                <div class="title-text">秀洲本部</div>
+                              </div>
+                              <div class="title mt-10" v-show="index === 1 && inx == 0">
+                                <img src="@/assets/icon/小标题.png" class="title-img" />
+                                <div class="title-text">金控公司</div>
+                              </div>
+                              <div class="title mt-10" v-show="index === 2 && inx == 0">
+                                <img src="@/assets/icon/小标题.png" class="title-img" />
+                                <div class="title-text">驻北京工作部</div>
+                              </div>
+                              <div class="title mt-10" v-show="index === 3 && inx == 0">
+                                <img src="@/assets/icon/小标题.png" class="title-img" />
+                                <div class="title-text">驻上海工作部</div>
+                              </div>
+                              <div class="title mt-10" v-show="index === 4 && inx == 0">
+                                <img src="@/assets/icon/小标题.png" class="title-img" />
+                                <div class="title-text">驻深圳工作部</div>
+                              </div>
+                              <div class="title mt-10" v-show="index === 5 && inx == 0">
+                                <img src="@/assets/icon/小标题.png" class="title-img" />
+                                <div class="title-text">驻苏州工作部</div>
                               </div>
                               <div style="display: flex; margin-top: 10px">
                                 <el-image
@@ -109,7 +139,7 @@
                         </div>
                       </div>
                       <!-- 本周签约项目 -->
-                      <div v-if="ContractedProjectsList.length != 0">
+                      <!-- <div v-if="ContractedProjectsList.length != 0">
                         <div v-for="(item, index) in ContractedProjectsList" :key="index">
                           <div class="itemClass mb-10">
                             <div class="title mt-10" v-if="index === 0">
@@ -144,9 +174,9 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 亿元以上备案项目 -->
-                      <div v-if="FilingItemsList.length > 0">
+                      <!-- <div v-if="FilingItemsList.length > 0">
                         <div v-for="(item, index) in FilingItemsList" :key="index">
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
@@ -171,9 +201,9 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 举办招商活动 -->
-                      <div v-if="ActivityList.length != 0">
+                      <!-- <div v-if="ActivityList.length != 0">
                         <div v-for="(item, index) in ActivityList" :key="index">
                           <div class="itemClass mb-10">
                             <div class="title mt-10" v-if="index === 0">
@@ -206,9 +236,9 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 开工项目 -->
-                      <div v-if="startedProjectsList.length != 0">
+                      <!-- <div v-if="startedProjectsList.length != 0">
                         <div v-for="(item, index) in startedProjectsList" :key="index">
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
@@ -236,9 +266,9 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 十亿元以上备案项目 -->
-                      <div v-if="billionProjectsList.length != 0">
+                      <!-- <div v-if="billionProjectsList.length != 0">
                         <div v-for="(item, index) in billionProjectsList" :key="index">
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
@@ -262,9 +292,9 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 他山之石 -->
-                      <div v-if="OtherList.length != 0">
+                      <!-- <div v-if="OtherList.length != 0">
                         <div v-for="(item, index) in OtherList" :key="index" class="mt-10">
                           <div class="itemClass">
                             <div class="title" v-if="index === 0">
@@ -277,7 +307,7 @@
                           </div>
                           <el-divider v-if="index !== OtherList.length - 1"></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <!-- 本周小结 -->
@@ -310,7 +340,7 @@
                       "
                     >
                       <!-- 饼图 -->
-                      <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
+                      <!-- <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
                         本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{
                           contactTotalNumber
                         }}</span
@@ -321,7 +351,7 @@
                           <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
                           <div class="text fw-700">{{ item.field0007 }}</div>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 柱状图(本年累计接洽情况) -->
                       <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">
                         本年各主体“一把手”累计接洽情况：
@@ -329,20 +359,20 @@
                       <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(本年累计项目个数如下：) -->
-                      <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
+                      <!-- <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
                         本年累计在谈项目个数如下：
                       </div>
-                      <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div>
+                      <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div> -->
 
                       <!-- 柱状图(签约活动项目规模) -->
-                      <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
+                      <!-- <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
                         本年累计签约项目个数如下：
                       </div>
-                      <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div>
+                      <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div> -->
                     </div>
                   </div>
                   <!-- 表格 -->
-                  <div v-for="(item, index) in [SignedData, talkingData]" :key="index" v-if="item.length > 0">
+                  <!-- <div v-for="(item, index) in [SignedData, talkingData]" :key="index" v-if="item.length > 0">
                     <div v-if="loading" class="page-break"></div>
                     <div style="height: 10px"></div>
                     <div style="text-align: center" class="list-title">
@@ -383,7 +413,7 @@
                       <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right">
                       </el-table-column>
                     </el-table>
-                  </div>
+                  </div> -->
                   <div style="margin-bottom: 30px"></div>
                 </div>
               </div>
@@ -432,9 +462,10 @@ export default {
       Subject: [],
       xiuzhouList: [],
       jinkongList: [],
-      shenzhenList: [],
       beijingList: [],
       shanghaiList: [],
+
+      shenzhenList: [],
       suzhouList: [],
       // 签约项目
       ContractedProjectsList: [],
@@ -515,102 +546,116 @@ export default {
         this.suzhou = res.data.data[0].suzhou
       })
       // 本周小结柱状图
-      const { data: barDate } = await summarize2(this.startTime, this.endTime)
-      const xAxis = []
-      const yAxis = []
-      this.summaryBarData = barDate.data
-      barDate.data.forEach(item => {
-        xAxis.push(item.flag)
-        yAxis.push(item.num)
-      })
+      // const { data: barDate } = await summarize2(this.startTime, this.endTime)
+      // const xAxis = []
+      // const yAxis = []
+      // this.summaryBarData = barDate.data
+      // barDate.data.forEach(item => {
+      //   xAxis.push(item.flag)
+      //   yAxis.push(item.num)
+      // })
 
-      this.$nextTick(() => {
-        // this.initBar(this.$refs.Echarts, xAxis, yAxis)
-      })
+      // this.$nextTick(() => {
+      //   this.initBar(this.$refs.Echarts, xAxis, yAxis)
+      // })
       try {
         // 区主要领导招商动态库
-        const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
-        this.mainNewsList = mainNewsList.data
-
+        // const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
+        // this.mainNewsList = mainNewsList.data
         // 本周签约项目
-        const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
-        this.ContractedProjectsList = ContractedProjectsList.data
-
+        // const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
+        // this.ContractedProjectsList = ContractedProjectsList.data
         // 亿元以上备案项目
-        const { data: FilingItemsList } = await getFilingItems(this.startTime, this.endTime)
-        this.FilingItemsList = FilingItemsList.data
-
+        // const { data: FilingItemsList } = await getFilingItems(this.startTime, this.endTime)
+        // this.FilingItemsList = FilingItemsList.data
         // 活动
-        const { data: ActivityList } = await getActivity(this.startTime, this.endTime)
-        this.ActivityList = ActivityList.data
-
+        // const { data: ActivityList } = await getActivity(this.startTime, this.endTime)
+        // this.ActivityList = ActivityList.data
         // 开工项目
-        const { data: startedProjectsList } = await getStartedProjects(this.startTime, this.endTime)
-        this.startedProjectsList = startedProjectsList.data
-
+        // const { data: startedProjectsList } = await getStartedProjects(this.startTime, this.endTime)
+        // this.startedProjectsList = startedProjectsList.data
         // 十亿元以上备案项目
-        const { data: billionProjectsList } = await getBillionProjects(this.startTime, this.endTime)
-        this.billionProjectsList = billionProjectsList.data
-
+        // const { data: billionProjectsList } = await getBillionProjects(this.startTime, this.endTime)
+        // this.billionProjectsList = billionProjectsList.data
         // 他山之石
-        const { data: OtherList } = await getOther(this.startTime, this.endTime)
-        this.OtherList = OtherList.data
+        // const { data: OtherList } = await getOther(this.startTime, this.endTime)
+        // this.OtherList = OtherList.data
       } catch (error) {}
 
-      // 各主体信息
-      getReportList(this.startTime, this.endTime).then(res => {
-        const arr = res.data.data.filter(item => item.field0031 == '1')
-        const arr2 = res.data.data.filter(item => item.field0032 == '1')
-        const arr3 = res.data.data.filter(item => item.field0033 == '1')
-        const arr4 = res.data.data.filter(item => item.field0034 == '1')
-        const arr5 = res.data.data.filter(item => item.field0035 == '1')
-        const arr6 = res.data.data.filter(item => item.field0038 == '1')
-        const arr7 = res.data.data.filter(item => item.field0037 == '1')
-        const arr8 = res.data.data.filter(item => item.field0036 == '1')
-        this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
+      const list = ['benbu', 'jinkong', 'beijing', 'shanghai', 'shenzhen', 'suzhou']
+      list.forEach((item, index) => {
+        // 各主体信息
+        getReportList(this.startTime, this.endTime, item).then(({ data }) => {
+          if (index === 0) {
+            this.xiuzhouList = data.data
+          }
+          if (index === 1) {
+            this.jinkongList = data.data
+          }
+          if (index === 2) {
+            this.beijingList = data.data
+          }
+          if (index === 3) {
+            this.shanghaiList = data.data
+          }
+          if (index === 4) {
+            this.shenzhenList = data.data
+          }
+          if (index === 5) {
+            this.suzhouList = data.data
+          }
+          // const arr = res.data.data.filter(item => item.field0031 == '1')
+          // const arr2 = res.data.data.filter(item => item.field0032 == '1')
+          // const arr3 = res.data.data.filter(item => item.field0033 == '1')
+          // const arr4 = res.data.data.filter(item => item.field0034 == '1')
+          // const arr5 = res.data.data.filter(item => item.field0035 == '1')
+          // const arr6 = res.data.data.filter(item => item.field0038 == '1')
+          // const arr7 = res.data.data.filter(item => item.field0037 == '1')
+          // const arr8 = res.data.data.filter(item => item.field0036 == '1')
+          // this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
+        })
       })
-
       try {
         // 接洽饼图数据
-        const { data: pieShipContact } = await getTownshipContactPie(this.startTime, this.endTime)
-
-        if (pieShipContact.length > 0) {
-          this.pieList = pieShipContact
-          this.initPie(pieShipContact)
-          this.contactTotalNumber = 0
-          pieShipContact.forEach(item => {
-            item.data.forEach(innerItem => {
-              this.contactTotalNumber += parseInt(innerItem.amount)
-            })
-          })
-        }
+        // const { data: pieShipContact } = await getTownshipContactPie(this.startTime, this.endTime)
+        // if (pieShipContact.length > 0) {
+        //   this.pieList = pieShipContact
+        //   this.initPie(pieShipContact)
+        //   this.contactTotalNumber = 0
+        //   pieShipContact.forEach(item => {
+        //     item.data.forEach(innerItem => {
+        //       this.contactTotalNumber += parseInt(innerItem.amount)
+        //     })
+        //   })
+        // }
       } catch (error) {}
       // 接洽和累计项目个数柱状图数据
       try {
-        const { data: barShipContact } = await getTownshipContactBar(
-          dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
-        )
-        // const { data: totalProjectBar } = await getTotalProject(
+        // const { data: barShipContact } = await getTownshipContactBar(
         //   dayjs().format('YYYY') + '-01-01',
         //   dayjs().format('YYYY-MM-DD')
         // )
+        const { data: totalProjectBar } = await getTotalProject(
+          dayjs().format('YYYY') + '-01-01',
+          dayjs().format('YYYY-MM-DD')
+        )
         // const { data: activityBar } = await getActivityBar(
         //   dayjs().format('YYYY') + '-01-01',
         //   dayjs().format('YYYY-MM-DD')
         // )
-        this.ContactBarData = barShipContact.data
-        // this.totalProjectBar = totalProjectBar.data
+        // this.ContactBarData = barShipContact.data
+        this.totalProjectBar = totalProjectBar.data
+        console.log(this.totalProjectBar)
         // this.activityBar = activityBar.data
         const list = [
-          {
-            data: barShipContact,
-            name: 'yearTotal'
-          }
           // {
-          //   data: totalProjectBar,
-          //   name: 'totalProject'
-          // },
+          //   data: barShipContact,
+          //   name: 'yearTotal'
+          // }
+          {
+            data: totalProjectBar,
+            name: 'totalProject'
+          }
           // {
           //   data: activityBar,
           //   name: 'activityBar'
@@ -625,7 +670,7 @@ export default {
             item.data.data.forEach(item => {
               Object.keys(item).forEach(key => {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
-                  xAxis2.push(key === '高新区高照街道' ? '高新区(高照街道)' : key)
+                  xAxis2.push(key)
                   addedKeys.push(key)
                 }
               })
@@ -634,10 +679,9 @@ export default {
             item.data.data.forEach(item => {
               const seriesItem = {
                 name: '数量',
-                type: index === 1 ? 'line' : 'bar',
+                type: 'bar',
                 barWidth: '20px',
                 data: [],
-                stack: index === 0 ? '' : 'Ad',
                 label: {
                   show: true,
                   // formatter: index === 0 ? '{a}:{c}次' : '{c}次',
@@ -656,43 +700,6 @@ export default {
                   },
                   position: index === 2 ? '' : 'top'
                 }
-                // itemStyle: {
-                //   color: data => {
-                //     if (index === 0) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#3A91D9'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#00FF00'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#FFB90F'
-                //       }
-                //     }
-                //     if (index === 1) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#8A2BE2'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#FFAEB9'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#9B30FF'
-                //       }
-                //     }
-                //     if (index === 2) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#008B8B'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#CAE1FF'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#B3EE3A'
-                //       }
-                //     }
-                //   }
-                // }
               }
               for (const key in item) {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
@@ -714,10 +721,10 @@ export default {
 
       try {
         // 表格数据
-        const { data: SignedData } = await getSignedData(this.startTime, dayjs().format('YYYY-MM-DD'))
-        const { data: talkingData } = await getTalkingData(this.startTime, dayjs().format('YYYY-MM-DD'))
-        this.SignedData = SignedData.data
-        this.talkingData = talkingData.data
+        // const { data: SignedData } = await getSignedData(this.startTime, dayjs().format('YYYY-MM-DD'))
+        // const { data: talkingData } = await getTalkingData(this.startTime, dayjs().format('YYYY-MM-DD'))
+        // this.SignedData = SignedData.data
+        // this.talkingData = talkingData.data
       } catch (error) {}
     },
     // 柱状图
