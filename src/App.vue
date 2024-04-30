@@ -822,7 +822,7 @@ export default {
                   fontSize: 12,
                   formatter: '{b}{c}' + '次',
                   overflow: 'break',
-                  color: '#000',
+                  color: '#fff',
                   width: 50,
                 },
                 minAngle: 60,
@@ -1221,6 +1221,7 @@ export default {
 .list-title {
   margin: 15px 0;
   font-size: 30px;
+  color: #fff;
 }
 
 .el-descriptions-item__cell {
