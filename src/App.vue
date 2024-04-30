@@ -317,8 +317,8 @@
                         </div>
                       </div> -->
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">本年各主体“一把手”累计接洽情况：</div>
-                      <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
+                      <!-- <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">本年各主体“一把手”累计接洽情况：</div> -->
+                      <!-- <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div> -->
 
                       <!-- 柱状图(本年累计项目个数如下：) -->
                       <!-- <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">本年累计在谈项目个数如下：</div> -->
