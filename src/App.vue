@@ -125,15 +125,15 @@
                               >
                                 <div slot="error" class="image-slot">暂无图片</div>
                               </el-image>
-                              <div class="contracted-content">
+                              <div class="contracted-content" style="width: 100%">
                                 <div class="contracted-content-title">签约项目：{{ item.field0005 }}</div>
                                 <div class="contracted-content-text">
-                                  <div class="contracted-content-text-left">
+                                  <div class="contracted-content-text-left" style="width: 53%">
                                     <div style="display: flex">
                                       <div style="white-space: nowrap">投资主体：</div>
                                       <div>{{ item.field0007 }}</div>
                                     </div>
-                                    <div>签约金额：{{ item.field0009 + '万元' }}</div>
+                                    <div>签约金额：{{ item.field0009 === null ? '' : item.field0009 + '万元' }}</div>
                                     <div>签约主体：{{ item.field0008 }}</div>
                                     <div>签约时间：{{ item.field0004 }}</div>
                                   </div>
@@ -162,7 +162,7 @@
                                   <div>项目单位：{{ item.field0007 }}</div>
                                 </div>
                                 <div class="active-content-text-right pl-10">
-                                  <div>新增项目用地：{{ item.field0009 + '亩' }}</div>
+                                  <div>新增项目用地：{{ item.field0009 === null ? '' : item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
@@ -221,7 +221,7 @@
                                 <div class="active-content-text-left" style="width: 75%">
                                   <div>开工地点：{{ item.field0017 }}</div>
                                   <div>投资主体：{{ item.field0004 }}</div>
-                                  <div>土地面积：{{ item.field0013 + '亩' }}</div>
+                                  <div>土地面积：{{ item.field0013 === null ? '' : item.field0013 + '亩' }}</div>
                                   <div>
                                     总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
                                       item.field0008 + (item.field0018 ? item.field0018 : '万元')
@@ -254,7 +254,7 @@
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
                                 <div class="active-content-text-right pl-10">
-                                  <div>新增建设用地：{{ item.field0009 + '亩' }}</div>
+                                  <div>新增建设用地：{{ item.field0009 === null ? '' : item.field0013 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                 </div>
                               </div>
@@ -417,7 +417,7 @@ import {
   getTownshipContactPie,
   getTownshipContactBar,
   getTotalProject,
-  getActivityBar
+  getActivityBar,
 } from './api/api'
 import * as echarts from 'echarts'
 
@@ -480,7 +480,7 @@ export default {
       startTime: null,
       endTime: null,
       // 加载
-      loading: false
+      loading: false,
     }
   },
   created() {},
@@ -605,8 +605,8 @@ export default {
         const list = [
           {
             data: barShipContact,
-            name: 'yearTotal'
-          }
+            name: 'yearTotal',
+          },
           // {
           //   data: totalProjectBar,
           //   name: 'totalProject'
@@ -654,8 +654,8 @@ export default {
                       return ''
                     }
                   },
-                  position: index === 2 ? '' : 'top'
-                }
+                  position: index === 2 ? '' : 'top',
+                },
                 // itemStyle: {
                 //   color: data => {
                 //     if (index === 0) {
@@ -728,15 +728,15 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
-          }
+            type: 'shadow',
+          },
         },
         grid: {
           top: '10%',
           left: '3%',
           right: '4%',
           bottom: '3%',
-          containLabel: true
+          containLabel: true,
         },
         legend: {},
         xAxis: [
@@ -744,23 +744,23 @@ export default {
             type: isHorizontal ? 'value' : 'category',
             data: xAxis,
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLabel: {
               //x轴文字的配置
               show: true,
-              interval: 0 //使x轴文字显示全
+              interval: 0, //使x轴文字显示全
             },
-            show: isHorizontal ? false : true
-          }
+            show: isHorizontal ? false : true,
+          },
         ],
         yAxis: [
           {
             type: isHorizontal ? 'category' : 'value',
             data: isHorizontal ? xAxis : '',
             show: isHorizontal ? true : false, // 不显示 y 轴
-            inverse: isHorizontal ? true : false
-          }
+            inverse: isHorizontal ? true : false,
+          },
         ],
         series: series || [
           {
@@ -772,11 +772,11 @@ export default {
               show: true,
               position: 'top', // 在柱子顶部显示数据
               textStyle: {
-                color: '#afafaf' // 设置文字颜色为黑色
-              }
-            }
-          }
-        ]
+                color: '#afafaf', // 设置文字颜色为黑色
+              },
+            },
+          },
+        ],
       }
       option && myChart.setOption(option)
     },
@@ -788,20 +788,20 @@ export default {
           item.data.forEach(i => {
             pieData.push({
               name: i.field0020,
-              value: i.amount
+              value: i.amount,
             })
           })
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
           const option = {
             tooltip: {
-              trigger: 'item'
+              trigger: 'item',
             },
             title: {
               text: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               textStyle: {
                 fontSize: 20,
-                color: '#f68c3c'
+                color: '#f68c3c',
               },
               // subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               // subtextStyle: {
@@ -809,7 +809,7 @@ export default {
               //   color: '#f68c3c'
               // },
               x: 'center',
-              y: 'center'
+              y: 'center',
             },
             series: [
               {
@@ -823,17 +823,17 @@ export default {
                   formatter: '{b}{c}' + '次',
                   overflow: 'break',
                   color: '#000',
-                  width: 50
+                  width: 50,
                 },
                 minAngle: 60,
                 emphasis: {
                   label: {
-                    show: true
-                  }
+                    show: true,
+                  },
                 },
-                data: pieData
-              }
-            ]
+                data: pieData,
+              },
+            ],
           }
           myChart.setOption(option)
           pieData = []
@@ -928,22 +928,22 @@ export default {
         if (rowIndex === 0) {
           return {
             rowspan: rowspanIndex + 1,
-            colspan: 1
+            colspan: 1,
           }
         } else if (rowIndex === rowspanIndex + 1) {
           return {
             rowspan: rowspanIndex2 - rowspanIndex,
-            colspan: 1
+            colspan: 1,
           }
         } else if (rowIndex === rowspanIndex2 + 1) {
           return {
             rowspan: rowspanIndex3 - rowspanIndex2,
-            colspan: 1
+            colspan: 1,
           }
         } else {
           return {
             rowspan: 0,
-            colspan: 0
+            colspan: 0,
           }
         }
       }
@@ -953,8 +953,8 @@ export default {
       if (row.field0005 === '合计') {
         return 'table-cell-bgc'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -1253,7 +1253,6 @@ export default {
   .img {
     min-width: 150px;
     height: 100px;
-    margin: 0 auto;
     object-fit: cover;
   }
   &-content {
