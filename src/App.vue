@@ -4,17 +4,7 @@
       <el-container>
         <el-container>
           <el-header>
-            <el-date-picker
-              v-model="chooseTime"
-              type="daterange"
-              align="right"
-              value-format="yyyy-MM-dd"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            >
-            </el-date-picker>
+            <el-date-picker v-model="chooseTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -28,9 +18,7 @@
                   <img class="header-back" src="./assets/icon/header.png" />
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
-                    <div class="time-text">
-                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
-                    </div>
+                    <div class="time-text">{{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）</div>
                   </div>
                 </div>
                 <!-- 内容 -->
@@ -55,18 +43,8 @@
                       </div> -->
                       <!-- 各主体招商动态 -->
                       <div class="xiuzhou">
-                        <div
-                          v-for="(list, index) in [
-                            xiuzhouList,
-                            jinkongList,
-                            beijingList,
-                            shanghaiList,
-                            shenzhenList,
-                            suzhouList
-                          ]"
-                          :key="index"
-                        >
-                          <div v-for="(item, inx) in list" :key="index">
+                        <div v-for="(list, index) in [xiuzhouList, jinkongList, beijingList, shanghaiList, shenzhenList, suzhouList]" :key="index">
+                          <div v-for="(item, inx) in list" :key="inx">
                             <div class="itemClass">
                               <div class="title mt-10" v-show="index === 0 && inx == 0">
                                 <img src="@/assets/icon/小标题.png" class="title-img" />
@@ -93,12 +71,7 @@
                                 <div class="title-text">驻苏州工作部</div>
                               </div>
                               <div style="display: flex; margin-top: 10px">
-                                <el-image
-                                  :src="item.uurl"
-                                  ref="cardImage"
-                                  style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
-                                  :preview-src-list="[item.uurl]"
-                                >
+                                <el-image :src="item.uurl" ref="cardImage" style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.uurl]">
                                   <div slot="error" class="image-slot">暂无图片</div>
                                 </el-image>
                                 <div style="display: flex; text-align: left; margin-left: 10px">
@@ -329,16 +302,7 @@
                   <div class="break_page"></div>
                   <div class="itemClass">
                     <div style="height: 10px"></div>
-                    <div
-                      class="part"
-                      style="border-radius: 10px"
-                      v-if="
-                        pieList.length > 0 ||
-                        ContactBarData.length > 0 ||
-                        totalProjectBar.length > 0 ||
-                        activityBar.length > 0
-                      "
-                    >
+                    <div class="part" style="border-radius: 10px" v-if="pieList.length > 0 || ContactBarData.length > 0 || totalProjectBar.length > 0 || activityBar.length > 0 || reportListLine.length > 0">
                       <!-- 饼图 -->
                       <!-- <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
                         本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{
@@ -353,22 +317,22 @@
                         </div>
                       </div> -->
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">
-                        本年各主体“一把手”累计接洽情况：
-                      </div>
+                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">本年各主体“一把手”累计接洽情况：</div>
                       <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(本年累计项目个数如下：) -->
-                      <!-- <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
-                        本年累计在谈项目个数如下：
-                      </div>
-                      <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div> -->
+                      <!-- <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">本年累计在谈项目个数如下：</div> -->
+                      <!-- <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div> -->
 
                       <!-- 柱状图(签约活动项目规模) -->
                       <!-- <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
                         本年累计签约项目个数如下：
                       </div>
                       <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div> -->
+
+                      <!-- 柱状图(本周洽谈项目情况如下：) -->
+                      <div class="mt-10 mb-10" style="text-align: left">本周洽谈项目情况如下：</div>
+                      <div id="reportListLine" style="width: 100%"></div>
                     </div>
                   </div>
                   <!-- 表格 -->
@@ -430,25 +394,7 @@ import PdfLoader from './utils/exprotPDF'
 import 'print-js/dist/print.css'
 import { numberConvertToUppercase } from '@/utils/methods'
 // 图片压缩
-import {
-  getReportList,
-  summarize,
-  summarize2,
-  getTime,
-  getMainNews,
-  getContractedProjects,
-  getFilingItems,
-  getActivity,
-  getStartedProjects,
-  getBillionProjects,
-  getOther,
-  getSignedData,
-  getTalkingData,
-  getTownshipContactPie,
-  getTownshipContactBar,
-  getTotalProject,
-  getActivityBar
-} from './api/api'
+import { getReportList, summarize, summarize2, getTime, getMainNews, getContractedProjects, getFilingItems, getActivity, getStartedProjects, getBillionProjects, getOther, getSignedData, getTalkingData, getTownshipContactPie, getTownshipContactBar, getTotalProject, getActivityBar, getReportListLine } from './api/api'
 import * as echarts from 'echarts'
 
 export default {
@@ -495,6 +441,8 @@ export default {
       totalProjectBar: [],
       // 签约活动柱状图
       activityBar: [],
+      // 各主体折线图
+      reportListLine: [],
       //本周小结
       year: 0,
       week: 0,
@@ -535,7 +483,7 @@ export default {
         this.endTime = time.data[0].endTime
       }
       // 周数
-      summarize(this.startTime, this.endTime).then(res => {
+      summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
         this.xiuzhou = res.data.data[0].xiuzhou
@@ -558,29 +506,27 @@ export default {
       // this.$nextTick(() => {
       //   this.initBar(this.$refs.Echarts, xAxis, yAxis)
       // })
-      try {
-        // 区主要领导招商动态库
-        // const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
-        // this.mainNewsList = mainNewsList.data
-        // 本周签约项目
-        // const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
-        // this.ContractedProjectsList = ContractedProjectsList.data
-        // 亿元以上备案项目
-        // const { data: FilingItemsList } = await getFilingItems(this.startTime, this.endTime)
-        // this.FilingItemsList = FilingItemsList.data
-        // 活动
-        // const { data: ActivityList } = await getActivity(this.startTime, this.endTime)
-        // this.ActivityList = ActivityList.data
-        // 开工项目
-        // const { data: startedProjectsList } = await getStartedProjects(this.startTime, this.endTime)
-        // this.startedProjectsList = startedProjectsList.data
-        // 十亿元以上备案项目
-        // const { data: billionProjectsList } = await getBillionProjects(this.startTime, this.endTime)
-        // this.billionProjectsList = billionProjectsList.data
-        // 他山之石
-        // const { data: OtherList } = await getOther(this.startTime, this.endTime)
-        // this.OtherList = OtherList.data
-      } catch (error) {}
+      // 区主要领导招商动态库
+      // const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
+      // this.mainNewsList = mainNewsList.data
+      // 本周签约项目
+      // const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
+      // this.ContractedProjectsList = ContractedProjectsList.data
+      // 亿元以上备案项目
+      // const { data: FilingItemsList } = await getFilingItems(this.startTime, this.endTime)
+      // this.FilingItemsList = FilingItemsList.data
+      // 活动
+      // const { data: ActivityList } = await getActivity(this.startTime, this.endTime)
+      // this.ActivityList = ActivityList.data
+      // 开工项目
+      // const { data: startedProjectsList } = await getStartedProjects(this.startTime, this.endTime)
+      // this.startedProjectsList = startedProjectsList.data
+      // 十亿元以上备案项目
+      // const { data: billionProjectsList } = await getBillionProjects(this.startTime, this.endTime)
+      // this.billionProjectsList = billionProjectsList.data
+      // 他山之石
+      // const { data: OtherList } = await getOther(this.startTime, this.endTime)
+      // this.OtherList = OtherList.data
 
       const list = ['benbu', 'jinkong', 'beijing', 'shanghai', 'shenzhen', 'suzhou']
       list.forEach((item, index) => {
@@ -615,117 +561,167 @@ export default {
           // this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
         })
       })
-      try {
-        // 接洽饼图数据
-        // const { data: pieShipContact } = await getTownshipContactPie(this.startTime, this.endTime)
-        // if (pieShipContact.length > 0) {
-        //   this.pieList = pieShipContact
-        //   this.initPie(pieShipContact)
-        //   this.contactTotalNumber = 0
-        //   pieShipContact.forEach(item => {
-        //     item.data.forEach(innerItem => {
-        //       this.contactTotalNumber += parseInt(innerItem.amount)
-        //     })
-        //   })
-        // }
-      } catch (error) {}
+      // 接洽饼图数据
+      // const { data: pieShipContact } = await getTownshipContactPie(this.startTime, this.endTime)
+      // if (pieShipContact.length > 0) {
+      //   this.pieList = pieShipContact
+      //   this.initPie(pieShipContact)
+      //   this.contactTotalNumber = 0
+      //   pieShipContact.forEach(item => {
+      //     item.data.forEach(innerItem => {
+      //       this.contactTotalNumber += parseInt(innerItem.amount)
+      //     })
+      //   })
+      // }
       // 接洽和累计项目个数柱状图数据
-      try {
-        // const { data: barShipContact } = await getTownshipContactBar(
-        //   dayjs().format('YYYY') + '-01-01',
-        //   dayjs().format('YYYY-MM-DD')
-        // )
-        const { data: totalProjectBar } = await getTotalProject(
-          dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
-        )
-        // const { data: activityBar } = await getActivityBar(
-        //   dayjs().format('YYYY') + '-01-01',
-        //   dayjs().format('YYYY-MM-DD')
-        // )
-        // this.ContactBarData = barShipContact.data
-        this.totalProjectBar = totalProjectBar.data
-        console.log(this.totalProjectBar)
-        // this.activityBar = activityBar.data
-        const list = [
-          // {
-          //   data: barShipContact,
-          //   name: 'yearTotal'
-          // }
-          {
-            data: totalProjectBar,
-            name: 'totalProject'
-          }
-          // {
-          //   data: activityBar,
-          //   name: 'activityBar'
-          // }
-        ]
-        list.forEach((item, index) => {
-          if (item.data.data.length > 0) {
-            const series = []
-            const xAxis2 = []
-            const addedKeys = []
-            // 创建镇的数组
-            item.data.data.forEach(item => {
-              Object.keys(item).forEach(key => {
-                if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
-                  xAxis2.push(key)
-                  addedKeys.push(key)
-                }
-              })
-            })
-            // 创建每个镇所对应接恰形式的值的数组
-            item.data.data.forEach(item => {
-              const seriesItem = {
-                name: '数量',
-                type: 'bar',
-                barWidth: '20px',
-                data: [],
-                label: {
-                  show: true,
-                  // formatter: index === 0 ? '{a}:{c}次' : '{c}次',
-                  offset: index === 0 ? [0, 0] : [30, 0],
-                  color: '#000',
-                  formatter: data => {
-                    let text = '次'
-                    if (index !== 0) {
-                      text = '个'
-                    }
-                    if (data.data !== 0) {
-                      return data.data + text
-                    } else {
-                      return ''
-                    }
-                  },
-                  position: index === 2 ? '' : 'top'
-                }
-              }
-              for (const key in item) {
-                if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
-                  if (item[key] == null) {
-                    item[key] = 0
-                  }
-                  seriesItem.data.push(item[key])
-                }
-              }
-              seriesItem.name = item[index === 0 ? '接洽形式' : '项目规模']
-              series.push(seriesItem)
-            })
-            this.$nextTick(() => {
-              this.initBar(document.getElementById(item.name), xAxis2, [], series, index === 2 ? true : false)
-            })
-          }
-        })
-      } catch (error) {}
 
-      try {
-        // 表格数据
-        // const { data: SignedData } = await getSignedData(this.startTime, dayjs().format('YYYY-MM-DD'))
-        // const { data: talkingData } = await getTalkingData(this.startTime, dayjs().format('YYYY-MM-DD'))
-        // this.SignedData = SignedData.data
-        // this.talkingData = talkingData.data
-      } catch (error) {}
+      // const { data: barShipContact } = await getTownshipContactBar(
+      //   dayjs().format('YYYY') + '-01-01',
+      //   dayjs().format('YYYY-MM-DD')
+      // )
+      // const { data: totalProjectBar } = await getTotalProject(dayjs().format('YYYY') + '-01-01', dayjs().format('YYYY-MM-DD'))
+      // const { data: activityBar } = await getActivityBar(
+      //   dayjs().format('YYYY') + '-01-01',
+      //   dayjs().format('YYYY-MM-DD')
+      // )
+      // this.ContactBarData = barShipContact.data
+      // this.totalProjectBar = totalProjectBar.data
+
+      // this.activityBar = activityBar.data
+      // const chartsList = [
+      //   // {
+      //   //   data: barShipContact,
+      //   //   name: 'yearTotal'
+      //   // }
+      //   {
+      //     data: reportListLine,
+      //     name: 'reportListLine'
+      //   }
+      //   // {
+      //   //   data: activityBar,
+      //   //   name: 'activityBar'
+      //   // }
+      // ]
+      // chartsList.forEach((item, index) => {
+      //   if (item.data.data.length > 0) {
+      //     const series = []
+      //     const xAxis2 = []
+      //     const addedKeys = []
+      //     // 创建镇的数组
+      //     item.data.data.forEach((item) => {
+      //       Object.keys(item).forEach((key) => {
+      //         if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
+      //           xAxis2.push(key)
+      //           addedKeys.push(key)
+      //         }
+      //       })
+      //     })
+      //     // 创建每个镇所对应接恰形式的值的数组
+      //     item.data.data.forEach((item) => {
+      //       const seriesItem = {
+      //         name: '数量',
+      //         type: 'bar',
+      //         barWidth: '20px',
+      //         data: [],
+      //         label: {
+      //           show: true,
+      //           // formatter: index === 0 ? '{a}:{c}次' : '{c}次',
+      //           offset: index === 0 ? [0, 0] : [30, 0],
+      //           color: '#000',
+      //           formatter: (data) => {
+      //             let text = '次'
+      //             if (index !== 0) {
+      //               text = '个'
+      //             }
+      //             if (data.data !== 0) {
+      //               return data.data + text
+      //             } else {
+      //               return ''
+      //             }
+      //           },
+      //           position: index === 2 ? '' : 'top'
+      //         }
+      //       }
+      //       for (const key in item) {
+      //         if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
+      //           if (item[key] == null) {
+      //             item[key] = 0
+      //           }
+      //           seriesItem.data.push(item[key])
+      //         }
+      //       }
+      //       seriesItem.name = item[index === 0 ? '接洽形式' : '项目规模']
+      //       series.push(seriesItem)
+      //     })
+      //     this.$nextTick(() => {
+      //       this.initBar(document.getElementById(item.name), xAxis2, [], series, index === 2 ? true : false)
+      //     })
+      //   }
+      // })
+
+      // 表格数据
+      // const { data: SignedData } = await getSignedData(this.startTime, dayjs().format('YYYY-MM-DD'))
+      // const { data: talkingData } = await getTalkingData(this.startTime, dayjs().format('YYYY-MM-DD'))
+      // this.SignedData = SignedData.data
+      // this.talkingData = talkingData.data
+
+      const { data: reportListLine } = await getReportListLine(this.startTime, this.endTime)
+      this.reportListLine = reportListLine.data
+      const allReportListLine = [
+        {
+          name: '秀洲本部',
+          data: 0
+        },
+        {
+          name: '金控公司',
+          data: 0
+        },
+        {
+          name: '驻北京工作部',
+          data: 0
+        },
+        {
+          name: '驻上海工作部',
+          data: 0
+        },
+        {
+          name: '驻深圳工作部',
+          data: 0
+        },
+        {
+          name: '驻苏州工作部',
+          data: 0
+        }
+      ]
+      const xAxisData = []
+      const series = {
+        type: 'bar',
+        barWidth: '20px',
+        data: [],
+        label: {
+          show: true,
+          color: '#000',
+          formatter: (data) => {
+            let text = '个'
+            return data.data + text
+          },
+          position: 'top'
+        }
+      }
+      allReportListLine.forEach((item) => {
+        for (const key in this.reportListLine[0]) {
+          if (item.name === key) {
+            item.data = this.reportListLine[0][key]
+          }
+        }
+      })
+      allReportListLine.forEach((item) => {
+        xAxisData.push(item.name)
+        series.data.push(item.data)
+      })
+      this.$nextTick(() => {
+        this.initBar(document.getElementById('reportListLine'), xAxisData, [], series)
+      })
     },
     // 柱状图
     initBar(document, xAxis, yAxis, series, isHorizontal = false) {
@@ -765,7 +761,7 @@ export default {
           {
             type: isHorizontal ? 'category' : 'value',
             data: isHorizontal ? xAxis : '',
-            show: isHorizontal ? true : false, // 不显示 y 轴
+            // show: isHorizontal ? true : false, // 不显示 y 轴
             inverse: isHorizontal ? true : false
           }
         ],
@@ -792,7 +788,7 @@ export default {
       let pieData = []
       this.$nextTick(() => {
         data.forEach((item, index) => {
-          item.data.forEach(i => {
+          item.data.forEach((i) => {
             pieData.push({
               name: i.field0020,
               value: i.amount
@@ -915,7 +911,7 @@ export default {
       this.year = date.getFullYear()
     },
     // 合并表格
-    objectSpanMethod({ row, column, rowIndex, columnIndex }, list) {
+    objectSpanMethod({ rowIndex, columnIndex }, list) {
       let rowspanIndex = 0
       let rowspanIndex2 = 0
       let rowspanIndex3 = 0
@@ -1112,7 +1108,8 @@ export default {
 .Bar,
 #yearTotal,
 #totalProject,
-#activityBar {
+#activityBar,
+#reportListLine {
   width: 600px;
   height: 200px;
 }

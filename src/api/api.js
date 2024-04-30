@@ -195,3 +195,14 @@ export const getActivityBar = (startTime, endTime) => {
     }
   })
 }
+//各主体动态信息图表
+export const getReportListLine = (startTime, endTime) => {
+  return axios.request({
+    url: `/Engage5`,
+    method: 'get',
+    params: {
+      startTime: startTime,
+      endTime: endTime,
+    }
+  })
+}
