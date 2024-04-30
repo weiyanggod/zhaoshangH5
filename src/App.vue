@@ -331,7 +331,11 @@
                       <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div> -->
 
                       <!-- 柱状图(本周洽谈项目情况如下：) -->
-                      <div class="mt-10 mb-10" style="text-align: left">本周洽谈项目情况如下：</div>
+                      <div class="mt-10 mb-10" style="text-align: left; display: flex">
+                        <div>本周招商中心共洽谈项目</div>
+                        <div style="font-size: 20px; color: red">{{ number }}</div>
+                        <div>个：</div>
+                      </div>
                       <div id="reportListLine" style="width: 100%"></div>
                     </div>
                   </div>
@@ -459,7 +463,9 @@ export default {
       startTime: null,
       endTime: null,
       // 加载
-      loading: false
+      loading: false,
+      // 接恰数量
+      number: 0
     }
   },
   created() {},
@@ -667,6 +673,9 @@ export default {
 
       const { data: reportListLine } = await getReportListLine(this.startTime, this.endTime)
       this.reportListLine = reportListLine.data
+      for (const key in this.reportListLine[0]) {
+        this.number += this.reportListLine[0][key] * 1
+      }
       const allReportListLine = [
         {
           name: '秀洲本部',
