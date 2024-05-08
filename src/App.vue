@@ -4,7 +4,17 @@
       <el-container>
         <el-container>
           <el-header>
-            <el-date-picker v-model="chooseTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
+            <el-date-picker
+              v-model="chooseTime"
+              type="daterange"
+              align="right"
+              value-format="yyyy-MM-dd"
+              unlink-panels
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -18,7 +28,9 @@
                   <img class="header-back" src="./assets/icon/header.png" />
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
-                    <div class="time-text">{{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）</div>
+                    <div class="time-text">
+                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
+                    </div>
                   </div>
                 </div>
                 <!-- 内容 -->
@@ -43,7 +55,17 @@
                       </div> -->
                       <!-- 各主体招商动态 -->
                       <div class="xiuzhou">
-                        <div v-for="(list, index) in [xiuzhouList, jinkongList, beijingList, shanghaiList, shenzhenList, suzhouList]" :key="index">
+                        <div
+                          v-for="(list, index) in [
+                            xiuzhouList,
+                            jinkongList,
+                            beijingList,
+                            shanghaiList,
+                            shenzhenList,
+                            suzhouList
+                          ]"
+                          :key="index"
+                        >
                           <div v-for="(item, inx) in list" :key="inx">
                             <div class="itemClass">
                               <div class="title mt-10" v-show="index === 0 && inx == 0">
@@ -71,7 +93,12 @@
                                 <div class="title-text">驻苏州工作部</div>
                               </div>
                               <div style="display: flex; margin-top: 10px">
-                                <el-image :src="item.uurl" ref="cardImage" style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.uurl]">
+                                <el-image
+                                  :src="item.uurl"
+                                  ref="cardImage"
+                                  style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
+                                  :preview-src-list="[item.uurl]"
+                                >
                                   <div slot="error" class="image-slot">暂无图片</div>
                                 </el-image>
                                 <div style="display: flex; text-align: left; margin-left: 10px">
@@ -302,7 +329,17 @@
                   <div class="break_page"></div>
                   <div class="itemClass">
                     <div style="height: 10px"></div>
-                    <div class="part" style="border-radius: 10px" v-if="pieList.length > 0 || ContactBarData.length > 0 || totalProjectBar.length > 0 || activityBar.length > 0 || reportListLine.length > 0">
+                    <div
+                      class="part"
+                      style="border-radius: 10px"
+                      v-if="
+                        pieList.length > 0 ||
+                        ContactBarData.length > 0 ||
+                        totalProjectBar.length > 0 ||
+                        activityBar.length > 0 ||
+                        reportListLine.length > 0
+                      "
+                    >
                       <!-- 饼图 -->
                       <!-- <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
                         本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{
@@ -398,7 +435,26 @@ import PdfLoader from './utils/exprotPDF'
 import 'print-js/dist/print.css'
 import { numberConvertToUppercase } from '@/utils/methods'
 // 图片压缩
-import { getReportList, summarize, summarize2, getTime, getMainNews, getContractedProjects, getFilingItems, getActivity, getStartedProjects, getBillionProjects, getOther, getSignedData, getTalkingData, getTownshipContactPie, getTownshipContactBar, getTotalProject, getActivityBar, getReportListLine } from './api/api'
+import {
+  getReportList,
+  summarize,
+  summarize2,
+  getTime,
+  getMainNews,
+  getContractedProjects,
+  getFilingItems,
+  getActivity,
+  getStartedProjects,
+  getBillionProjects,
+  getOther,
+  getSignedData,
+  getTalkingData,
+  getTownshipContactPie,
+  getTownshipContactBar,
+  getTotalProject,
+  getActivityBar,
+  getReportListLine
+} from './api/api'
 import * as echarts from 'echarts'
 
 export default {
@@ -489,7 +545,7 @@ export default {
         this.endTime = time.data[0].endTime
       }
       // 周数
-      summarize(this.startTime, this.endTime).then((res) => {
+      summarize(this.startTime, this.endTime).then(res => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
         this.xiuzhou = res.data.data[0].xiuzhou
@@ -535,9 +591,13 @@ export default {
       // this.OtherList = OtherList.data
 
       const list = ['benbu', 'jinkong', 'beijing', 'shanghai', 'shenzhen', 'suzhou']
+      this.number = 0
+
       list.forEach((item, index) => {
         // 各主体信息
         getReportList(this.startTime, this.endTime, item).then(({ data }) => {
+          this.number += data.data.length
+
           if (index === 0) {
             this.xiuzhouList = data.data
           }
@@ -673,9 +733,7 @@ export default {
 
       const { data: reportListLine } = await getReportListLine(this.startTime, this.endTime)
       this.reportListLine = reportListLine.data
-      for (const key in this.reportListLine[0]) {
-        this.number += this.reportListLine[0][key] * 1
-      }
+
       const allReportListLine = [
         {
           name: '秀洲本部',
@@ -710,21 +768,21 @@ export default {
         label: {
           show: true,
           color: '#000',
-          formatter: (data) => {
+          formatter: data => {
             let text = '个'
             return data.data + text
           },
           position: 'top'
         }
       }
-      allReportListLine.forEach((item) => {
+      allReportListLine.forEach(item => {
         for (const key in this.reportListLine[0]) {
           if (item.name === key) {
             item.data = this.reportListLine[0][key]
           }
         }
       })
-      allReportListLine.forEach((item) => {
+      allReportListLine.forEach(item => {
         xAxisData.push(item.name)
         series.data.push(item.data)
       })
@@ -797,7 +855,7 @@ export default {
       let pieData = []
       this.$nextTick(() => {
         data.forEach((item, index) => {
-          item.data.forEach((i) => {
+          item.data.forEach(i => {
             pieData.push({
               name: i.field0020,
               value: i.amount
@@ -855,15 +913,15 @@ export default {
     // 导出pdf
     handleExport(isPrint = false) {
       this.loading = true
-      setTimeout(() => {
-        this.$nextTick(() => {
-          const content = this.$refs.exportContent.$el
-          let pdf = new PdfLoader(content, '招商动态简报', 'itemClass', 'page-break', isPrint)
-          pdf.outPutPdfFn().then(() => {
-            this.loading = false
-          })
+      // setTimeout(() => {
+      this.$nextTick(() => {
+        const content = this.$refs.exportContent.$el
+        let pdf = new PdfLoader(content, '招商动态简报', 'itemClass', 'page-break', isPrint)
+        pdf.outPutPdfFn().then(() => {
+          this.loading = false
         })
-      }, 5000)
+      })
+      // }, 2000)
     },
     printPDF() {
       this.handleExport(true)
@@ -871,7 +929,7 @@ export default {
     // 搜索
     handleSearch() {
       //搜索按钮
-      if (this.chooseTime.length == 0) {
+      if (this.chooseTime == null || this.chooseTime.length == 0) {
         this.$message.info({ message: '请选择时间范围', duration: 1000 })
         return
       }
