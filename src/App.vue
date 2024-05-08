@@ -311,9 +311,7 @@
                     >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{
-                          contactTotalNumber
-                        }}</span
+                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{ Subject.length }}</span
                         >个：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
@@ -417,7 +415,7 @@ import {
   getTownshipContactPie,
   getTownshipContactBar,
   getTotalProject,
-  getActivityBar,
+  getActivityBar
 } from './api/api'
 import * as echarts from 'echarts'
 
@@ -480,7 +478,7 @@ export default {
       startTime: null,
       endTime: null,
       // 加载
-      loading: false,
+      loading: false
     }
   },
   created() {},
@@ -577,12 +575,12 @@ export default {
         if (pieShipContact.length > 0) {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
-          this.contactTotalNumber = 0
-          pieShipContact.forEach(item => {
-            item.data.forEach(innerItem => {
-              this.contactTotalNumber += parseInt(innerItem.amount)
-            })
-          })
+          // this.contactTotalNumber = 0
+          // pieShipContact.forEach(item => {
+          //   item.data.forEach(innerItem => {
+          //     this.contactTotalNumber += parseInt(innerItem.amount)
+          //   })
+          // })
         }
       } catch (error) {}
       // 接洽和累计项目个数柱状图数据
@@ -605,8 +603,8 @@ export default {
         const list = [
           {
             data: barShipContact,
-            name: 'yearTotal',
-          },
+            name: 'yearTotal'
+          }
           // {
           //   data: totalProjectBar,
           //   name: 'totalProject'
@@ -654,8 +652,8 @@ export default {
                       return ''
                     }
                   },
-                  position: index === 2 ? '' : 'top',
-                },
+                  position: index === 2 ? '' : 'top'
+                }
                 // itemStyle: {
                 //   color: data => {
                 //     if (index === 0) {
@@ -728,15 +726,15 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow',
-          },
+            type: 'shadow'
+          }
         },
         grid: {
           top: '10%',
           left: '3%',
           right: '4%',
           bottom: '3%',
-          containLabel: true,
+          containLabel: true
         },
         legend: {},
         xAxis: [
@@ -744,23 +742,23 @@ export default {
             type: isHorizontal ? 'value' : 'category',
             data: xAxis,
             axisTick: {
-              alignWithLabel: true,
+              alignWithLabel: true
             },
             axisLabel: {
               //x轴文字的配置
               show: true,
-              interval: 0, //使x轴文字显示全
+              interval: 0 //使x轴文字显示全
             },
-            show: isHorizontal ? false : true,
-          },
+            show: isHorizontal ? false : true
+          }
         ],
         yAxis: [
           {
             type: isHorizontal ? 'category' : 'value',
             data: isHorizontal ? xAxis : '',
             show: isHorizontal ? true : false, // 不显示 y 轴
-            inverse: isHorizontal ? true : false,
-          },
+            inverse: isHorizontal ? true : false
+          }
         ],
         series: series || [
           {
@@ -772,11 +770,11 @@ export default {
               show: true,
               position: 'top', // 在柱子顶部显示数据
               textStyle: {
-                color: '#afafaf', // 设置文字颜色为黑色
-              },
-            },
-          },
-        ],
+                color: '#afafaf' // 设置文字颜色为黑色
+              }
+            }
+          }
+        ]
       }
       option && myChart.setOption(option)
     },
@@ -788,20 +786,20 @@ export default {
           item.data.forEach(i => {
             pieData.push({
               name: i.field0020,
-              value: i.amount,
+              value: i.amount
             })
           })
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
           const option = {
             tooltip: {
-              trigger: 'item',
+              trigger: 'item'
             },
             title: {
               text: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               textStyle: {
                 fontSize: 20,
-                color: '#f68c3c',
+                color: '#f68c3c'
               },
               // subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
               // subtextStyle: {
@@ -809,7 +807,7 @@ export default {
               //   color: '#f68c3c'
               // },
               x: 'center',
-              y: 'center',
+              y: 'center'
             },
             series: [
               {
@@ -823,17 +821,17 @@ export default {
                   formatter: '{b}{c}' + '次',
                   overflow: 'break',
                   color: '#fff',
-                  width: 50,
+                  width: 50
                 },
                 minAngle: 60,
                 emphasis: {
                   label: {
-                    show: true,
-                  },
+                    show: true
+                  }
                 },
-                data: pieData,
-              },
-            ],
+                data: pieData
+              }
+            ]
           }
           myChart.setOption(option)
           pieData = []
@@ -928,22 +926,22 @@ export default {
         if (rowIndex === 0) {
           return {
             rowspan: rowspanIndex + 1,
-            colspan: 1,
+            colspan: 1
           }
         } else if (rowIndex === rowspanIndex + 1) {
           return {
             rowspan: rowspanIndex2 - rowspanIndex,
-            colspan: 1,
+            colspan: 1
           }
         } else if (rowIndex === rowspanIndex2 + 1) {
           return {
             rowspan: rowspanIndex3 - rowspanIndex2,
-            colspan: 1,
+            colspan: 1
           }
         } else {
           return {
             rowspan: 0,
-            colspan: 0,
+            colspan: 0
           }
         }
       }
@@ -953,8 +951,8 @@ export default {
       if (row.field0005 === '合计') {
         return 'table-cell-bgc'
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
