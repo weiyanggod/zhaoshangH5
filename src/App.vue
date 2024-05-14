@@ -320,7 +320,9 @@
                     >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{ Subject.length }}</span
+                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255); font-size: 20px">{{
+                          Subject.length
+                        }}</span
                         >个：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
