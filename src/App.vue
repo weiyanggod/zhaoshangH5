@@ -515,15 +515,7 @@ export default {
       try {
         // 区主要领导招商动态库
         const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
-        this.mainNewsList = []
-        mainNewsList.data.forEach((i, index) => {
-          if (index === 2) {
-            this.mainNewsList.unshift(i)
-          } else {
-            this.mainNewsList.push(i)
-          }
-        })
-        // this.mainNewsList = mainNewsList.data
+        this.mainNewsList = mainNewsList.data
         // 本周签约项目
         const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
         this.ContractedProjectsList = ContractedProjectsList.data
