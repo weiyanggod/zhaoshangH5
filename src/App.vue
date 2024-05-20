@@ -221,21 +221,18 @@
                                 <div class="active-content-text-left" style="width: 75%">
                                   <div>开工地点：{{ item.field0017 }}</div>
                                   <div>投资主体：{{ item.field0004 }}</div>
-                                  <<<<<<< HEAD
                                   <div>土地面积：{{ item.field0013 + '亩' }}</div>
                                   <div>
                                     总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
                                       item.field0008 + (item.field0018 ? item.field0018 : '万元')
                                     }}
                                   </div>
-                                  =======
                                   <div>土地面积：{{ item.field0013 === null ? '' : item.field0013 + '亩' }}</div>
                                   <div>
                                     总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
                                       item.field0008 + (item.field0018 ? item.field0018 : '万元')
                                     }}
                                   </div>
-                                  >>>>>>> 231f42d04a30b2cb5bed045340d8259668619870
                                 </div>
                                 <div class="active-content-text-right pl-10">
                                   <div>项目概况：{{ item.field0014 }}</div>
@@ -378,7 +375,7 @@
                       <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
                       <el-table-column label="类别" width="60">
                         <template v-slot="{ row }">
-                          <div>按{{ row.field0004 }}分</div>
+                          <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
                       <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
@@ -708,6 +705,25 @@ export default {
               }
             }
           }
+        ],
+        color: [
+          {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'rgba(3, 0, 0, 0.15)' // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'rgba(255, 255, 255, 0.15)'
+              }
+            ]
+          }
         ]
       }
       option && myChart.setOption(option)
@@ -741,12 +757,17 @@ export default {
                 fontSize: 20,
                 color: '#f68c3c'
               },
-              x: 'center',
-              y: 'center'
+              left: 'center',
+              top: '50%'
+            },
+            legend: {
+              // top: '-5%'
+              // left: 'center'
             },
             series: [
               {
                 type: 'pie',
+                top: 30,
                 radius: ['30%', '80%'],
                 avoidLabelOverlap: false,
                 label: {
@@ -759,14 +780,10 @@ export default {
                   width: 50
                 },
                 minAngle: 60,
-                emphasis: {
-                  label: {
-                    show: true
-                  }
-                },
                 data: pieData
               }
-            ]
+            ],
+            color: ['#5271e6', '#adbcda', '#71aaeb', '#f3a75a', '#9ec385']
           }
           myChart.setOption(option)
           pieData = []
