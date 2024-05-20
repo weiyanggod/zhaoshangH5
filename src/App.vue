@@ -324,8 +324,9 @@
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
-                          <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
-                          <div class="text fw-700">{{ item.field0007 }}</div>
+                          <div :id="'pie' + (index + 1)"></div>
+                          <!-- <div class="text fw-700">{{ item.field0007 }}</div> -->
+                          <div class="img" />
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
@@ -705,26 +706,26 @@ export default {
               }
             }
           }
-        ],
-        color: [
-          {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(3, 0, 0, 0.15)' // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: 'rgba(255, 255, 255, 0.15)'
-              }
-            ]
-          }
         ]
+        // color: [
+        //   {
+        //     type: 'linear',
+        //     x: 0,
+        //     y: 0,
+        //     x2: 0,
+        //     y2: 1,
+        //     colorStops: [
+        //       {
+        //         offset: 0,
+        //         color: 'rgba(3, 0, 0, 0.15)' // 0% 处的颜色
+        //       },
+        //       {
+        //         offset: 1,
+        //         color: 'rgba(255, 255, 255, 0.15)'
+        //       }
+        //     ]
+        //   }
+        // ]
       }
       option && myChart.setOption(option)
     },
@@ -747,43 +748,209 @@ export default {
           })
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
+          console.log(i)
           const option = {
             tooltip: {
               trigger: 'item'
             },
             title: {
-              text: pieData.reduce((acc, cur) => acc + parseInt(cur.value), 0),
+              text: i.field0007 + '次数',
+              subtext: pieData.reduce((acc, cur) => acc + parseInt(cur.value), 0),
               textStyle: {
+                fontSize: 16,
+                color: '#51565B'
+              },
+              subtextStyle: {
                 fontSize: 20,
                 color: '#f68c3c'
               },
+
               left: 'center',
-              top: '50%'
-            },
-            legend: {
-              // top: '-5%'
-              // left: 'center'
+              top: 'center'
             },
             series: [
               {
                 type: 'pie',
-                top: 30,
-                radius: ['30%', '80%'],
+                radius: ['40%', '60%'],
                 avoidLabelOverlap: false,
+                itemStyle: {
+                  borderWidth: 5,
+                  borderColor: '#fff'
+                },
                 label: {
                   show: true,
-                  position: 'inside',
+                  borderWidth: 5,
+                  borderRadius: 4,
                   fontSize: 12,
-                  formatter: '{b}{c}' + '次',
-                  overflow: 'break',
-                  color: '#fff',
-                  width: 50
+                  formatter: '{b}' + '\n\n' + '{c}次',
+                  color: 'rgba(95, 97, 99, 1)',
+                  minMargin: 5,
+                  edgeDistance: 10,
+                  lineHeight: 15
                 },
-                minAngle: 60,
-                data: pieData
+                labelLine: {
+                  normal: {
+                    length: 30,
+                    length2: 0,
+                    maxSurfaceAngle: 50,
+                    lineStyle: {
+                      color: '#333'
+                    }
+                  }
+                },
+                labelLayout: function (params) {
+                  const isLeft = params.labelRect.x < myChart.getWidth() / 2
+                  const points = params.labelLinePoints
+                  points[2][0] = isLeft ? params.labelRect.x : params.labelRect.x + params.labelRect.width
+                  return {
+                    labelLinePoints: points
+                  }
+                },
+                data: pieData,
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0
               }
             ],
-            color: ['#5271e6', '#adbcda', '#71aaeb', '#f3a75a', '#9ec385']
+            color: [
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#EBA3A7' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#DF6B72' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#7282ea' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#1833dd' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#c7d6e6' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#a4bcd7' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#7282ea' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#a8caf2' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#b9dded' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#8ec9e1' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#f2d2ad' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#ebb579' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#b2d29b' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#84b75e' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#d5c3bd' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#bc9e93' // 100% 处的颜色
+                  }
+                ]
+              }
+            ]
           }
           myChart.setOption(option)
           pieData = []
@@ -906,7 +1073,7 @@ export default {
 .print-main {
   margin: 0 auto;
   background-color: rgb(35, 134, 255);
-  width: 794px;
+  width: 900px;
   height: auto;
 
   .header {
@@ -1055,7 +1222,7 @@ export default {
 
 .el-main {
   margin: 0 auto;
-  max-width: 796px;
+  max-width: 900px;
   padding: 0px !important;
   background-color: rgb(35, 134, 255);
 }
@@ -1134,16 +1301,27 @@ export default {
     position: relative;
     .text {
       position: absolute;
-      // top: 20px;
-      bottom: -10px;
+      bottom: -20px;
       left: 50%;
       transform: translate(-50%, 0);
+    }
+    .img {
+      background-image: url('@/assets/椭圆.png');
+      top: 32%;
+      left: 38%;
+      transform: translate(0%, 0%);
+      position: absolute;
+      width: 24%;
+      height: 39%;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
   }
   #pie1,
   #pie2,
   #pie3 {
-    height: 200px;
+    width: 100%;
+    height: 250px;
   }
 }
 .el-table .el-table__cell {
