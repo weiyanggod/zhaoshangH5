@@ -6,7 +6,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/zs': {
-        target: 'https://zsxmgj.jxufida.com:8826/',
+        target: 'http://115.231.76.92:8827',
         changeOrigin: true,
         pathRewrite: {
           '^/zs': ''
