@@ -8,9 +8,6 @@ module.exports = defineConfig({
       '/zs': {
         target: 'http://115.231.76.92:8827',
         changeOrigin: true,
-        pathRewrite: {
-          '^/zs': ''
-        },
         withCredentials: true
       }
     }
