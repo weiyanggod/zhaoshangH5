@@ -355,7 +355,7 @@
                     <div style="text-align: center" class="list-title">
                       {{
                         index === 0
-                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表`
+                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表（至${formatDate(endTime)}）`
                           : `${dayjs().format('YYYY')}年在谈项目汇总表（至${formatDate(endTime)}）`
                       }}
                     </div>
@@ -370,7 +370,7 @@
                       :data="item"
                       class="table"
                       :header-cell-style="{ border: '1px solid #000', fontWeight: 700, color: '#000' }"
-                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '3px 0px !important' }"
+                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5.8px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
                       <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
