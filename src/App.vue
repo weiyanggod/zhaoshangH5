@@ -741,14 +741,15 @@ export default {
                 value += parseInt(item[key])
               }
             }
-            pieData.push({
-              name: item.field0020,
-              value: value
-            })
+            if (value !== 0) {
+              pieData.push({
+                name: item.field0020,
+                value: value
+              })
+            }
           })
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
-          console.log(i)
           const option = {
             tooltip: {
               trigger: 'item'
