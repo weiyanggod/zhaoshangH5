@@ -146,7 +146,7 @@
                         </div>
                       </div>
                       <!-- 亿元以上备案项目 -->
-                      <div v-if="FilingItemsList.length > 0">
+                      <!-- <div v-if="FilingItemsList.length > 0">
                         <div v-for="(item, index) in FilingItemsList" :key="index">
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
@@ -171,7 +171,7 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 举办招商活动 -->
                       <div v-if="ActivityList.length != 0">
                         <div v-for="(item, index) in ActivityList" :key="index">
@@ -260,7 +260,7 @@
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
                                 <div class="active-content-text-right pl-10">
-                                  <div>新增建设用地：{{ item.field0009 === null ? '' : item.field0013 + '亩' }}</div>
+                                  <div>新增建设用地：{{ item.field0009 === null ? '' : item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                 </div>
                               </div>
