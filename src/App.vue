@@ -133,7 +133,13 @@
                                       <div style="white-space: nowrap">投资主体：</div>
                                       <div>{{ item.field0007 }}</div>
                                     </div>
-                                    <div>签约金额：{{ item.field0009 === null ? '' : item.field0009 + '万元' }}</div>
+                                    <div>
+                                      签约金额：{{
+                                        item.field0009 === null
+                                          ? ''
+                                          : item.field0009 + (item.field0015 ? item.field0015 : '万元')
+                                      }}
+                                    </div>
                                     <div>签约主体：{{ item.field0008 }}</div>
                                     <div>签约时间：{{ item.field0004 }}</div>
                                   </div>
