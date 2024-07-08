@@ -227,12 +227,6 @@
                                 <div class="active-content-text-left" style="width: 75%">
                                   <div>开工地点：{{ item.field0017 }}</div>
                                   <div>投资主体：{{ item.field0004 }}</div>
-                                  <div>土地面积：{{ item.field0013 + '亩' }}</div>
-                                  <div>
-                                    总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
-                                      item.field0008 + (item.field0018 ? item.field0018 : '万元')
-                                    }}
-                                  </div>
                                   <div>土地面积：{{ item.field0013 === null ? '' : item.field0013 + '亩' }}</div>
                                   <div>
                                     总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
