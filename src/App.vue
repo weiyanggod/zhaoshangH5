@@ -379,15 +379,15 @@
                           <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="right">
+                      <el-table-column prop="field0005" label="项目" width="150" align="center"> </el-table-column>
+                      <el-table-column prop="field0006" label="个数" min-width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="right">
+                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="right">
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right">
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="100" align="right">
                       </el-table-column>
                     </el-table>
                   </div>
