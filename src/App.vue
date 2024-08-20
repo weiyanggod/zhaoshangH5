@@ -4,7 +4,17 @@
       <el-container>
         <el-container>
           <el-header>
-            <el-date-picker v-model="chooseTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"> </el-date-picker>
+            <el-date-picker
+              v-model="chooseTime"
+              type="daterange"
+              align="right"
+              value-format="yyyy-MM-dd"
+              unlink-panels
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -18,7 +28,9 @@
                   <img class="header-back" src="./assets/icon/header.png" />
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
-                    <div class="time-text">{{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）</div>
+                    <div class="time-text">
+                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
+                    </div>
                   </div>
                 </div>
                 <!-- 内容 -->
@@ -51,7 +63,12 @@
                                 <div class="title-text">各主体“一把手”招商动态</div>
                               </div>
                               <div style="display: flex; margin-top: 10px">
-                                <el-image :src="item.uurl" ref="cardImage" style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover" :preview-src-list="[item.uurl]">
+                                <el-image
+                                  :src="item.uurl"
+                                  ref="cardImage"
+                                  style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
+                                  :preview-src-list="[item.uurl]"
+                                >
                                   <div slot="error" class="image-slot">暂无图片</div>
                                 </el-image>
                                 <div style="display: flex; text-align: left; margin-left: 10px">
@@ -100,7 +117,12 @@
                               <div class="title-text">本周签约项目</div>
                             </div>
                             <div class="contracted">
-                              <el-image class="img" :src="item.field0012" ref="cardImage" :preview-src-list="[item.field0012]">
+                              <el-image
+                                class="img"
+                                :src="item.field0012"
+                                ref="cardImage"
+                                :preview-src-list="[item.field0012]"
+                              >
                                 <div slot="error" class="image-slot">暂无图片</div>
                               </el-image>
                               <div class="contracted-content" style="width: 100%">
@@ -159,7 +181,12 @@
                               <div class="title-text">举办招商活动</div>
                             </div>
                             <div class="active">
-                              <el-image class="active-img" :src="item.field0009" ref="cardImage" :preview-src-list="[item.field0009]">
+                              <el-image
+                                class="active-img"
+                                :src="item.field0009"
+                                ref="cardImage"
+                                :preview-src-list="[item.field0009]"
+                              >
                                 <div slot="error" class="image-slot">暂无图片</div>
                               </el-image>
                               <div class="active-content">
@@ -196,10 +223,18 @@
                                   <div>投资主体：{{ item.field0004 }}</div>
                                   <<<<<<< HEAD
                                   <div>土地面积：{{ item.field0013 + '亩' }}</div>
-                                  <div>总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{ item.field0008 + (item.field0018 ? item.field0018 : '万元') }}</div>
+                                  <div>
+                                    总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
+                                      item.field0008 + (item.field0018 ? item.field0018 : '万元')
+                                    }}
+                                  </div>
                                   =======
                                   <div>土地面积：{{ item.field0013 === null ? '' : item.field0013 + '亩' }}</div>
-                                  <div>总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{ item.field0008 + (item.field0018 ? item.field0018 : '万元') }}</div>
+                                  <div>
+                                    总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
+                                      item.field0008 + (item.field0018 ? item.field0018 : '万元')
+                                    }}
+                                  </div>
                                   >>>>>>> 231f42d04a30b2cb5bed045340d8259668619870
                                 </div>
                                 <div class="active-content-text-right pl-10">
@@ -273,7 +308,16 @@
                   <div class="break_page"></div>
                   <div class="itemClass">
                     <div style="height: 10px"></div>
-                    <div class="part" style="border-radius: 10px" v-if="pieList.length > 0 || ContactBarData.length > 0 || totalProjectBar.length > 0 || activityBar.length > 0">
+                    <div
+                      class="part"
+                      style="border-radius: 10px"
+                      v-if="
+                        pieList.length > 0 ||
+                        ContactBarData.length > 0 ||
+                        totalProjectBar.length > 0 ||
+                        activityBar.length > 0
+                      "
+                    >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
                         本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{ Subject.length }}</span
@@ -286,15 +330,21 @@
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
-                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">本年各主体“一把手”累计接洽情况：</div>
+                      <div class="mt-30 mb-20 fw-700" style="text-align: left" v-if="ContactBarData.length > 0">
+                        本年各主体“一把手”累计接洽情况：
+                      </div>
                       <div id="yearTotal" class="" v-if="ContactBarData.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(本年累计项目个数如下：) -->
-                      <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">本年累计在谈项目个数如下：</div>
+                      <div class="mt-10" style="text-align: left" v-if="totalProjectBar.length > 0">
+                        本年累计在谈项目个数如下：
+                      </div>
                       <div id="totalProject" class="" v-if="totalProjectBar.length > 0" style="width: 100%"></div>
 
                       <!-- 柱状图(签约活动项目规模) -->
-                      <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">本年累计签约项目个数如下：</div>
+                      <div class="mt-10" style="text-align: left" v-if="activityBar.length > 0">
+                        本年累计签约项目个数如下：
+                      </div>
                       <div id="activityBar" class="" v-if="activityBar.length > 0" style="width: 100%"></div>
                     </div>
                   </div>
@@ -303,7 +353,11 @@
                     <div v-if="loading" class="page-break"></div>
                     <div style="height: 10px"></div>
                     <div style="text-align: center" class="list-title">
-                      {{ index === 0 ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表` : `${dayjs().format('YYYY')}年在谈项目汇总表（至${formatDate(endTime)}）` }}
+                      {{
+                        index === 0
+                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表`
+                          : `${dayjs().format('YYYY')}年在谈项目汇总表（至${formatDate(endTime)}）`
+                      }}
                     </div>
                     <el-table
                       v-if="item.length > 0"
@@ -319,18 +373,22 @@
                       :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '3px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
-                      <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
+                      <el-table-column type="index" label="序号" min-width="20" align="center"> </el-table-column>
                       <el-table-column label="类别" width="60">
                         <template v-slot="{ row }">
                           <div>按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="right"> </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="right"> </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="right"> </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right"> </el-table-column>
+                      <el-table-column prop="field0005" label="项目" width="150" align="center"> </el-table-column>
+                      <el-table-column prop="field0006" label="个数" min-width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="80" align="right">
+                      </el-table-column>
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="100" align="right">
+                      </el-table-column>
                     </el-table>
                   </div>
                   <div style="margin-bottom: 30px"></div>
@@ -349,7 +407,25 @@ import PdfLoader from './utils/exprotPDF'
 import 'print-js/dist/print.css'
 import { numberConvertToUppercase } from '@/utils/methods'
 // 图片压缩
-import { getReportList, summarize, summarize2, getTime, getMainNews, getContractedProjects, getFilingItems, getActivity, getStartedProjects, getBillionProjects, getOther, getSignedData, getTalkingData, getTownshipContactPie, getTownshipContactBar, getTotalProject, getActivityBar } from './api/api'
+import {
+  getReportList,
+  summarize,
+  summarize2,
+  getTime,
+  getMainNews,
+  getContractedProjects,
+  getFilingItems,
+  getActivity,
+  getStartedProjects,
+  getBillionProjects,
+  getOther,
+  getSignedData,
+  getTalkingData,
+  getTownshipContactPie,
+  getTownshipContactBar,
+  getTotalProject,
+  getActivityBar
+} from './api/api'
 import * as echarts from 'echarts'
 
 export default {
@@ -525,7 +601,10 @@ export default {
       } catch (error) {}
       // 接洽和累计项目个数柱状图数据
       try {
-        const { data: barShipContact } = await getTownshipContactBar(dayjs().format('YYYY') + '-01-01', dayjs().format('YYYY-MM-DD'))
+        const { data: barShipContact } = await getTownshipContactBar(
+          dayjs().format('YYYY') + '-01-01',
+          dayjs().format('YYYY-MM-DD')
+        )
         // const { data: totalProjectBar } = await getTotalProject(
         //   dayjs().format('YYYY') + '-01-01',
         //   dayjs().format('YYYY-MM-DD')
