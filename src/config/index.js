@@ -1,6 +1,6 @@
-export default{
-    baseUrl:{
-        dev: "http://localhost:8089/",	//开发环境
-        pro: "https://zsxmgj.jxufida.com:8826/zs/",	//上线环境
-    }
+export default {
+  baseUrl: {
+    dev: '/zs', //开发环境
+    pro: '/zs' //上线环境
+  }
 }

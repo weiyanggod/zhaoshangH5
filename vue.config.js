@@ -6,11 +6,9 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/zs': {
-        target: 'https://zsxmgj.jxufida.com:8826/',
+        target: 'http://115.231.76.92:8827', //招商
+        // target: 'https://zsxmgj.jxufida.com:8826/', //嘉秀
         changeOrigin: true,
-        pathRewrite: {
-          '^/zs': ''
-        },
         withCredentials: true
       }
     }

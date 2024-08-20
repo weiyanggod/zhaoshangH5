@@ -133,7 +133,13 @@
                                       <div style="white-space: nowrap">投资主体：</div>
                                       <div>{{ item.field0007 }}</div>
                                     </div>
-                                    <div>签约金额：{{ item.field0009 === null ? '' : item.field0009 + '万元' }}</div>
+                                    <div>
+                                      签约金额：{{
+                                        item.field0009 === null
+                                          ? ''
+                                          : item.field0009 + (item.field0015 ? item.field0015 : '万元')
+                                      }}
+                                    </div>
                                     <div>签约主体：{{ item.field0008 }}</div>
                                     <div>签约时间：{{ item.field0004 }}</div>
                                   </div>
@@ -146,7 +152,7 @@
                         </div>
                       </div>
                       <!-- 亿元以上备案项目 -->
-                      <div v-if="FilingItemsList.length > 0">
+                      <!-- <div v-if="FilingItemsList.length > 0">
                         <div v-for="(item, index) in FilingItemsList" :key="index">
                           <div class="itemClass">
                             <div class="title mt-10" v-if="index === 0">
@@ -171,7 +177,7 @@
                           </div>
                           <el-divider></el-divider>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- 举办招商活动 -->
                       <div v-if="ActivityList.length != 0">
                         <div v-for="(item, index) in ActivityList" :key="index">
@@ -221,21 +227,12 @@
                                 <div class="active-content-text-left" style="width: 75%">
                                   <div>开工地点：{{ item.field0017 }}</div>
                                   <div>投资主体：{{ item.field0004 }}</div>
-                                  <<<<<<< HEAD
-                                  <div>土地面积：{{ item.field0013 + '亩' }}</div>
-                                  <div>
-                                    总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
-                                      item.field0008 + (item.field0018 ? item.field0018 : '万元')
-                                    }}
-                                  </div>
-                                  =======
                                   <div>土地面积：{{ item.field0013 === null ? '' : item.field0013 + '亩' }}</div>
                                   <div>
                                     总&nbsp;&nbsp;投&nbsp;&nbsp;资：{{
                                       item.field0008 + (item.field0018 ? item.field0018 : '万元')
                                     }}
                                   </div>
-                                  >>>>>>> 231f42d04a30b2cb5bed045340d8259668619870
                                 </div>
                                 <div class="active-content-text-right pl-10">
                                   <div>项目概况：{{ item.field0014 }}</div>
@@ -263,7 +260,7 @@
                                   <div>落地主体：{{ item.field0015 }}</div>
                                 </div>
                                 <div class="active-content-text-right pl-10">
-                                  <div>新增建设用地：{{ item.field0009 === null ? '' : item.field0013 + '亩' }}</div>
+                                  <div>新增建设用地：{{ item.field0009 === null ? '' : item.field0009 + '亩' }}</div>
                                   <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
                                 </div>
                               </div>
@@ -320,13 +317,16 @@
                     >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255)">{{ Subject.length }}</span
+                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255); font-size: 20px">{{
+                          Subject.length
+                        }}</span
                         >个：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
-                          <div :id="'pie' + (index + 1)" style="margin: 0px 20px"></div>
-                          <div class="text fw-700">{{ item.field0007 }}</div>
+                          <div :id="'pie' + (index + 1)"></div>
+                          <!-- <div class="text fw-700">{{ item.field0007 }}</div> -->
+                          <div class="img" />
                         </div>
                       </div>
                       <!-- 柱状图(本年累计接洽情况) -->
@@ -355,7 +355,7 @@
                     <div style="text-align: center" class="list-title">
                       {{
                         index === 0
-                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表`
+                          ? `${dayjs().format('YYYY')}年已签正式协议项目汇总表（至${formatDate(endTime)}）`
                           : `${dayjs().format('YYYY')}年在谈项目汇总表（至${formatDate(endTime)}）`
                       }}
                     </div>
@@ -370,24 +370,24 @@
                       :data="item"
                       class="table"
                       :header-cell-style="{ border: '1px solid #000', fontWeight: 700, color: '#000' }"
-                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '3px 0px !important' }"
+                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5.8px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
                       <el-table-column type="index" label="序号" min-width="20" align="center"> </el-table-column>
                       <el-table-column label="类别" width="60">
                         <template v-slot="{ row }">
-                          <div>按{{ row.field0004 }}分</div>
+                          <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="150" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" min-width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="80" align="right">
+                      <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
+                      <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="80" align="right">
+                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="80" align="right">
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="100" align="right">
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right">
                       </el-table-column>
                     </el-table>
                   </div>
@@ -432,17 +432,10 @@ export default {
   name: 'App',
   data() {
     return {
-      tableCount: 0,
       // 区主要领导招商动态
       mainNewsList: [],
       // 主体动态列表
       Subject: [],
-      xiuzhouList: [],
-      jinkongList: [],
-      shenzhenList: [],
-      beijingList: [],
-      shanghaiList: [],
-      suzhouList: [],
       // 签约项目
       ContractedProjectsList: [],
       // 亿元以上备案项目
@@ -475,14 +468,6 @@ export default {
       year: 0,
       week: 0,
       sum: 0,
-      xiuzhou: 0,
-      jinkong: 0,
-      shenzhen: 0,
-      beijing: 0,
-      shanghai: 0,
-      suzhou: 0,
-      //柱状图显示
-      echartsShow: true,
       chooseTime: [],
       startTime: null,
       endTime: null,
@@ -492,7 +477,6 @@ export default {
   },
   created() {},
   mounted() {
-    this.tableCount = 0
     this.initPage()
   },
   methods: {
@@ -514,12 +498,6 @@ export default {
       summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
-        this.xiuzhou = res.data.data[0].xiuzhou
-        this.jinkong = res.data.data[0].jinkong
-        this.shenzhen = res.data.data[0].shenzhen
-        this.beijing = res.data.data[0].beijing
-        this.shanghai = res.data.data[0].shanghai
-        this.suzhou = res.data.data[0].suzhou
       })
       // 本周小结柱状图
       const { data: barDate } = await summarize2(this.startTime, this.endTime)
@@ -537,15 +515,7 @@ export default {
       try {
         // 区主要领导招商动态库
         const { data: mainNewsList } = await getMainNews(this.startTime, this.endTime)
-        this.mainNewsList = []
-        mainNewsList.data.forEach((i, index) => {
-          if (index === 2) {
-            this.mainNewsList.unshift(i)
-          } else {
-            this.mainNewsList.push(i)
-          }
-        })
-        // this.mainNewsList = mainNewsList.data
+        this.mainNewsList = mainNewsList.data
         // 本周签约项目
         const { data: ContractedProjectsList } = await getContractedProjects(this.startTime, this.endTime)
         this.ContractedProjectsList = ContractedProjectsList.data
@@ -605,30 +575,12 @@ export default {
           dayjs().format('YYYY') + '-01-01',
           dayjs().format('YYYY-MM-DD')
         )
-        // const { data: totalProjectBar } = await getTotalProject(
-        //   dayjs().format('YYYY') + '-01-01',
-        //   dayjs().format('YYYY-MM-DD')
-        // )
-        // const { data: activityBar } = await getActivityBar(
-        //   dayjs().format('YYYY') + '-01-01',
-        //   dayjs().format('YYYY-MM-DD')
-        // )
         this.ContactBarData = barShipContact.data
-        // this.totalProjectBar = totalProjectBar.data
-        // this.activityBar = activityBar.data
         const list = [
           {
             data: barShipContact,
             name: 'yearTotal'
           }
-          // {
-          //   data: totalProjectBar,
-          //   name: 'totalProject'
-          // },
-          // {
-          //   data: activityBar,
-          //   name: 'activityBar'
-          // }
         ]
         list.forEach((item, index) => {
           if (item.data.data.length > 0) {
@@ -670,43 +622,6 @@ export default {
                   },
                   position: index === 2 ? '' : 'top'
                 }
-                // itemStyle: {
-                //   color: data => {
-                //     if (index === 0) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#3A91D9'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#00FF00'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#FFB90F'
-                //       }
-                //     }
-                //     if (index === 1) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#8A2BE2'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#FFAEB9'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#9B30FF'
-                //       }
-                //     }
-                //     if (index === 2) {
-                //       if (data.seriesIndex == 0) {
-                //         return '#008B8B'
-                //       }
-                //       if (data.seriesIndex == 1) {
-                //         return '#CAE1FF'
-                //       }
-                //       if (data.seriesIndex == 2) {
-                //         return '#B3EE3A'
-                //       }
-                //     }
-                //   }
-                // }
               }
               for (const key in item) {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
@@ -791,6 +706,25 @@ export default {
             }
           }
         ]
+        // color: [
+        //   {
+        //     type: 'linear',
+        //     x: 0,
+        //     y: 0,
+        //     x2: 0,
+        //     y2: 1,
+        //     colorStops: [
+        //       {
+        //         offset: 0,
+        //         color: 'rgba(3, 0, 0, 0.15)' // 0% 处的颜色
+        //       },
+        //       {
+        //         offset: 1,
+        //         color: 'rgba(255, 255, 255, 0.15)'
+        //       }
+        //     ]
+        //   }
+        // ]
       }
       option && myChart.setOption(option)
     },
@@ -798,12 +732,20 @@ export default {
     initPie(data) {
       let pieData = []
       this.$nextTick(() => {
-        data.forEach((item, index) => {
-          item.data.forEach((i) => {
-            pieData.push({
-              name: i.field0020,
-              value: i.amount
-            })
+        data.forEach((i, index) => {
+          i.data.forEach((item) => {
+            let value = 0
+            for (const key in item) {
+              if (key !== 'field0007' && key !== 'field0020') {
+                value += parseInt(item[key])
+              }
+            }
+            if (value !== 0) {
+              pieData.push({
+                name: item.field0020,
+                value: value
+              })
+            }
           })
           let chartDom = document.getElementById('pie' + (index + 1))
           let myChart = echarts.init(chartDom)
@@ -812,40 +754,201 @@ export default {
               trigger: 'item'
             },
             title: {
-              text: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
+              text: i.field0007 + '次数',
+              subtext: pieData.reduce((acc, cur) => acc + parseInt(cur.value), 0),
               textStyle: {
+                fontSize: 16,
+                color: '#51565B'
+              },
+              subtextStyle: {
                 fontSize: 20,
                 color: '#f68c3c'
               },
-              // subtext: item.data.reduce((acc, cur) => acc + parseInt(cur.amount), 0),
-              // subtextStyle: {
-              //   fontSize: 20,
-              //   color: '#f68c3c'
-              // },
-              x: 'center',
-              y: 'center'
+
+              left: 'center',
+              top: 'center'
             },
             series: [
               {
                 type: 'pie',
-                radius: ['30%', '80%'],
+                radius: ['40%', '60%'],
                 avoidLabelOverlap: false,
+                itemStyle: {
+                  borderWidth: 5,
+                  borderColor: '#fff'
+                },
                 label: {
                   show: true,
-                  position: 'inside',
+                  borderWidth: 5,
+                  borderRadius: 4,
                   fontSize: 12,
-                  formatter: '{b}{c}' + '次',
-                  overflow: 'break',
-                  color: '#fff',
-                  width: 50
+                  formatter: '{b}' + '\n\n' + '{c}次',
+                  color: 'rgba(95, 97, 99, 1)',
+                  minMargin: 5,
+                  edgeDistance: 10,
+                  lineHeight: 15
                 },
-                minAngle: 60,
-                emphasis: {
-                  label: {
-                    show: true
+                labelLine: {
+                  normal: {
+                    length: 30,
+                    length2: 0,
+                    maxSurfaceAngle: 50,
+                    lineStyle: {
+                      color: '#333'
+                    }
                   }
                 },
-                data: pieData
+                labelLayout: function (params) {
+                  const isLeft = params.labelRect.x < myChart.getWidth() / 2
+                  const points = params.labelLinePoints
+                  points[2][0] = isLeft ? params.labelRect.x : params.labelRect.x + params.labelRect.width
+                  return {
+                    labelLinePoints: points
+                  }
+                },
+                data: pieData,
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0
+              }
+            ],
+            color: [
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#EBA3A7' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#DF6B72' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#7282ea' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#1833dd' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#c7d6e6' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#a4bcd7' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#7282ea' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#a8caf2' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#b9dded' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#8ec9e1' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#f2d2ad' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#ebb579' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#b2d29b' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#84b75e' // 100% 处的颜色
+                  }
+                ]
+              },
+              {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#d5c3bd' // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#bc9e93' // 100% 处的颜色
+                  }
+                ]
               }
             ]
           }
@@ -878,18 +981,6 @@ export default {
         return
       }
       this.sum = 0
-      this.xiuzhou = 0
-      this.jinkong = 0
-      this.shenzhen = 0
-      this.beijing = 0
-      this.shanghai = 0
-      this.suzhou = 0
-      this.xiuzhouList = []
-      this.jinkongList = []
-      this.shenzhenList = []
-      this.beijingList = []
-      this.shanghaiList = []
-      this.suzhouList = []
       this.initPage()
     },
     // 重置
@@ -898,12 +989,6 @@ export default {
       this.startTime = null
       this.endTime = null
       this.chooseTime = []
-      this.xiuzhouList = []
-      this.jinkongList = []
-      this.shenzhenList = []
-      this.beijingList = []
-      this.shanghaiList = []
-      this.suzhouList = []
       this.initPage()
     },
     // 格式化
@@ -988,7 +1073,7 @@ export default {
 .print-main {
   margin: 0 auto;
   background-color: rgb(35, 134, 255);
-  width: 794px;
+  width: 900px;
   height: auto;
 
   .header {
@@ -1137,7 +1222,7 @@ export default {
 
 .el-main {
   margin: 0 auto;
-  max-width: 796px;
+  max-width: 900px;
   padding: 0px !important;
   background-color: rgb(35, 134, 255);
 }
@@ -1216,16 +1301,27 @@ export default {
     position: relative;
     .text {
       position: absolute;
-      // top: 20px;
-      bottom: -10px;
+      bottom: -20px;
       left: 50%;
       transform: translate(-50%, 0);
+    }
+    .img {
+      background-image: url('@/assets/椭圆.png');
+      top: 32%;
+      left: 38%;
+      transform: translate(0%, 0%);
+      position: absolute;
+      width: 24%;
+      height: 39%;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
   }
   #pie1,
   #pie2,
   #pie3 {
-    height: 200px;
+    width: 100%;
+    height: 250px;
   }
 }
 .el-table .el-table__cell {
