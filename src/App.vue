@@ -363,7 +363,7 @@
                       v-if="item.length > 0"
                       border
                       :span-method="
-                        params => {
+                        (params) => {
                           return objectSpanMethod(params, item)
                         }
                       "
@@ -373,21 +373,21 @@
                       :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5.8px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
-                      <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
+                      <el-table-column type="index" label="序号" min-width="20" align="center"> </el-table-column>
                       <el-table-column label="类别" width="60">
                         <template v-slot="{ row }">
                           <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="auto" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" width="80" align="right">
+                      <el-table-column prop="field0005" label="项目" width="150" align="center"> </el-table-column>
+                      <el-table-column prop="field0006" label="个数" min-width="80" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" width="80" align="right">
+                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" width="80" align="right">
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="80" align="right">
                       </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" width="100" align="right">
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="100" align="right">
                       </el-table-column>
                     </el-table>
                   </div>
@@ -495,7 +495,7 @@ export default {
         this.endTime = time.data[0].endTime
       }
       // 周数
-      summarize(this.startTime, this.endTime).then(res => {
+      summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
         this.week = res.data.data[0].week
       })
@@ -504,7 +504,7 @@ export default {
       const xAxis = []
       const yAxis = []
       this.summaryBarData = barDate.data
-      barDate.data.forEach(item => {
+      barDate.data.forEach((item) => {
         xAxis.push(item.flag)
         yAxis.push(item.num)
       })
@@ -542,15 +542,15 @@ export default {
       } catch (error) {}
 
       // 各主体信息
-      getReportList(this.startTime, this.endTime).then(res => {
-        const arr = res.data.data.filter(item => item.field0031 == '1')
-        const arr2 = res.data.data.filter(item => item.field0032 == '1')
-        const arr3 = res.data.data.filter(item => item.field0033 == '1')
-        const arr4 = res.data.data.filter(item => item.field0034 == '1')
-        const arr5 = res.data.data.filter(item => item.field0035 == '1')
-        const arr6 = res.data.data.filter(item => item.field0038 == '1')
-        const arr7 = res.data.data.filter(item => item.field0037 == '1')
-        const arr8 = res.data.data.filter(item => item.field0036 == '1')
+      getReportList(this.startTime, this.endTime).then((res) => {
+        const arr = res.data.data.filter((item) => item.field0031 == '1')
+        const arr2 = res.data.data.filter((item) => item.field0032 == '1')
+        const arr3 = res.data.data.filter((item) => item.field0033 == '1')
+        const arr4 = res.data.data.filter((item) => item.field0034 == '1')
+        const arr5 = res.data.data.filter((item) => item.field0035 == '1')
+        const arr6 = res.data.data.filter((item) => item.field0038 == '1')
+        const arr7 = res.data.data.filter((item) => item.field0037 == '1')
+        const arr8 = res.data.data.filter((item) => item.field0036 == '1')
         this.Subject = arr.concat(arr2).concat(arr3).concat(arr4).concat(arr5).concat(arr6).concat(arr7).concat(arr8)
       })
 
@@ -562,8 +562,8 @@ export default {
           this.pieList = pieShipContact
           this.initPie(pieShipContact)
           this.contactTotalNumber = 0
-          pieShipContact.forEach(item => {
-            item.data.forEach(innerItem => {
+          pieShipContact.forEach((item) => {
+            item.data.forEach((innerItem) => {
               this.contactTotalNumber += parseInt(innerItem.amount)
             })
           })
@@ -575,7 +575,6 @@ export default {
           dayjs().format('YYYY') + '-01-01',
           dayjs().format('YYYY-MM-DD')
         )
-
         this.ContactBarData = barShipContact.data
         const list = [
           {
@@ -589,8 +588,8 @@ export default {
             const xAxis2 = []
             const addedKeys = []
             // 创建镇的数组
-            item.data.data.forEach(item => {
-              Object.keys(item).forEach(key => {
+            item.data.data.forEach((item) => {
+              Object.keys(item).forEach((key) => {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模') && !addedKeys.includes(key)) {
                   xAxis2.push(key === '高新区高照街道' ? '高新区(高照街道)' : key)
                   addedKeys.push(key)
@@ -598,7 +597,7 @@ export default {
               })
             })
             // 创建每个镇所对应接恰形式的值的数组
-            item.data.data.forEach(item => {
+            item.data.data.forEach((item) => {
               const seriesItem = {
                 name: '数量',
                 type: index === 1 ? 'line' : 'bar',
@@ -610,7 +609,7 @@ export default {
                   // formatter: index === 0 ? '{a}:{c}次' : '{c}次',
                   offset: index === 0 ? [0, 0] : [30, 0],
                   color: '#000',
-                  formatter: data => {
+                  formatter: (data) => {
                     let text = '次'
                     if (index !== 0) {
                       text = '个'
@@ -734,7 +733,7 @@ export default {
       let pieData = []
       this.$nextTick(() => {
         data.forEach((i, index) => {
-          i.data.forEach(item => {
+          i.data.forEach((item) => {
             let value = 0
             for (const key in item) {
               if (key !== 'field0007' && key !== 'field0020') {
