@@ -64,9 +64,9 @@
                               </div>
                               <div style="display: flex; margin-top: 10px">
                                 <el-image
+                                  fit="cover"
                                   :src="item.uurl"
-                                  ref="cardImage"
-                                  style="min-width: 150px; height: 100px; margin: 0 auto; object-fit: cover"
+                                  class="project-img"
                                   :preview-src-list="[item.uurl]"
                                 >
                                   <div slot="error" class="image-slot">暂无图片</div>
@@ -118,9 +118,9 @@
                             </div>
                             <div class="contracted">
                               <el-image
-                                class="img"
+                                class="project-img"
                                 :src="item.field0012"
-                                ref="cardImage"
+                                fit="cover"
                                 :preview-src-list="[item.field0012]"
                               >
                                 <div slot="error" class="image-slot">暂无图片</div>
@@ -188,9 +188,9 @@
                             </div>
                             <div class="active">
                               <el-image
-                                class="active-img"
+                                class="active-img project-img"
                                 :src="item.field0009"
-                                ref="cardImage"
+                                fit="cover"
                                 :preview-src-list="[item.field0009]"
                               >
                                 <div slot="error" class="image-slot">暂无图片</div>
@@ -370,24 +370,24 @@
                       :data="item"
                       class="table"
                       :header-cell-style="{ border: '1px solid #000', fontWeight: 700, color: '#000' }"
-                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5.8px 0px !important' }"
+                      :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
-                      <el-table-column type="index" label="序号" min-width="20" align="center"> </el-table-column>
-                      <el-table-column label="类别" width="60">
+                      <el-table-column type="index" label="序号" width="55" align="center"> </el-table-column>
+                      <el-table-column label="类别" width="60" align="center">
                         <template v-slot="{ row }">
                           <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="150" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" min-width="80" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="80" align="right">
+                      <el-table-column prop="field0005" label="项目" width="105" align="center"> </el-table-column>
+                      <el-table-column prop="field0006" label="个数" width="60" align="center"> </el-table-column>
+                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="110" align="center">
                       </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="80" align="right">
+                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="120" align="center">
                       </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="80" align="right">
+                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="140" align="center">
                       </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="100" align="right">
+                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="140" align="center">
                       </el-table-column>
                     </el-table>
                   </div>
@@ -968,7 +968,7 @@ export default {
             this.loading = false
           })
         })
-      }, 5000)
+      }, 3000)
     },
     printPDF() {
       this.handleExport(true)
@@ -1436,5 +1436,16 @@ export default {
 <style>
 .el-table .table-cell-bgc {
   background-color: #dcdcdc !important;
+}
+.el-table .table-cell-bgc .cell {
+  font-weight: 800 !important;
+  color: #000;
+}
+.project-img {
+  min-width: 150px;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

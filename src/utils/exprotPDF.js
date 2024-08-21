@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import printJS from 'print-js'
-export function toBlob(base64Data) {
+export function toBlob (base64Data) {
   let byteString = base64Data
   if (base64Data.split(',')[0].indexOf('base64') >= 0) {
     byteString = atob(base64Data.split(',')[1]) // base64 解码
@@ -41,7 +41,7 @@ export function toBlob(base64Data) {
  breakClassName:自定义分页符类名，默认为break_page,添加改类名的标签被自动分页到下一页
  */
 class PdfLoader {
-  constructor(ele, pdfFileName, splitClassName = 'itemClass', breakClassName = 'break_page', isPrint = false) {
+  constructor (ele, pdfFileName, splitClassName = 'itemClass', breakClassName = 'break_page', isPrint = false) {
     this.ele = ele
     this.pdfFileName = pdfFileName
     this.splitClassName = splitClassName
@@ -52,7 +52,7 @@ class PdfLoader {
     this.pageNum = 1
     this.isPrint = isPrint
   }
-  async getPDF(resolve) {
+  async getPDF (resolve) {
     let ele = this.ele
     let pdfFileName = this.pdfFileName
     let eleW = ele.offsetWidth // 获得该容器的宽
@@ -78,6 +78,7 @@ class PdfLoader {
     }).then(async canvas => {
       let contentWidth = canvas.width
       let contentHeight = canvas.height
+
       // 一页pdf显示html页面生成的canvas高度;
       this.pageHeight = (contentWidth / this.A4_WIDTH) * this.A4_HEIGHT
       // 这样写的目的在于保持宽高比例一致 this.pageHeight/canvas.width = a4纸高度/a4纸宽度// 宽度和canvas.width保持一致
@@ -88,6 +89,7 @@ class PdfLoader {
       // a4纸的尺寸[595,842],单位像素，html页面生成的canvas在pdf中图片的宽高
       let imgWidth = this.A4_WIDTH + 10 // -10为了页面有右边距
       let imgHeight = (this.A4_WIDTH / contentWidth) * contentHeight
+
       let pageData = canvas.toDataURL('image/jpeg', 1.0)
       let pdf = jsPDF('', 'pt', 'a4')
       // 有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
@@ -133,7 +135,7 @@ class PdfLoader {
     })
   }
   // 输出pdf
-  async outPutPdfFn(pdfFileName) {
+  async outPutPdfFn (pdfFileName) {
     return new Promise((resolve, reject) => {
       // 进行分割操作，当dom内容已超出a4的高度，则将该dom前插入一个空dom，把他挤下去，分割
       let target = this.ele
@@ -146,7 +148,7 @@ class PdfLoader {
       this.getPDF(resolve, reject)
     })
   }
-  domEach(dom) {
+  domEach (dom) {
     let childNodes = dom.childNodes
     childNodes.forEach(childDom => {
       if (this.hasClass(childDom, this.splitClassName)) {
@@ -189,7 +191,7 @@ class PdfLoader {
       }
     })
   }
-  hasClass(element, cls) {
+  hasClass (element, cls) {
     return (`` + element.className + ``).indexOf(`` + cls + ``) > -1
   }
 }
