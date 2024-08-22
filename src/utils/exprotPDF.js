@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
+import html2canvas from '../html2canvas'
 import printJS from 'print-js'
 export function toBlob (base64Data) {
   let byteString = base64Data
