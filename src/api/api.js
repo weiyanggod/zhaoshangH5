@@ -7,8 +7,8 @@ export const getReportList = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 // 周数
@@ -18,8 +18,9 @@ export const summarize = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+      flag: 'town',
+    },
   })
 }
 // 本周小结
@@ -29,8 +30,8 @@ export const summarize2 = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -38,7 +39,10 @@ export const summarize2 = (startTime, endTime) => {
 export const getTime = () => {
   return axios.request({
     url: `/gettime`,
-    method: 'get'
+    method: 'get',
+    params: {
+      flag: 'town',
+    },
   })
 }
 
@@ -49,8 +53,8 @@ export const getMainNews = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -61,8 +65,8 @@ export const getContractedProjects = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -73,8 +77,8 @@ export const getFilingItems = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -85,8 +89,8 @@ export const getActivity = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -97,8 +101,8 @@ export const getStartedProjects = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -109,8 +113,8 @@ export const getBillionProjects = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -121,8 +125,8 @@ export const getOther = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -133,8 +137,8 @@ export const getSignedData = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -145,8 +149,8 @@ export const getTalkingData = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 
@@ -157,8 +161,8 @@ export const getTownshipContactPie = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 // 乡镇接洽柱状图
@@ -168,8 +172,8 @@ export const getTownshipContactBar = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 // 累计项目柱状图
@@ -179,8 +183,8 @@ export const getTotalProject = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
 // 签约活动项目规模柱状图
@@ -190,7 +194,7 @@ export const getActivityBar = (startTime, endTime) => {
     method: 'get',
     params: {
       startTime: startTime,
-      endTime: endTime
-    }
+      endTime: endTime,
+    },
   })
 }
