@@ -13,8 +13,7 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-            >
-            </el-date-picker>
+            ></el-date-picker>
             <el-button type="success" style="margin-left: 10px" @click="handleSearch">查询</el-button>
             <el-button type="danger" style="margin-left: 10px" @click="handleReset">重置</el-button>
             <el-button type="primary" @click="handleExport(false)">导出</el-button>
@@ -29,7 +28,7 @@
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
                     <div class="time-text">
-                      {{ this.year }}年第{{ week }}周（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
+                      {{ this.year }}年第{{ period }}期（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
                     </div>
                   </div>
                 </div>
@@ -317,10 +316,9 @@
                     >
                       <!-- 饼图 -->
                       <div class="fw-700" style="text-align: left; margin: 20px 0px" v-if="pieList.length > 0">
-                        本周各主体“一把手”共接洽项目<span style="color: rgb(80, 178, 255); font-size: 20px">{{
-                          Subject.length
-                        }}</span
-                        >个：
+                        本周各主体“一把手”共接洽项目
+                        <span style="color: rgb(80, 178, 255); font-size: 20px">{{ Subject.length }}</span>
+                        个：
                       </div>
                       <div class="pieList" v-if="pieList.length > 0">
                         <div class="item" v-for="(item, index) in pieList" :key="index">
@@ -373,22 +371,38 @@
                       :cell-style="{ border: '1px solid #000', fontWeight: 400, padding: '5px 0px !important' }"
                       :row-class-name="tableRowClassName"
                     >
-                      <el-table-column type="index" label="序号" width="55" align="center"> </el-table-column>
+                      <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                       <el-table-column label="类别" width="60" align="center">
                         <template v-slot="{ row }">
                           <div style="text-align: center">按{{ row.field0004 }}分</div>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="field0005" label="项目" width="105" align="center"> </el-table-column>
-                      <el-table-column prop="field0006" label="个数" width="60" align="center"> </el-table-column>
-                      <el-table-column prop="field0007" label="总投资(亿元)" min-width="110" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0008" label="总投资(万美元)" min-width="120" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0009" label="预计产值(亿元/年)" min-width="140" align="center">
-                      </el-table-column>
-                      <el-table-column prop="field0010" label="预计税收(万元/年)" min-width="140" align="center">
-                      </el-table-column>
+                      <el-table-column prop="field0005" label="项目" width="105" align="center"></el-table-column>
+                      <el-table-column prop="field0006" label="个数" width="60" align="center"></el-table-column>
+                      <el-table-column
+                        prop="field0007"
+                        label="总投资(亿元)"
+                        min-width="110"
+                        align="center"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="field0008"
+                        label="总投资(万美元)"
+                        min-width="120"
+                        align="center"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="field0009"
+                        label="预计产值(亿元/年)"
+                        min-width="140"
+                        align="center"
+                      ></el-table-column>
+                      <el-table-column
+                        prop="field0010"
+                        label="预计税收(万元/年)"
+                        min-width="140"
+                        align="center"
+                      ></el-table-column>
                     </el-table>
                   </div>
                   <div style="margin-bottom: 30px"></div>
@@ -424,7 +438,7 @@ import {
   getTownshipContactPie,
   getTownshipContactBar,
   getTotalProject,
-  getActivityBar
+  getActivityBar,
 } from './api/api'
 import * as echarts from 'echarts'
 
@@ -466,13 +480,14 @@ export default {
       activityBar: [],
       //本周小结
       year: 0,
-      week: 0,
       sum: 0,
       chooseTime: [],
       startTime: null,
       endTime: null,
       // 加载
-      loading: false
+      loading: false,
+      // 期数
+      period: null,
     }
   },
   created() {},
@@ -493,11 +508,12 @@ export default {
         const { data: time } = await getTime()
         this.startTime = time.data[0].startTime
         this.endTime = time.data[0].endTime
+        this.period = time.data[0].period
       }
       // 周数
       summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
-        this.week = res.data.data[0].week
+        this.period = res.data.data[0].period
       })
       // 本周小结柱状图
       const { data: barDate } = await summarize2(this.startTime, this.endTime)
@@ -573,14 +589,14 @@ export default {
       try {
         const { data: barShipContact } = await getTownshipContactBar(
           dayjs().format('YYYY') + '-01-01',
-          dayjs().format('YYYY-MM-DD')
+          dayjs().format('YYYY-MM-DD'),
         )
         this.ContactBarData = barShipContact.data
         const list = [
           {
             data: barShipContact,
-            name: 'yearTotal'
-          }
+            name: 'yearTotal',
+          },
         ]
         list.forEach((item, index) => {
           if (item.data.data.length > 0) {
@@ -620,8 +636,8 @@ export default {
                       return ''
                     }
                   },
-                  position: index === 2 ? '' : 'top'
-                }
+                  position: index === 2 ? '' : 'top',
+                },
               }
               for (const key in item) {
                 if (key !== (index === 0 ? '接洽形式' : '项目规模')) {
@@ -657,15 +673,15 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
-          }
+            type: 'shadow',
+          },
         },
         grid: {
           top: '10%',
           left: '3%',
           right: '4%',
           bottom: '3%',
-          containLabel: true
+          containLabel: true,
         },
         legend: {},
         xAxis: [
@@ -673,23 +689,23 @@ export default {
             type: isHorizontal ? 'value' : 'category',
             data: xAxis,
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLabel: {
               //x轴文字的配置
               show: true,
-              interval: 0 //使x轴文字显示全
+              interval: 0, //使x轴文字显示全
             },
-            show: isHorizontal ? false : true
-          }
+            show: isHorizontal ? false : true,
+          },
         ],
         yAxis: [
           {
             type: isHorizontal ? 'category' : 'value',
             data: isHorizontal ? xAxis : '',
             show: isHorizontal ? true : false, // 不显示 y 轴
-            inverse: isHorizontal ? true : false
-          }
+            inverse: isHorizontal ? true : false,
+          },
         ],
         series: series || [
           {
@@ -701,11 +717,11 @@ export default {
               show: true,
               position: 'top', // 在柱子顶部显示数据
               textStyle: {
-                color: '#afafaf' // 设置文字颜色为黑色
-              }
-            }
-          }
-        ]
+                color: '#afafaf', // 设置文字颜色为黑色
+              },
+            },
+          },
+        ],
         // color: [
         //   {
         //     type: 'linear',
@@ -743,7 +759,7 @@ export default {
             if (value !== 0) {
               pieData.push({
                 name: item.field0020,
-                value: value
+                value: value,
               })
             }
           })
@@ -751,22 +767,22 @@ export default {
           let myChart = echarts.init(chartDom)
           const option = {
             tooltip: {
-              trigger: 'item'
+              trigger: 'item',
             },
             title: {
               text: i.field0007 + '次数',
               subtext: pieData.reduce((acc, cur) => acc + parseInt(cur.value), 0),
               textStyle: {
                 fontSize: 16,
-                color: '#51565B'
+                color: '#51565B',
               },
               subtextStyle: {
                 fontSize: 20,
-                color: '#f68c3c'
+                color: '#f68c3c',
               },
 
               left: 'center',
-              top: 'center'
+              top: 'center',
             },
             series: [
               {
@@ -775,7 +791,7 @@ export default {
                 avoidLabelOverlap: false,
                 itemStyle: {
                   borderWidth: 5,
-                  borderColor: '#fff'
+                  borderColor: '#fff',
                 },
                 label: {
                   show: true,
@@ -786,7 +802,7 @@ export default {
                   color: 'rgba(95, 97, 99, 1)',
                   minMargin: 5,
                   edgeDistance: 10,
-                  lineHeight: 15
+                  lineHeight: 15,
                 },
                 labelLine: {
                   normal: {
@@ -794,24 +810,24 @@ export default {
                     length2: 0,
                     maxSurfaceAngle: 50,
                     lineStyle: {
-                      color: '#333'
-                    }
-                  }
+                      color: '#333',
+                    },
+                  },
                 },
                 labelLayout: function (params) {
                   const isLeft = params.labelRect.x < myChart.getWidth() / 2
                   const points = params.labelLinePoints
                   points[2][0] = isLeft ? params.labelRect.x : params.labelRect.x + params.labelRect.width
                   return {
-                    labelLinePoints: points
+                    labelLinePoints: points,
                   }
                 },
                 data: pieData,
                 top: 0,
                 left: 0,
                 right: 0,
-                bottom: 0
-              }
+                bottom: 0,
+              },
             ],
             color: [
               {
@@ -823,13 +839,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#EBA3A7' // 0% 处的颜色
+                    color: '#EBA3A7', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#DF6B72' // 100% 处的颜色
-                  }
-                ]
+                    color: '#DF6B72', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -840,13 +856,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#7282ea' // 0% 处的颜色
+                    color: '#7282ea', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#1833dd' // 100% 处的颜色
-                  }
-                ]
+                    color: '#1833dd', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -857,13 +873,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#c7d6e6' // 0% 处的颜色
+                    color: '#c7d6e6', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#a4bcd7' // 100% 处的颜色
-                  }
-                ]
+                    color: '#a4bcd7', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -874,13 +890,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#7282ea' // 0% 处的颜色
+                    color: '#7282ea', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#a8caf2' // 100% 处的颜色
-                  }
-                ]
+                    color: '#a8caf2', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -891,13 +907,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#b9dded' // 0% 处的颜色
+                    color: '#b9dded', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#8ec9e1' // 100% 处的颜色
-                  }
-                ]
+                    color: '#8ec9e1', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -908,13 +924,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#f2d2ad' // 0% 处的颜色
+                    color: '#f2d2ad', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#ebb579' // 100% 处的颜色
-                  }
-                ]
+                    color: '#ebb579', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -925,13 +941,13 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#b2d29b' // 0% 处的颜色
+                    color: '#b2d29b', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#84b75e' // 100% 处的颜色
-                  }
-                ]
+                    color: '#84b75e', // 100% 处的颜色
+                  },
+                ],
               },
               {
                 type: 'linear',
@@ -942,15 +958,15 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#d5c3bd' // 0% 处的颜色
+                    color: '#d5c3bd', // 0% 处的颜色
                   },
                   {
                     offset: 1,
-                    color: '#bc9e93' // 100% 处的颜色
-                  }
-                ]
-              }
-            ]
+                    color: '#bc9e93', // 100% 处的颜色
+                  },
+                ],
+              },
+            ],
           }
           myChart.setOption(option)
           pieData = []
@@ -1027,22 +1043,22 @@ export default {
         if (rowIndex === 0) {
           return {
             rowspan: rowspanIndex + 1,
-            colspan: 1
+            colspan: 1,
           }
         } else if (rowIndex === rowspanIndex + 1) {
           return {
             rowspan: rowspanIndex2 - rowspanIndex,
-            colspan: 1
+            colspan: 1,
           }
         } else if (rowIndex === rowspanIndex2 + 1) {
           return {
             rowspan: rowspanIndex3 - rowspanIndex2,
-            colspan: 1
+            colspan: 1,
           }
         } else {
           return {
             rowspan: 0,
-            colspan: 0
+            colspan: 0,
           }
         }
       }
@@ -1052,8 +1068,8 @@ export default {
       if (row.field0005 === '合计') {
         return 'table-cell-bgc'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

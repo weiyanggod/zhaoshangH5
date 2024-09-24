@@ -15,8 +15,8 @@ class HttpRequest {
     const config = {
       baseURL: this.baseUrl,
       headers: {
-        Authorization: 'town'
-      }
+        Authorization: 'town',
+      },
     }
     return config
   }
@@ -33,7 +33,7 @@ class HttpRequest {
         // 对请求错误做些什么
         // console.log('添加请求拦截器 请求错误')
         return Promise.reject(error)
-      }
+      },
     )
 
     // 添加响应拦截器
@@ -47,7 +47,7 @@ class HttpRequest {
         // 对响应错误做点什么
         // console.log('添加请求拦截器 响应错误')
         return Promise.reject(error)
-      }
+      },
     )
   }
 

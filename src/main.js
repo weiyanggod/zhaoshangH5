@@ -3,8 +3,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 字体
-import '../src/css/font.css'
-
+import './css/font.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 new Vue({
