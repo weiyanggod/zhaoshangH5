@@ -28,7 +28,9 @@
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
                     <div class="time-text">
-                      {{ this.year }}年第{{ period }}期（{{ formatDate(startTime) }}-{{ formatDate(endTime) }}）
+                      {{ this.year }}年第{{ period > 43 ? period : Number(period) + 18 }}期（{{
+                        formatDate(startTime)
+                      }}-{{ formatDate(endTime) }}）
                     </div>
                   </div>
                 </div>
@@ -515,6 +517,7 @@ export default {
         this.sum = res.data.data[0].sum
         this.period = res.data.data[0].period
       })
+
       // 本周小结柱状图
       const { data: barDate } = await summarize2(this.startTime, this.endTime)
       const xAxis = []
