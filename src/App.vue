@@ -28,7 +28,7 @@
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
                     <div class="time-text">
-                      {{ this.year }}年第{{ period > 43 ? period : Number(period) + 18 }}期（{{
+                      {{ this.year }}年第{{ period > 43 ? period : Number(period) + 19 }}期（{{
                         formatDate(startTime)
                       }}-{{ formatDate(endTime) }}）
                     </div>
