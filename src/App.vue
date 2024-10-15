@@ -289,33 +289,6 @@
                           <el-divider></el-divider>
                         </div>
                       </div>
-                      <!-- 亿元以上备案项目 -->
-                      <!-- <div v-if="FilingItemsList.length > 0">
-                        <div v-for="(item, index) in FilingItemsList" :key="index">
-                          <div class="itemClass">
-                            <div class="title mt-10" v-if="index === 0">
-                              <img src="@/assets/icon/小标题.png" class="title-img" />
-                              <div class="title-text">项目备案（亿元及以上）</div>
-                            </div>
-                            <div class="active-content">
-                              <div class="active-content-title mt-10">项目名称：{{ item.field0005 }}</div>
-                              <div class="active-content-text">
-                                <div class="active-content-text-left" style="width: 45%">
-                                  <div>备案日期：{{ item.field0004 }}</div>
-                                  <div>建设性质：{{ item.field0006 }}</div>
-                                  <div>项目单位：{{ item.field0007 }}</div>
-                                </div>
-                                <div class="active-content-text-right pl-10">
-                                  <div>新增项目用地：{{ item.field0009 === null ? '' : item.field0009 + '亩' }}</div>
-                                  <div>总投资：{{ item.field0010 + (item.field0016 ? item.field0016 : '万元') }}</div>
-                                  <div>落地主体：{{ item.field0015 }}</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <el-divider></el-divider>
-                        </div>
-                      </div> -->
                       <!-- 举办招商活动 -->
                       <div v-if="ActivityList.length != 0">
                         <div v-for="(item, index) in ActivityList" :key="index">
@@ -488,21 +461,7 @@
                     </div>
                   </div>
                   <!-- 本周小结 -->
-                  <!-- <div class="page-break"></div> -->
-                  <div v-if="summaryBarData !== null" class="itemClass">
-                    <!-- <div class="mintitle mt-50">本周小结</div> -->
-                    <!-- 柱状图 -->
-                    <!-- <div class="part" style="margin-bottom: 30px">
-                      <div class="summarize">
-                        <span v-if="sum != 0"
-                          >区招商中心共接洽项目<span class="s1">{{ sum }}</span
-                          >个，</span
-                        >
-                        <span>秀洲本部、金控公司及各驻外工作部接洽情况如下：</span>
-                        <div class="Bar" id="bar" style="height: 200px; width: 600px" ref="Echarts"></div>
-                      </div>
-                    </div> -->
-                  </div>
+                  <div v-if="summaryBarData !== null" class="itemClass"></div>
                   <div class="break_page"></div>
                   <div class="itemClass">
                     <div style="height: 10px"></div>
@@ -535,7 +494,6 @@
                           :key="index"
                         >
                           <div :id="'pie' + (index + 1)"></div>
-                          <!-- <div class="text fw-700">{{ item.field0007 }}</div> -->
                           <div class="img" />
                         </div>
                       </div>
@@ -1033,25 +991,6 @@ export default {
             },
           },
         ],
-        // color: [
-        //   {
-        //     type: 'linear',
-        //     x: 0,
-        //     y: 0,
-        //     x2: 0,
-        //     y2: 1,
-        //     colorStops: [
-        //       {
-        //         offset: 0,
-        //         color: 'rgba(3, 0, 0, 0.15)' // 0% 处的颜色
-        //       },
-        //       {
-        //         offset: 1,
-        //         color: 'rgba(255, 255, 255, 0.15)'
-        //       }
-        //     ]
-        //   }
-        // ]
       }
       option && myChart.setOption(option)
     },
