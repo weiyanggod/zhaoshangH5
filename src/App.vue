@@ -233,7 +233,7 @@
                                 src="@/assets/icon/小标题.png"
                                 class="title-img"
                               />
-                              <div class="title-text">本周签约项目</div>
+                              <div class="title-text">本期签约项目</div>
                             </div>
                             <div class="contracted">
                               <el-image
