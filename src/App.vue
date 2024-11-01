@@ -42,11 +42,9 @@
                   <div class="time">
                     <img class="time-back" src="./assets/标题背景.png" />
                     <div class="time-text">
-                      {{ this.year }}年第{{
-                        period > 43 ? period : Number(period) + 19
-                      }}期（{{ formatDate(startTime) }}-{{
-                        formatDate(endTime)
-                      }}）
+                      {{ this.year }}年第{{ period }}期（{{
+                        formatDate(startTime)
+                      }}-{{ formatDate(endTime) }}）
                     </div>
                   </div>
                 </div>
@@ -739,12 +737,17 @@ export default {
         const { data: time } = await getTime()
         this.startTime = time.data[0].startTime
         this.endTime = time.data[0].endTime
-        this.period = time.data[0].period
       }
       // 周数
       summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
-        this.period = res.data.data[0].period
+
+        const diffTime = dayjs().diff(dayjs('2024-11-4'), 'day')
+        if (diffTime >= 0) {
+          this.period = Number(res.data.data[0].period) + 17
+        } else {
+          this.period = Number(res.data.data[0].period) + 18
+        }
       })
 
       // 本周小结柱状图
