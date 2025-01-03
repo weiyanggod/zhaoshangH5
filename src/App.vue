@@ -729,7 +729,6 @@ export default {
     numberConvertToUppercase,
     // 获取数据
     async initPage() {
-      this.getYear()
       if (this.chooseTime.length != 0) {
         this.startTime = this.chooseTime[0]
         this.endTime = this.chooseTime[1]
@@ -741,8 +740,19 @@ export default {
       // 周数
       summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
-        this.period = Number(res.data.data[0].period)
+        const diffTime = dayjs().diff(dayjs('2024-11-4'), 'day')
+        if (dayjs(this.startTime).format('YYYY') === '2024') {
+          if (diffTime >= 0) {
+            this.period = Number(res.data.data[0].period) + 17
+          } else {
+            this.period = Number(res.data.data[0].period) + 18
+          }
+        } else {
+          this.period = Number(res.data.data[0].period)
+        }
       })
+
+      this.year = dayjs(this.startTime).format('YYYY')
 
       // 本周小结柱状图
       const { data: barDate } = await summarize2(this.startTime, this.endTime)
@@ -752,10 +762,6 @@ export default {
       barDate.data.forEach((item) => {
         xAxis.push(item.flag)
         yAxis.push(item.num)
-      })
-
-      this.$nextTick(() => {
-        // this.initBar(this.$refs.Echarts, xAxis, yAxis)
       })
 
       // 区主要领导招商动态库
@@ -1269,7 +1275,6 @@ export default {
     formatDate(dateTimeString) {
       //时间格式化方法
       const date = new Date(dateTimeString)
-      // const year = date.getFullYear()
       const month = (date.getMonth() + 1).toString().padStart(2, '0')
       const day = date.getDate().toString().padStart(2, '0')
       const formattedDate = `${month}月${day}日`
