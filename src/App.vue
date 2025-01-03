@@ -741,13 +741,7 @@ export default {
       // 周数
       summarize(this.startTime, this.endTime).then((res) => {
         this.sum = res.data.data[0].sum
-
-        const diffTime = dayjs().diff(dayjs('2024-11-4'), 'day')
-        if (diffTime >= 0) {
-          this.period = Number(res.data.data[0].period) + 17
-        } else {
-          this.period = Number(res.data.data[0].period) + 18
-        }
+        this.period = Number(res.data.data[0].period)
       })
 
       // 本周小结柱状图
