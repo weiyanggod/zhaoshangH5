@@ -848,8 +848,8 @@ export default {
 
       // 接洽和累计项目个数柱状图数据
       const { data: barShipContact } = await getTownshipContactBar(
-        dayjs().format('YYYY') + '-01-01',
-        dayjs().format('YYYY-MM-DD'),
+        dayjs(this.startTime).format('YYYY') + '-01-01',
+        dayjs(this.startTime).format('YYYY-MM-DD'),
       )
       this.ContactBarData = barShipContact.data
       const list = [
