@@ -552,12 +552,12 @@
                       <div style="text-align: center" class="list-title">
                         {{
                           index === 0
-                            ? `${dayjs().format(
+                            ? `${dayjs(startTime).format(
                                 'YYYY',
                               )}年已签正式协议项目汇总表（至${formatDate(
                                 endTime,
                               )}）`
-                            : `${dayjs().format(
+                            : `${dayjs(startTime).format(
                                 'YYYY',
                               )}年在谈项目汇总表（至${formatDate(endTime)}）`
                         }}
