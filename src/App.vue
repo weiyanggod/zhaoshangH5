@@ -819,14 +819,19 @@ export default {
         const arr6 = res.data.data.filter((item) => item.field0038 == '1')
         const arr7 = res.data.data.filter((item) => item.field0037 == '1')
         const arr8 = res.data.data.filter((item) => item.field0036 == '1')
-        this.Subject = arr
-          .concat(arr2)
-          .concat(arr3)
-          .concat(arr4)
-          .concat(arr5)
-          .concat(arr6)
-          .concat(arr7)
-          .concat(arr8)
+        // 去重
+        const list = new Set(
+          arr
+            .concat(arr2)
+            .concat(arr3)
+            .concat(arr4)
+            .concat(arr5)
+            .concat(arr6)
+            .concat(arr7)
+            .concat(arr8),
+        )
+        // 转换为数组
+        this.Subject = Array.from(list)
       })
 
       // 接洽饼图数据
